@@ -400,19 +400,24 @@ static int codec_configure(const struct device *dev,
 	codec_write_reg(dev, WM8904_DAC_DIG_1, 0x0040);
 
 	/* LINMUTE=0, LIN_VOL=0_0101 */
-	codec_write_reg(dev, WM8904_ANALOG_LEFT_IN_0, 0x0005);
+	//codec_write_reg(dev, WM8904_ANALOG_LEFT_IN_0, 0x0005);
+	codec_write_reg(dev, WM8904_ANALOG_LEFT_IN_0, 0b0001000);
 
 	/* RINMUTE=0, RIN VOL=0_0101 LINEOUTL RMV SHORT-1, LINEOUTL ENA_OUTP=1,
 	 * LINEOUTL_ENA_DLY=1, LINEOUTL_ENA=1, LINEOUTR_RMV_SHORT-1,
 	 * LINEOUTR_ENA_OUTP=1
 	 */
-	codec_write_reg(dev, WM8904_ANALOG_RIGHT_IN_0, 0x0005);
+	//codec_write_reg(dev, WM8904_ANALOG_RIGHT_IN_0, 0x0005);
+	codec_write_reg(dev, WM8904_ANALOG_RIGHT_IN_0, 0b0001000);
 
 	/* HPOUTL_MUTE=0, HPOUT_VU=0, HPOUTLZC=0, HPOUTL_VOL=10_1101 */
 	codec_write_reg(dev, WM8904_ANALOG_OUT1_LEFT, 0x00AD);
 
 	/* HPOUTR_MUTE=0, HPOUT_VU=0, HPOUTRZC=0, HPOUTR_VOL=10_1101 */
 	codec_write_reg(dev, WM8904_ANALOG_OUT1_RIGHT, 0x00AD);
+
+	codec_write_reg(dev, WM8904_ANALOG_LEFT_IN_1, 0b0010100);
+	codec_write_reg(dev, WM8904_ANALOG_RIGHT_IN_1, 0b0010100);
 
 	/* Enable DC servos for headphone out */
 	codec_write_reg(dev, WM8904_DC_SERVO_0, 0x0003);

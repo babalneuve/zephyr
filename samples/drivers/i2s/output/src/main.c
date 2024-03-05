@@ -8,6 +8,7 @@
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/i2s.h>
 #include <zephyr/sys/iterable_sections.h>
+#include <zephyr/audio/codec.h>
 
 #define SAMPLE_NO 64
 
@@ -60,9 +61,27 @@ int main(void)
 {
 	void *tx_block[NUM_BLOCKS];
 	struct i2s_config i2s_cfg;
+	struct audio_codec_cfg audio_cfg;
 	int ret;
 	uint32_t tx_idx;
 	const struct device *dev_i2s = DEVICE_DT_GET(DT_ALIAS(i2s_tx));
+	const struct device *const codec_dev = DEVICE_DT_GET(DT_NODELABEL(audio_codec));
+
+	if (!device_is_ready(codec_dev)) {
+		printk("%s is not ready", codec_dev->name);
+		return 0;
+	}
+	audio_cfg.dai_type = AUDIO_DAI_TYPE_I2S;
+	audio_cfg.dai_cfg.i2s.word_size = 16;
+	audio_cfg.dai_cfg.i2s.channels =  2;
+	audio_cfg.dai_cfg.i2s.format = I2S_FMT_DATA_FORMAT_I2S;
+	audio_cfg.dai_cfg.i2s.options = I2S_OPT_FRAME_CLK_MASTER;
+	audio_cfg.dai_cfg.i2s.frame_clk_freq = 48000;
+	audio_cfg.dai_cfg.i2s.mem_slab = &tx_0_mem_slab;
+	audio_cfg.dai_cfg.i2s.block_size = BLOCK_SIZE;
+	audio_cfg.dai_route = AUDIO_ROUTE_PLAYBACK_CAPTURE;
+	audio_codec_configure(codec_dev, &audio_cfg);
+	k_msleep(1000);
 
 	if (!device_is_ready(dev_i2s)) {
 		printf("I2S device not ready\n");
@@ -72,7 +91,7 @@ int main(void)
 	i2s_cfg.word_size = 16U;
 	i2s_cfg.channels = 2U;
 	i2s_cfg.format = I2S_FMT_DATA_FORMAT_I2S;
-	i2s_cfg.frame_clk_freq = 44100;
+	i2s_cfg.frame_clk_freq = 48000;
 	i2s_cfg.block_size = BLOCK_SIZE;
 	i2s_cfg.timeout = 2000;
 	/* Configure the Transmit port as Master */
@@ -110,13 +129,17 @@ int main(void)
 		return ret;
 	}
 
-	for (; tx_idx < NUM_BLOCKS; ) {
-		ret = i2s_write(dev_i2s, tx_block[tx_idx++], BLOCK_SIZE);
-		if (ret < 0) {
-			printf("Could not write TX buffer %d\n", tx_idx);
-			return ret;
+	while(true)
+	{
+		for (tx_idx = 0; tx_idx < NUM_BLOCKS; ) {
+			ret = i2s_write(dev_i2s, tx_block[tx_idx++], BLOCK_SIZE);
+			if (ret < 0) {
+				printf("Could not write TX buffer %d\n", tx_idx);
+				return ret;
+			}
 		}
 	}
+	
 	/* Drain TX queue */
 	ret = i2s_trigger(dev_i2s, I2S_DIR_TX, I2S_TRIGGER_DRAIN);
 	if (ret < 0) {
