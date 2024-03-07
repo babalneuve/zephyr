@@ -264,6 +264,11 @@ static ALWAYS_INLINE void clock_init(void)
 	CLOCK_AttachClk(kFFRO_to_FLEXCOMM5);
 #endif
 
+#if (DT_NODE_HAS_COMPAT_STATUS(DT_NODELABEL(flexcomm0), nxp_lpc_i2s, okay) && CONFIG_I2S)
+	/* attach AUDIO PLL clock to FLEXCOMM1 (I2S_PDM) */
+	CLOCK_AttachClk(kAUDIO_PLL_to_FLEXCOMM0);
+#endif
+
 #if (DT_NODE_HAS_COMPAT_STATUS(DT_NODELABEL(flexcomm1), nxp_lpc_i2s, okay))
 	/* attach AUDIO PLL clock to FLEXCOMM1 (I2S1) */
 	CLOCK_AttachClk(kAUDIO_PLL_to_FLEXCOMM1);
@@ -271,6 +276,13 @@ static ALWAYS_INLINE void clock_init(void)
 #if (DT_NODE_HAS_COMPAT_STATUS(DT_NODELABEL(flexcomm3), nxp_lpc_i2s, okay))
 	/* attach AUDIO PLL clock to FLEXCOMM3 (I2S3) */
 	CLOCK_AttachClk(kAUDIO_PLL_to_FLEXCOMM3);
+#endif
+
+#if CONFIG_AUDIO_CODEC_WM8904
+	/* attach AUDIO PLL clock to MCLK */
+	CLOCK_AttachClk(kAUDIO_PLL_to_MCLK_CLK);
+	CLOCK_SetClkDiv(kCLOCK_DivMclkClk, 1);
+	SYSCTL1->MCLKPINDIR = SYSCTL1_MCLKPINDIR_MCLKPINDIR_MASK;
 #endif
 
 #if (DT_NODE_HAS_COMPAT_STATUS(DT_NODELABEL(wwdt0), nxp_lpc_wwdt, okay))
