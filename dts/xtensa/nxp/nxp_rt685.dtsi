@@ -62,8 +62,34 @@
 
 			reg = <0x24000000 DT_SIZE_K(64)>;
 
-			adsp_data: memory@24000000 {
+			/*adsp_data: memory@24000000 {
 				reg = <0x24000000 DT_SIZE_K(64)>;
+			};*/
+		};
+
+		ram0_cached: memory@200000 {
+			#address-cells = <1>;
+			#size-cells = <1>;
+			device_type = "memory";
+			compatible = "mmio-sram";
+
+			reg = <0x00200000 DT_SIZE_K(512)>;
+
+			/*adsp_data: memory@200000 {
+				reg = <0x00200000 DT_SIZE_K(512)>;
+			};*/
+		};
+
+		ram0_noncached: memory@20200000 {
+			#address-cells = <1>;
+			#size-cells = <1>;
+			device_type = "memory";
+			compatible = "mmio-sram";
+
+			reg = <0x20200000 DT_SIZE_K(512)>;
+
+			adsp_data: memory@20200000 {
+				reg = <0x20200000 DT_SIZE_K(512)>;
 			};
 		};
 
@@ -97,7 +123,7 @@
 				interrupt-controller;
 				#interrupt-cells = <1>;
 				#address-cells = <0>;
-				interrupts = <6 0 0>, <7 0 0>;
+				interrupts = <5 0 0>, <7 0 0>;
 				num-lines = <8>;
 				num-inputs = <64>;
 			};
@@ -116,11 +142,49 @@
 				#clock-cells = <1>;
 			};
 
+			dma1: dma-controller@105000 {
+				compatible = "nxp,lpc-dma";
+				reg = <0x105000 0x1000>;
+				interrupts = <6 0 0>;
+				dma-channels = <33>;
+				status = "disabled";
+				#dma-cells = <1>;
+			};
+
+			i3c0: i3c@36000 {
+				compatible = "nxp,mcux-i3c";
+				reg = <0x36000 0x1000>;
+				#address-cells = <3>;
+				#size-cells = <0>;
+				interrupts = <8 0 0>;
+				clocks = <&clkctl1 MCUX_I3C_CLK>;
+				clk-divider = <2>;
+				clk-divider-slow = <1>;
+				clk-divider-tc = <1>;
+				status = "disabled";
+			};
+
 			flexcomm0: flexcomm@106000 {
 				compatible = "nxp,lpc-flexcomm";
 				reg = <0x106000 0x1000>;
 				clocks = <&clkctl1 MCUX_FLEXCOMM0_CLK>;
-				interrupts = <5 0 0>;
+				interrupts = <12 0 0>;
+				status = "disabled";
+			};
+
+			flexcomm1: flexcomm@107000 {
+				compatible = "nxp,lpc-flexcomm";
+				reg = <0x107000 0x1000>;
+				interrupts = <10 0 0>;
+				clocks = <&clkctl1 MCUX_FLEXCOMM1_CLK>;
+				status = "disabled";
+			};
+
+			flexcomm3: flexcomm@109000 {
+				compatible = "nxp,lpc-flexcomm";
+				reg = <0x109000 0x1000>;
+				interrupts = <11 0 0>;
+				clocks = <&clkctl1 MCUX_FLEXCOMM3_CLK>;
 				status = "disabled";
 			};
 
@@ -148,12 +212,12 @@
 
 					adsp_int5: int@0 {
 						reg = <0>;
-						source = <ADSP_IRQ_SRC_FLEXCOMM0>;
+						source = <ADSP_IRQ_SRC_GPIO_INT0_IRQ0>;
 					};
 
 					adsp_int6: int@1 {
 						reg = <1>;
-						source = <ADSP_IRQ_SRC_GPIO_INT0_IRQ0>;
+						source = <ADSP_IRQ_SRC_DMAC1>;
 					};
 
 					adsp_int7: int@2 {
@@ -163,27 +227,27 @@
 
 					adsp_int8: int@3 {
 						reg = <3>;
-						source = <ADSP_IRQ_SRC_MU>;
+						source = <ADSP_IRQ_SRC_RTC_I3C0>;
 					};
 
 					adsp_int9: int@4 {
 						reg = <4>;
-						source = <ADSP_IRQ_SRC_NONE>;
+						source = <ADSP_IRQ_SRC_MU>;
 					};
 
 					adsp_int10: int@5 {
 						reg = <5>;
-						source = <ADSP_IRQ_SRC_NONE>;
+						source = <ADSP_IRQ_SRC_FLEXCOMM1>;
 					};
 
 					adsp_int11: int@6 {
 						reg = <6>;
-						source = <ADSP_IRQ_SRC_NONE>;
+						source = <ADSP_IRQ_SRC_FLEXCOMM3>;
 					};
 
 					adsp_int12: int@7 {
 						reg = <7>;
-						source = <ADSP_IRQ_SRC_NONE>;
+						source = <ADSP_IRQ_SRC_FLEXCOMM0>;
 					};
 
 					adsp_int13: int@8 {
@@ -289,7 +353,7 @@
 				compatible = "nxp,mbox-imx-mu";
 				reg = <0x111000 0x1000>;
 				
-				interrupts = <8 0 0>;
+				interrupts = <9 0 0>;
 				rx-channels = <4>;
 				
 				status = "disabled";

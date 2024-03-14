@@ -13,6 +13,7 @@ if(CONFIG_SOC_NXP_RT685)
 endif()
 
 add_subdirectory(common)
+add_subdirectory(${SOC_SERIES})
 zephyr_include_directories(${SOC_SERIES}/include)
 
 #  west sign
