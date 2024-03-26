@@ -49,9 +49,9 @@
 				reg = <0x24020000 DT_SIZE_K(1)>;
 			};
 
-			adsp_text: memory@24020400 {
+			/*adsp_text: memory@24020400 {
 				reg = <0x24020400 DT_SIZE_K(63)>;
-			};
+			};*/
 		};
 
 		dtcm: memory@24000000 {
@@ -88,8 +88,16 @@
 
 			reg = <0x20200000 DT_SIZE_K(512)>;
 
-			adsp_data: memory@20200000 {
+			/*adsp_data: memory@20200000 {
 				reg = <0x20200000 DT_SIZE_K(512)>;
+			};*/
+            
+            adsp_data: memory@20200000 {
+				reg = <0x20200000 DT_SIZE_K(256)>;
+			};
+            
+            adsp_text: memory@20240000 {
+				reg = <0x20240000 DT_SIZE_K(256)>;
 			};
 		};
 
@@ -145,7 +153,7 @@
 			dma1: dma-controller@105000 {
 				compatible = "nxp,lpc-dma";
 				reg = <0x105000 0x1000>;
-				interrupts = <6 0 0>;
+				interrupts = <23 0 0>;
 				dma-channels = <33>;
 				status = "disabled";
 				#dma-cells = <1>;
@@ -217,7 +225,7 @@
 
 					adsp_int6: int@1 {
 						reg = <1>;
-						source = <ADSP_IRQ_SRC_DMAC1>;
+						source = <ADSP_IRQ_SRC_DMAC0>;
 					};
 
 					adsp_int7: int@2 {
@@ -302,7 +310,7 @@
 
 					adsp_int23: int@12 {
 						reg = <18>;
-						source = <ADSP_IRQ_SRC_NONE>;
+						source = <ADSP_IRQ_SRC_DMAC1>;
 					};
 
 					adsp_int24: int@13 {
