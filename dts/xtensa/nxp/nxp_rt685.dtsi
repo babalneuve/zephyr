@@ -92,12 +92,12 @@
 				reg = <0x20200000 DT_SIZE_K(512)>;
 			};*/
             
-            adsp_data: memory@20200000 {
-				reg = <0x20200000 DT_SIZE_K(256)>;
+            adsp_data: memory@20400000 {
+				reg = <0x20400000 DT_SIZE_K(256)>;
 			};
             
-            adsp_text: memory@20240000 {
-				reg = <0x20240000 DT_SIZE_K(256)>;
+            adsp_text: memory@20440000 {
+				reg = <0x20440000 DT_SIZE_K(256)>;
 			};
 		};
 

@@ -14,6 +14,7 @@
  * @brief Describes an image section type selection.
  */
 enum nxp_rtxxx_adsp_ctl_section_type {
+	NXP_RTXXX_ADSP_CTL_SECTION_RESET = NXP_RTXXX_ADSP_REGION_RESET,
 	NXP_RTXXX_ADSP_CTL_SECTION_TEXT = NXP_RTXXX_ADSP_REGION_TEXT,
 	NXP_RTXXX_ADSP_CTL_SECTION_DATA = NXP_RTXXX_ADSP_REGION_DATA
 };
