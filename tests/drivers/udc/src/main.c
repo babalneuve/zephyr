@@ -46,12 +46,8 @@ static void event_ep_request(const struct device *dev, struct udc_event event)
 	}
 }
 
-static void test_udc_thread(void *p1, void *p2, void *p3)
+static void test_udc_thread(const struct device *dev)
 {
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
-	const struct device *dev = p1;
 	struct udc_event event;
 
 	while (true) {
@@ -427,7 +423,7 @@ static void *test_udc_device_get(void)
 
 	k_thread_create(&test_udc_thread_data, test_udc_stack,
 			K_KERNEL_STACK_SIZEOF(test_udc_stack),
-			test_udc_thread,
+			(k_thread_entry_t)test_udc_thread,
 			(void *)dev, NULL, NULL,
 			K_PRIO_COOP(9), 0, K_NO_WAIT);
 

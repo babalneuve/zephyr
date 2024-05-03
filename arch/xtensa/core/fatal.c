@@ -8,19 +8,32 @@
 #include <zephyr/kernel_structs.h>
 #include <inttypes.h>
 #include <xtensa/config/specreg.h>
+#include <xtensa-asm2-context.h>
+#if defined(CONFIG_XTENSA_ENABLE_BACKTRACE)
+#if XCHAL_HAVE_WINDOWED
 #include <xtensa_backtrace.h>
-#include <zephyr/arch/common/exc_handle.h>
-
-#include <xtensa_internal.h>
-
+#endif
+#endif
+#include <zephyr/debug/coredump.h>
 #include <zephyr/logging/log.h>
 LOG_MODULE_DECLARE(os, CONFIG_KERNEL_LOG_LEVEL);
 
-#if defined(CONFIG_SIMULATOR_XTENSA) || defined(XT_SIMULATOR)
+#ifdef XT_SIMULATOR
 #include <xtensa/simcall.h>
 #endif
 
-char *xtensa_exccause(unsigned int cause_code)
+/* Need to do this as a macro since regnum must be an immediate value */
+#define get_sreg(regnum_p) ({ \
+	unsigned int retval; \
+	__asm__ volatile( \
+	    "rsr %[retval], %[regnum]\n\t" \
+	    : [retval] "=r" (retval) \
+	    : [regnum] "i" (regnum_p)); \
+	retval; \
+	})
+
+
+char *z_xtensa_exccause(unsigned int cause_code)
 {
 #if defined(CONFIG_PRINTK) || defined(CONFIG_LOG)
 	switch (cause_code) {
@@ -73,8 +86,6 @@ char *xtensa_exccause(unsigned int cause_code)
 	case 63:
 		/* i.e. z_except_reason */
 		return "zephyr exception";
-	case 64:
-		return "kernel oops";
 	default:
 		return "unknown/reserved";
 	}
@@ -84,9 +95,8 @@ char *xtensa_exccause(unsigned int cause_code)
 #endif
 }
 
-void xtensa_fatal_error(unsigned int reason, const z_arch_esf_t *esf)
+void z_xtensa_fatal_error(unsigned int reason, const z_arch_esf_t *esf)
 {
-#ifdef CONFIG_EXCEPTION_DEBUG
 	if (esf) {
 		/* Don't want to get elbowed by xtensa_switch
 		 * in between printing registers and dumping them;
@@ -94,23 +104,24 @@ void xtensa_fatal_error(unsigned int reason, const z_arch_esf_t *esf)
 		 */
 		unsigned int key = arch_irq_lock();
 
-		xtensa_dump_stack(esf);
+		z_xtensa_dump_stack(esf);
 
+		coredump(reason, esf, IS_ENABLED(CONFIG_MULTITHREADING) ? k_current_get() : NULL);
 
 #if defined(CONFIG_XTENSA_ENABLE_BACKTRACE)
 #if XCHAL_HAVE_WINDOWED
-		xtensa_backtrace_print(100, (int *)esf);
+		z_xtensa_backtrace_print(100, (int *)esf);
 #endif
 #endif
+
 		arch_irq_unlock(key);
 	}
-#endif /* CONFIG_EXCEPTION_DEBUG */
 
 	z_fatal_error(reason, esf);
 }
 
-#if defined(CONFIG_SIMULATOR_XTENSA) || defined(XT_SIMULATOR)
-void xtensa_simulator_exit(int return_code)
+#ifdef XT_SIMULATOR
+void exit(int return_code)
 {
 	__asm__ (
 	    "mov a3, %[code]\n\t"
@@ -119,41 +130,13 @@ void xtensa_simulator_exit(int return_code)
 	    :
 	    : [code] "r" (return_code), [call] "i" (SYS_exit)
 	    : "a3", "a2");
-
-	CODE_UNREACHABLE;
-}
-
-FUNC_NORETURN void arch_system_halt(unsigned int reason)
-{
-	xtensa_simulator_exit(255 - reason);
-	CODE_UNREACHABLE;
 }
 #endif
 
-FUNC_NORETURN void arch_syscall_oops(void *ssf)
+#ifdef XT_SIMULATOR
+FUNC_NORETURN void z_system_halt(unsigned int reason)
 {
-	xtensa_arch_kernel_oops(K_ERR_KERNEL_OOPS, ssf);
-
+	exit(255 - reason);
 	CODE_UNREACHABLE;
 }
-
-#ifdef CONFIG_USERSPACE
-void z_impl_xtensa_user_fault(unsigned int reason)
-{
-	if ((_current->base.user_options & K_USER) != 0) {
-		if ((reason != K_ERR_KERNEL_OOPS) &&
-				(reason != K_ERR_STACK_CHK_FAIL)) {
-			reason = K_ERR_KERNEL_OOPS;
-		}
-	}
-	xtensa_arch_except(reason);
-}
-
-static void z_vrfy_xtensa_user_fault(unsigned int reason)
-{
-	z_impl_xtensa_user_fault(reason);
-}
-
-#include <syscalls/xtensa_user_fault_mrsh.c>
-
-#endif /* CONFIG_USERSPACE */
+#endif

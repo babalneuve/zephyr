@@ -393,10 +393,6 @@ ZTEST_USER(condvar_tests, test_multiple_condvar_wait_wake)
 #ifdef CONFIG_USERSPACE
 static void cond_init_null(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	ztest_set_fault_valid(true);
 	k_condvar_init(NULL);
 
@@ -407,7 +403,7 @@ static void cond_init_null(void *p1, void *p2, void *p3)
 ZTEST_USER(condvar_tests, test_condvar_init_null)
 {
 	k_tid_t tid = k_thread_create(&condvar_tid, stack_1, STACK_SIZE,
-			cond_init_null,
+			(k_thread_entry_t)cond_init_null,
 			NULL, NULL, NULL,
 			K_PRIO_PREEMPT(0),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -424,10 +420,6 @@ ZTEST_USER(condvar_tests, test_condvar_init_null)
 #ifdef CONFIG_USERSPACE
 static void cond_signal_null(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	ztest_set_fault_valid(true);
 	k_condvar_signal(NULL);
 
@@ -437,10 +429,6 @@ static void cond_signal_null(void *p1, void *p2, void *p3)
 
 static void cond_broadcast_null(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	ztest_set_fault_valid(true);
 	k_condvar_broadcast(NULL);
 
@@ -450,10 +438,6 @@ static void cond_broadcast_null(void *p1, void *p2, void *p3)
 
 static void cond_wait_null(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	ztest_set_fault_valid(true);
 	k_condvar_wait(NULL, NULL, K_FOREVER);
 
@@ -464,7 +448,7 @@ static void cond_wait_null(void *p1, void *p2, void *p3)
 ZTEST_USER(condvar_tests, test_condvar_signal_null)
 {
 	k_tid_t tid = k_thread_create(&condvar_tid, stack_1, STACK_SIZE,
-			cond_signal_null,
+			(k_thread_entry_t)cond_signal_null,
 			NULL, NULL, NULL,
 			K_PRIO_PREEMPT(0),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -473,7 +457,7 @@ ZTEST_USER(condvar_tests, test_condvar_signal_null)
 ZTEST_USER(condvar_tests, test_condvar_broadcast_null)
 {
 	k_tid_t tid = k_thread_create(&condvar_tid, stack_1, STACK_SIZE,
-			cond_broadcast_null,
+			(k_thread_entry_t)cond_broadcast_null,
 			NULL, NULL, NULL,
 			K_PRIO_PREEMPT(0),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -483,7 +467,7 @@ ZTEST_USER(condvar_tests, test_condvar_broadcast_null)
 ZTEST_USER(condvar_tests, test_condvar_wait_null)
 {
 	k_tid_t tid = k_thread_create(&condvar_tid, stack_1, STACK_SIZE,
-			cond_wait_null,
+			(k_thread_entry_t)cond_wait_null,
 			NULL, NULL, NULL,
 			K_PRIO_PREEMPT(0),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);

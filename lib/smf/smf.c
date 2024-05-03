@@ -18,7 +18,6 @@ struct internal_ctx {
 	bool new_state : 1;
 	bool terminate : 1;
 	bool exit      : 1;
-	bool handled   : 1;
 };
 
 static bool share_paren(const struct smf_state *test_state,
@@ -119,12 +118,6 @@ __unused static bool smf_execute_ancestor_run_actions(struct smf_ctx *ctx)
 		return true;
 	}
 
-	if (internal->handled) {
-		/* Event was handled by this state. Stop propagating */
-		internal->handled = false;
-		return false;
-	}
-
 	/* Try to run parent run actions */
 	for (const struct smf_state *tmp_state = ctx->current->parent;
 	     tmp_state != NULL;
@@ -138,12 +131,6 @@ __unused static bool smf_execute_ancestor_run_actions(struct smf_ctx *ctx)
 			}
 
 			if (internal->new_state) {
-				break;
-			}
-
-			if (internal->handled) {
-				/* Event was handled by this state. Stop propagating */
-				internal->handled = false;
 				break;
 			}
 		}
@@ -172,8 +159,7 @@ __unused static bool smf_execute_ancestor_exit_actions(
 	for (const struct smf_state *tmp_state = ctx->current->parent;
 	     tmp_state != NULL;
 	     tmp_state = tmp_state->parent) {
-		if ((target == NULL || !share_paren(target->parent, tmp_state)) &&
-		    tmp_state->exit) {
+		if (!share_paren(target->parent, tmp_state) && tmp_state->exit) {
 			tmp_state->exit(ctx);
 
 			/* No need to continue if terminate was set */
@@ -189,16 +175,6 @@ void smf_set_initial(struct smf_ctx *ctx, const struct smf_state *init_state)
 {
 	struct internal_ctx * const internal = (void *) &ctx->internal;
 
-
-#ifdef CONFIG_SMF_INITIAL_TRANSITION
-	/*
-	 * The final target will be the deepest leaf state that
-	 * the target contains. Set that as the real target.
-	 */
-	while (init_state->initial) {
-		init_state = init_state->initial;
-	}
-#endif
 	internal->exit = false;
 	internal->terminate = false;
 	ctx->current = init_state;
@@ -258,16 +234,6 @@ void smf_set_state(struct smf_ctx *const ctx, const struct smf_state *target)
 
 	internal->exit = false;
 
-#ifdef CONFIG_SMF_INITIAL_TRANSITION
-	/*
-	 * The final target will be the deepest leaf state that
-	 * the target contains. Set that as the real target.
-	 */
-	while (target->initial) {
-		target = target->initial;
-	}
-#endif
-
 	/* update the state variables */
 	ctx->previous = ctx->current;
 	ctx->current = target;
@@ -294,13 +260,6 @@ void smf_set_terminate(struct smf_ctx *ctx, int32_t val)
 
 	internal->terminate = true;
 	ctx->terminate_val = val;
-}
-
-void smf_set_handled(struct smf_ctx *ctx)
-{
-	struct internal_ctx *const internal = (void *)&ctx->internal;
-
-	internal->handled = true;
 }
 
 int32_t smf_run_state(struct smf_ctx *const ctx)

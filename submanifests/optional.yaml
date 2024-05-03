@@ -3,12 +3,6 @@ manifest:
     - name: upstream
       url-base: https://github.com/zephyrproject-rtos
   projects:
-    - name: canopennode
-      revision: dec12fa3f0d790cafa8414a4c2930ea71ab72ffd
-      path: modules/lib/canopennode
-      remote: upstream
-      groups:
-        - optional
     - name: chre
       revision: 3b32c76efee705af146124fb4190f71be5a4e36e
       path: modules/lib/chre
@@ -22,25 +16,25 @@ manifest:
       groups:
         - optional
     - name: nanopb
-      revision: f6187b05a5eaf753faa0e29a5acd77dd0544d474
+      revision: 42fa8b211e946b90b9d968523fce7b1cfe27617e
       path: modules/lib/nanopb
       remote: upstream
       groups:
         - optional
     - name: psa-arch-tests
-      revision: 2cadb02a72eacda7042505dcbdd492371e8ce024
+      revision: 6a17330e0dfb5f319730f974d5b05f7b7f04757b
       path: modules/tee/tf-m/psa-arch-tests
       remote: upstream
       groups:
         - optional
     - name: sof
-      revision: c11a3185afbc8e1b2a79916de3dfefaf326d9ad1
+      revision: c0f20b69daa44e3563f970b366e49ccfcfa1b71c
       path: modules/audio/sof
       remote: upstream
       groups:
         - optional
     - name: tf-m-tests
-      revision: 85f533a4aa5b4fe31247676a923db7453eb4429c
+      revision: a878426da78fbd1486dfc29d6c6b82be4ee79e72
       path: modules/tee/tf-m/tf-m-tests
       remote: upstream
       groups:
@@ -60,7 +54,7 @@ manifest:
         - optional
     - name: zscilib
       path: modules/lib/zscilib
-      revision: ee1b287d9dd07208d2cc52284240ac25bb66eae3
+      revision: 34c3432e81085bb717e4871d21ca419ae0058ec5
       remote: upstream
       groups:
         - optional

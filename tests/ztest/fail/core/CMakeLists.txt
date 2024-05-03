@@ -35,9 +35,5 @@ else()
 
   target_sources(app PRIVATE ${SOURCES})
   target_include_directories(app PRIVATE include)
-  install(FILES ${APPLICATION_BINARY_DIR}/zephyr/${KERNEL_EXE_NAME}
-    DESTINATION bin/
-    PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_EXECUTE GROUP_READ
-      WORLD_EXECUTE WORLD_READ
-  )
+  install(TARGETS ${logical_target_for_zephyr_elf})
 endif()

@@ -5,7 +5,11 @@
  */
 
 #include <stdbool.h>
+#ifdef CONFIG_ARCH_POSIX
+#include <fcntl.h>
+#else
 #include <zephyr/posix/fcntl.h>
+#endif
 
 #include <zephyr/logging/log.h>
 LOG_MODULE_REGISTER(net_sock_mgmt, CONFIG_NET_SOCKETS_LOG_LEVEL);
@@ -13,7 +17,7 @@ LOG_MODULE_REGISTER(net_sock_mgmt, CONFIG_NET_SOCKETS_LOG_LEVEL);
 #include <zephyr/kernel.h>
 #include <zephyr/sys/util.h>
 #include <zephyr/net/socket.h>
-#include <zephyr/internal/syscall_handler.h>
+#include <zephyr/syscall_handler.h>
 #include <zephyr/sys/fdtable.h>
 #include <zephyr/net/socket_net_mgmt.h>
 #include <zephyr/net/ethernet_mgmt.h>
@@ -309,8 +313,7 @@ static ssize_t net_mgmt_sock_write(void *obj, const void *buffer,
 static int net_mgmt_sock_ioctl(void *obj, unsigned int request,
 			       va_list args)
 {
-	errno = EOPNOTSUPP;
-	return -1;
+	return 0;
 }
 
 static int net_mgmt_sock_bind(void *obj, const struct sockaddr *addr,

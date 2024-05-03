@@ -48,19 +48,15 @@ ZTEST(ivshmem, test_ivshmem_plain)
 		      "registering handlers should not be supported");
 }
 
-static void test_is_usermode(void *p1, void *p2, void *p3)
+static void test_is_usermode(void)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	zassert_true(k_is_user_context(), "thread left in kernel mode");
 }
 
 ZTEST(ivshmem, test_quit_kernel)
 {
 #ifdef CONFIG_USERSPACE
-	k_thread_user_mode_enter(test_is_usermode,
+	k_thread_user_mode_enter((k_thread_entry_t)test_is_usermode,
 				 NULL, NULL, NULL);
 #else
 	ztest_test_skip();

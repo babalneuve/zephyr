@@ -22,10 +22,6 @@ static K_THREAD_STACK_DEFINE(tstack, STACK_SIZE);
 
 static void thread_timer_start_null(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	ztest_set_fault_valid(true);
 	k_timer_start(NULL, K_MSEC(DURATION), K_NO_WAIT);
 
@@ -51,7 +47,7 @@ ZTEST_USER(timer_api_error, test_timer_start_null)
 #endif
 
 	k_tid_t tid = k_thread_create(&tdata, tstack, STACK_SIZE,
-			thread_timer_start_null,
+			(k_thread_entry_t)thread_timer_start_null,
 			NULL, NULL, NULL,
 			K_PRIO_PREEMPT(THREAD_TEST_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -61,10 +57,6 @@ ZTEST_USER(timer_api_error, test_timer_start_null)
 
 static void thread_timer_stop_null(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	ztest_set_fault_valid(true);
 	k_timer_stop(NULL);
 
@@ -89,7 +81,7 @@ ZTEST_USER(timer_api_error, test_timer_stop_null)
 #endif
 
 	k_tid_t tid = k_thread_create(&tdata, tstack, STACK_SIZE,
-			thread_timer_stop_null,
+			(k_thread_entry_t)thread_timer_stop_null,
 			NULL, NULL, NULL,
 			K_PRIO_PREEMPT(THREAD_TEST_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -99,10 +91,6 @@ ZTEST_USER(timer_api_error, test_timer_stop_null)
 
 static void thread_timer_status_get_null(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	ztest_set_fault_valid(true);
 	k_timer_status_get(NULL);
 
@@ -127,7 +115,7 @@ ZTEST_USER(timer_api_error, test_timer_status_get_null)
 #endif
 
 	k_tid_t tid = k_thread_create(&tdata, tstack, STACK_SIZE,
-			thread_timer_status_get_null,
+			(k_thread_entry_t)thread_timer_status_get_null,
 			NULL, NULL, NULL,
 			K_PRIO_PREEMPT(THREAD_TEST_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -137,10 +125,6 @@ ZTEST_USER(timer_api_error, test_timer_status_get_null)
 
 static void thread_timer_status_sync_null(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	ztest_set_fault_valid(true);
 	k_timer_status_sync(NULL);
 
@@ -165,7 +149,7 @@ ZTEST_USER(timer_api_error, test_timer_status_sync_null)
 #endif
 
 	k_tid_t tid = k_thread_create(&tdata, tstack, STACK_SIZE,
-			thread_timer_status_sync_null,
+			(k_thread_entry_t)thread_timer_status_sync_null,
 			NULL, NULL, NULL,
 			K_PRIO_PREEMPT(THREAD_TEST_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -175,10 +159,6 @@ ZTEST_USER(timer_api_error, test_timer_status_sync_null)
 
 static void thread_timer_remaining_ticks_null(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	ztest_set_fault_valid(true);
 	k_timer_remaining_ticks(NULL);
 
@@ -203,7 +183,7 @@ ZTEST_USER(timer_api_error, test_timer_remaining_ticks_null)
 #endif
 
 	k_tid_t tid = k_thread_create(&tdata, tstack, STACK_SIZE,
-			thread_timer_remaining_ticks_null,
+			(k_thread_entry_t)thread_timer_remaining_ticks_null,
 			NULL, NULL, NULL,
 			K_PRIO_PREEMPT(THREAD_TEST_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -213,10 +193,6 @@ ZTEST_USER(timer_api_error, test_timer_remaining_ticks_null)
 
 static void thread_timer_expires_ticks_null(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	ztest_set_fault_valid(true);
 	k_timer_expires_ticks(NULL);
 
@@ -240,7 +216,7 @@ ZTEST_USER(timer_api_error, test_timer_expires_ticks_null)
 	ztest_test_skip();
 #endif
 	k_tid_t tid = k_thread_create(&tdata, tstack, STACK_SIZE,
-			thread_timer_expires_ticks_null,
+			(k_thread_entry_t)thread_timer_expires_ticks_null,
 			NULL, NULL, NULL,
 			K_PRIO_PREEMPT(THREAD_TEST_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -250,10 +226,6 @@ ZTEST_USER(timer_api_error, test_timer_expires_ticks_null)
 
 static void thread_timer_user_data_get_null(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	ztest_set_fault_valid(true);
 	k_timer_user_data_get(NULL);
 
@@ -277,7 +249,7 @@ ZTEST_USER(timer_api_error, test_timer_user_data_get_null)
 	ztest_test_skip();
 #endif
 	k_tid_t tid = k_thread_create(&tdata, tstack, STACK_SIZE,
-			thread_timer_user_data_get_null,
+			(k_thread_entry_t)thread_timer_user_data_get_null,
 			NULL, NULL, NULL,
 			K_PRIO_PREEMPT(THREAD_TEST_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -287,10 +259,6 @@ ZTEST_USER(timer_api_error, test_timer_user_data_get_null)
 
 static void thread_timer_user_data_set_null(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	int user_data = 1;
 
 	ztest_set_fault_valid(true);
@@ -317,7 +285,7 @@ ZTEST_USER(timer_api_error, test_timer_user_data_set_null)
 #endif
 
 	k_tid_t tid = k_thread_create(&tdata, tstack, STACK_SIZE,
-			thread_timer_user_data_set_null,
+			(k_thread_entry_t)thread_timer_user_data_set_null,
 			NULL, NULL, NULL,
 			K_PRIO_PREEMPT(THREAD_TEST_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);

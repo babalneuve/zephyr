@@ -96,10 +96,6 @@ ZTEST_USER(threads_scheduling, test_user_k_is_preempt)
 #ifdef CONFIG_USERSPACE
 static void thread_suspend_init_null(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	ztest_set_fault_valid(true);
 	k_thread_suspend(NULL);
 
@@ -120,7 +116,7 @@ static void thread_suspend_init_null(void *p1, void *p2, void *p3)
 ZTEST_USER(threads_scheduling, test_k_thread_suspend_init_null)
 {
 	k_tid_t tid = k_thread_create(&user_thread, ustack, STACK_SIZE,
-			thread_suspend_init_null,
+			(k_thread_entry_t)thread_suspend_init_null,
 			NULL, NULL, NULL,
 			K_PRIO_PREEMPT(THREAD_TEST_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -137,10 +133,6 @@ ZTEST_USER(threads_scheduling, test_k_thread_suspend_init_null)
 #ifdef CONFIG_USERSPACE
 static void thread_resume_init_null(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	ztest_set_fault_valid(true);
 	k_thread_resume(NULL);
 
@@ -161,7 +153,7 @@ static void thread_resume_init_null(void *p1, void *p2, void *p3)
 ZTEST_USER(threads_scheduling, test_k_thread_resume_init_null)
 {
 	k_tid_t tid = k_thread_create(&user_thread, ustack, STACK_SIZE,
-			thread_resume_init_null,
+			(k_thread_entry_t)thread_resume_init_null,
 			NULL, NULL, NULL,
 			K_PRIO_PREEMPT(THREAD_TEST_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -178,10 +170,6 @@ ZTEST_USER(threads_scheduling, test_k_thread_resume_init_null)
 #ifdef CONFIG_USERSPACE
 static void thread_priority_get_init_null(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	ztest_set_fault_valid(true);
 	k_thread_priority_get(NULL);
 
@@ -202,7 +190,7 @@ static void thread_priority_get_init_null(void *p1, void *p2, void *p3)
 ZTEST_USER(threads_scheduling, test_k_thread_priority_get_init_null)
 {
 	k_tid_t tid = k_thread_create(&user_thread, ustack, STACK_SIZE,
-			thread_priority_get_init_null,
+			(k_thread_entry_t)thread_priority_get_init_null,
 			NULL, NULL, NULL,
 			K_PRIO_PREEMPT(THREAD_TEST_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -219,10 +207,6 @@ ZTEST_USER(threads_scheduling, test_k_thread_priority_get_init_null)
 #ifdef CONFIG_USERSPACE
 static void thread_priority_set_init_null(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	ztest_set_fault_valid(true);
 	k_thread_priority_set(NULL, 0);
 
@@ -243,7 +227,7 @@ static void thread_priority_set_init_null(void *p1, void *p2, void *p3)
 ZTEST_USER(threads_scheduling, test_k_thread_priority_set_init_null)
 {
 	k_tid_t tid = k_thread_create(&user_thread, ustack, STACK_SIZE,
-			thread_priority_set_init_null,
+			(k_thread_entry_t)thread_priority_set_init_null,
 			NULL, NULL, NULL,
 			K_PRIO_PREEMPT(THREAD_TEST_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -260,10 +244,6 @@ ZTEST_USER(threads_scheduling, test_k_thread_priority_set_init_null)
 #ifdef CONFIG_USERSPACE
 static void thread_priority_set_overmax(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	ztest_set_fault_valid(true);
 
 	/* set valid priority value outside the priority range will invoke fatal error */
@@ -285,7 +265,7 @@ static void thread_priority_set_overmax(void *p1, void *p2, void *p3)
 ZTEST_USER(threads_scheduling, test_k_thread_priority_set_overmax)
 {
 	k_tid_t tid = k_thread_create(&user_thread, ustack, STACK_SIZE,
-			thread_priority_set_overmax,
+			(k_thread_entry_t)thread_priority_set_overmax,
 			NULL, NULL, NULL,
 			K_PRIO_PREEMPT(THREAD_TEST_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -302,10 +282,6 @@ ZTEST_USER(threads_scheduling, test_k_thread_priority_set_overmax)
 #ifdef CONFIG_USERSPACE
 static void thread_priority_set_upgrade(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	ztest_set_fault_valid(true);
 
 	/* at first, set an valid priority */
@@ -329,7 +305,7 @@ static void thread_priority_set_upgrade(void *p1, void *p2, void *p3)
 ZTEST_USER(threads_scheduling, test_k_thread_priority_set_upgrade)
 {
 	k_tid_t tid = k_thread_create(&user_thread, ustack, STACK_SIZE,
-			thread_priority_set_upgrade,
+			(k_thread_entry_t)thread_priority_set_upgrade,
 			NULL, NULL, NULL,
 			K_PRIO_PREEMPT(THREAD_TEST_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -346,10 +322,6 @@ ZTEST_USER(threads_scheduling, test_k_thread_priority_set_upgrade)
 #ifdef CONFIG_USERSPACE
 static void thread_wakeup_init_null(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	ztest_set_fault_valid(true);
 	k_wakeup(NULL);
 
@@ -370,7 +342,7 @@ static void thread_wakeup_init_null(void *p1, void *p2, void *p3)
 ZTEST_USER(threads_scheduling, test_k_wakeup_init_null)
 {
 	k_tid_t tid = k_thread_create(&user_thread, ustack, STACK_SIZE,
-			thread_wakeup_init_null,
+			(k_thread_entry_t)thread_wakeup_init_null,
 			NULL, NULL, NULL,
 			K_PRIO_PREEMPT(THREAD_TEST_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);

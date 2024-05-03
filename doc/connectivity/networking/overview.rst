@@ -32,12 +32,13 @@ can be disabled if not needed.
   * Multicast Listener Discovery v2 support
     (`RFC 3810 <https://tools.ietf.org/html/rfc3810>`_) is enabled by default.
   * IPv6 header compression (6lo) is available for IPv6 connectivity for
+    Bluetooth IPSP (`RFC 7668 <https://tools.ietf.org/html/rfc7668>`_) and
     IEEE 802.15.4 networks (`RFC 4944 <https://tools.ietf.org/html/rfc4944>`_).
 
-* **IPv4** The legacy IPv4 is supported by the networking stack. It
-  cannot be used by IEEE 802.15.4 as this network technology supports
-  only IPv6. IPv4 can be used in Ethernet based networks. By default
-  IPv4 support is disabled.
+* **IPv4** The legacy IPv4 is supported by the networking stack. It cannot be
+  used by IEEE 802.15.4 or Bluetooth IPSP as those network technologies support
+  only IPv6. IPv4 can be used in Ethernet based networks. By default IPv4
+  support is disabled.
 
   * DHCP (Dynamic Host Configuration Protocol) client is supported
     (`RFC 2131 <https://tools.ietf.org/html/rfc2131>`_).
@@ -55,7 +56,7 @@ can be disabled if not needed.
 
 * **TCP** Transmission Control Protocol
   (`RFC 793 <https://tools.ietf.org/html/rfc793>`_) is supported. Both server
-  and client roles can be used the application. The amount of TCP sockets
+  and client roles can be used the the application. The amount of TCP sockets
   that are available to applications can be configured at build time.
 
 * **BSD Sockets API** Support for a subset of a
@@ -153,7 +154,7 @@ The networking stack source code tree is organized as follows:
 
 ``subsys/net/l2/``
   This is where the IP stack layer 2 code is located. This includes generic
-  support for Ethernet, IEEE 802.15.4 and Wi-Fi.
+  support for Bluetooth IPSP adaptation, Ethernet, IEEE 802.15.4 and Wi-Fi.
 
 ``subsys/net/lib/``
   Application-level protocols (DNS, MQTT, etc.) and additional stack

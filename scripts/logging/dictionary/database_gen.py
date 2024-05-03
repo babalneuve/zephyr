@@ -49,11 +49,6 @@ STATIC_STRING_SECTIONS = [
     'pinned.rodata',
 ]
 
-# Sections that contains static strings but are not part of the binary (allocable).
-REMOVED_STRING_SECTIONS = [
-    'log_strings'
-]
-
 
 # Regulation expression to match DWARF location
 DT_LOCATION_REGEX = re.compile(r"\(DW_OP_addr: ([0-9a-f]+)")
@@ -99,7 +94,7 @@ def parse_args():
     return argparser.parse_args()
 
 
-def extract_elf_code_data_sections(elf, wildcards = None):
+def extract_elf_code_data_sections(elf):
     """Find all sections in ELF file"""
     sections = {}
 
@@ -108,9 +103,9 @@ def extract_elf_code_data_sections(elf, wildcards = None):
         # since they actually have code/data.
         #
         # On contrary, BSS is allocated but NOBITS.
-        if (((wildcards is not None) and (sect.name in wildcards)) or
-            ((sect['sh_flags'] & SH_FLAGS.SHF_ALLOC) == SH_FLAGS.SHF_ALLOC
-            and sect['sh_type'] == 'SHT_PROGBITS')
+        if (
+            (sect['sh_flags'] & SH_FLAGS.SHF_ALLOC) == SH_FLAGS.SHF_ALLOC
+            and sect['sh_type'] == 'SHT_PROGBITS'
         ):
             sections[sect.name] = {
                     'name'    : sect.name,
@@ -143,7 +138,7 @@ def find_elf_sections(elf, sh_name):
 def get_kconfig_symbols(elf):
     """Get kconfig symbols from the ELF file"""
     for section in elf.iter_sections():
-        if isinstance(section, SymbolTableSection) and section['sh_type'] != 'SHT_DYNSYM':
+        if isinstance(section, SymbolTableSection):
             return {sym.name: sym.entry.st_value
                     for sym in section.iter_symbols()
                        if sym.name.startswith("CONFIG_")}
@@ -254,9 +249,6 @@ def process_kconfigs(elf, database):
         if arch['kconfig'] in kconfigs:
             database.set_arch(name)
             break
-    else:
-        logger.error("Did not found architecture")
-        sys.exit(1)
 
     # Put some kconfigs into the database
     #
@@ -461,7 +453,7 @@ def extract_static_strings(elf, database, section_extraction=False):
     """
     string_mappings = {}
 
-    elf_sections = extract_elf_code_data_sections(elf, REMOVED_STRING_SECTIONS)
+    elf_sections = extract_elf_code_data_sections(elf)
 
     # Extract strings using ELF DWARF information
     str_vars = extract_string_variables(elf)

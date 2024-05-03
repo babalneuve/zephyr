@@ -491,7 +491,7 @@ function setupKconfigSearch() {
             doSearchFromURL();
 
             /* install event listeners */
-            input.addEventListener('input', () => {
+            input.addEventListener('keyup', () => {
                 searchOffset = 0;
                 doSearch();
             });

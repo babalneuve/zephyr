@@ -883,12 +883,8 @@ static int rndis_class_handler(struct usb_setup_packet *setup, int32_t *len,
 	return -ENOTSUP;
 }
 
-static void cmd_thread(void *p1, void *p2, void *p3)
+static void cmd_thread(void)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	LOG_INF("Command thread started");
 
 	while (true) {
@@ -1055,7 +1051,7 @@ static int rndis_init(void)
 
 	k_thread_create(&cmd_thread_data, cmd_stack,
 			K_KERNEL_STACK_SIZEOF(cmd_stack),
-			cmd_thread,
+			(k_thread_entry_t)cmd_thread,
 			NULL, NULL, NULL, K_PRIO_COOP(8), 0, K_NO_WAIT);
 
 	k_thread_name_set(&cmd_thread_data, "usb_rndis");

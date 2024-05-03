@@ -3,6 +3,7 @@
 zephyr_syscall_header(
   ${ZEPHYR_BASE}/subsys/testsuite/ztest/include/zephyr/ztest_error_hook.h
   ${ZEPHYR_BASE}/subsys/testsuite/ztest/include/zephyr/ztest_test.h
+  ${ZEPHYR_BASE}/subsys/testsuite/ztest/include/zephyr/ztest_test_new.h
 )
 
 zephyr_include_directories(
@@ -15,23 +16,16 @@ if(DEFINED TC_RUNID)
 endif()
 
 zephyr_library()
-
-# For strtok_r() and strdup()
-zephyr_library_compile_options(-D_POSIX_C_SOURCE=200809L)
-
-zephyr_library_sources(
-  src/ztest.c
-  src/ztest_error_hook.c
-  src/ztest_rules.c
-	)
+zephyr_library_sources_ifndef(CONFIG_ZTEST_NEW_API src/ztest.c)
+zephyr_library_sources_ifdef(CONFIG_ZTEST_NEW_API  src/ztest_new.c)
+zephyr_library_sources(                            src/ztest_error_hook.c)
+zephyr_library_sources_ifdef(CONFIG_ZTEST_NEW_API  src/ztest_rules.c)
 zephyr_library_sources_ifdef(CONFIG_ZTEST_MOCKING  src/ztest_mock.c)
 zephyr_library_sources_ifdef(CONFIG_ZTRESS         src/ztress.c)
 
 
 if(CONFIG_ARCH_POSIX)
-  zephyr_library_sources(src/ztest_posix.c)
-elseif(CONFIG_ZTEST_SHELL)
-  zephyr_library_sources(src/ztest_shell.c)
+  zephyr_library_sources_ifdef(CONFIG_ZTEST_NEW_API src/ztest_posix.c)
 else()
-  zephyr_library_sources(src/ztest_defaults.c)
+  zephyr_library_sources_ifdef(CONFIG_ZTEST_NEW_API src/ztest_defaults.c)
 endif()

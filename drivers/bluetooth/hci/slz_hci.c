@@ -55,6 +55,7 @@ uint32_t hci_common_transport_transmit(uint8_t *data, int16_t len)
 {
 	struct net_buf *buf;
 	uint8_t packet_type = data[0];
+	uint8_t flags;
 	uint8_t event_code;
 
 	LOG_HEXDUMP_DBG(data, len, "host packet data:");
@@ -66,6 +67,7 @@ uint32_t hci_common_transport_transmit(uint8_t *data, int16_t len)
 	switch (packet_type) {
 	case h4_event:
 		event_code = data[0];
+		flags = bt_hci_evt_get_flags(event_code);
 		buf = bt_buf_get_evt(event_code, false, K_FOREVER);
 		break;
 	case h4_acl:
@@ -77,7 +79,12 @@ uint32_t hci_common_transport_transmit(uint8_t *data, int16_t len)
 	}
 
 	net_buf_add_mem(buf, data, len);
-	bt_recv(buf);
+	if (IS_ENABLED(CONFIG_BT_RECV_BLOCKING) &&
+	    (packet_type == h4_event) && (flags & BT_HCI_EVT_FLAG_RECV_PRIO)) {
+		bt_recv_prio(buf);
+	} else {
+		bt_recv(buf);
+	}
 
 	sl_btctrl_hci_transmit_complete(0);
 
@@ -110,15 +117,6 @@ done:
 	return rv;
 }
 
-static void slz_thread_func(void *p1, void *p2, void *p3)
-{
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
-	slz_ll_thread_func();
-}
-
 static int slz_bt_open(void)
 {
 	int ret;
@@ -126,7 +124,7 @@ static int slz_bt_open(void)
 	/* Start RX thread */
 	k_thread_create(&slz_ll_thread, slz_ll_stack,
 			K_KERNEL_STACK_SIZEOF(slz_ll_stack),
-			slz_thread_func, NULL, NULL, NULL,
+			(k_thread_entry_t)slz_ll_thread_func, NULL, NULL, NULL,
 			K_PRIO_COOP(CONFIG_BT_DRIVER_RX_HIGH_PRIO), 0,
 			K_NO_WAIT);
 

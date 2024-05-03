@@ -124,19 +124,16 @@ static int mld_create_packet(struct net_pkt *pkt, uint16_t count)
 
 static int mld_send(struct net_pkt *pkt)
 {
-	int ret;
-
 	net_pkt_cursor_init(pkt);
 	net_ipv6_finalize(pkt, IPPROTO_ICMPV6);
 
-	ret = net_send_data(pkt);
-	if (ret < 0) {
+	if (net_send_data(pkt) < 0) {
 		net_stats_update_icmp_drop(net_pkt_iface(pkt));
 		net_stats_update_ipv6_mld_drop(net_pkt_iface(pkt));
 
 		net_pkt_unref(pkt);
 
-		return ret;
+		return -1;
 	}
 
 	net_stats_update_icmp_sent(net_pkt_iface(pkt));
@@ -254,12 +251,11 @@ int net_ipv6_mld_leave(struct net_if *iface, const struct in6_addr *addr)
 	return ret;
 }
 
-static int send_mld_report(struct net_if *iface)
+static void send_mld_report(struct net_if *iface)
 {
 	struct net_if_ipv6 *ipv6 = iface->config.ip.ipv6;
 	struct net_pkt *pkt;
 	int i, count = 0;
-	int ret;
 
 	NET_ASSERT(ipv6);
 
@@ -277,11 +273,10 @@ static int send_mld_report(struct net_if *iface)
 					AF_INET6, IPPROTO_ICMPV6,
 					PKT_WAIT_TIME);
 	if (!pkt) {
-		return -ENOBUFS;
+		return;
 	}
 
-	ret = mld_create_packet(pkt, count);
-	if (ret < 0) {
+	if (mld_create_packet(pkt, count)) {
 		goto drop;
 	}
 
@@ -290,24 +285,18 @@ static int send_mld_report(struct net_if *iface)
 			continue;
 		}
 
-		ret = mld_create(pkt, &ipv6->mcast[i].address.in6_addr,
-				 NET_IPV6_MLDv2_MODE_IS_EXCLUDE, 0);
-		if (ret < 0) {
+		if (!mld_create(pkt, &ipv6->mcast[i].address.in6_addr,
+				NET_IPV6_MLDv2_MODE_IS_EXCLUDE, 0)) {
 			goto drop;
 		}
 	}
 
-	ret = mld_send(pkt);
-	if (ret < 0) {
-		goto drop;
+	if (!mld_send(pkt)) {
+		return;
 	}
-
-	return 0;
 
 drop:
 	net_pkt_unref(pkt);
-
-	return ret;
 }
 
 #define dbg_addr(action, pkt_str, src, dst)				\
@@ -332,13 +321,6 @@ static int handle_mld_query(struct net_icmp_ctx *ctx,
 	uint16_t length = net_pkt_get_len(pkt);
 	struct net_icmpv6_mld_query *mld_query;
 	uint16_t pkt_len;
-	int ret = -EIO;
-
-	if (net_pkt_remaining_data(pkt) < sizeof(struct net_icmpv6_mld_query)) {
-		/* MLDv1 query, drop. */
-		ret = 0;
-		goto drop;
-	}
 
 	mld_query = (struct net_icmpv6_mld_query *)
 				net_pkt_get_data(pkt, &mld_access);
@@ -372,12 +354,14 @@ static int handle_mld_query(struct net_icmp_ctx *ctx,
 		goto drop;
 	}
 
-	return send_mld_report(net_pkt_iface(pkt));
+	send_mld_report(net_pkt_iface(pkt));
+
+	return 0;
 
 drop:
 	net_stats_update_ipv6_mld_drop(net_pkt_iface(pkt));
 
-	return ret;
+	return -EIO;
 }
 
 void net_ipv6_mld_init(void)

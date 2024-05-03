@@ -392,13 +392,7 @@ __set_comp_west_projs()
 
 __set_comp_west_boards()
 {
-	boards=( $(__west_x boards --format='{name}|{qualifiers}' "$@") )
-	for i in ${!boards[@]}; do
-		name="${boards[$i]%%|*}"
-		transformed_board="${boards[$i]//|//}"
-		boards[$i]="${transformed_board//,/\ ${name}\/}"
-	done
-	__set_comp ${boards[@]}
+	__set_comp "$(__west_x boards --format={name} "$@")"
 }
 
 __comp_west_west()
@@ -666,7 +660,6 @@ __comp_west_boards()
 	local dir_opts="
 		--arch-root
 		--board-root
-		--soc-root
 	"
 
 	all_opts="$dir_opts $other_opts"

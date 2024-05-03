@@ -122,7 +122,7 @@ static void cpu1_fn(void *p1, void *p2, void *p3)
  *
  * @ingroup kernel_spinlock_tests
  *
- * @see arch_cpu_start()
+ * @see arch_start_cpu()
  */
 ZTEST(spinlock, test_spinlock_bounce)
 {
@@ -233,9 +233,6 @@ static void before(void *ctx)
 	ARG_UNUSED(ctx);
 
 	bounce_done = 0;
-	bounce_owner = 0;
-	trylock_failures = 0;
-	trylock_successes = 0;
 }
 
 ZTEST_SUITE(spinlock, NULL, NULL, before, NULL, NULL);

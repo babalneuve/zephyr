@@ -193,12 +193,8 @@ static void conn_mgr_mon_init_cb(struct net_if *iface, void *user_data)
 	conn_mgr_mon_initial_state(iface);
 }
 
-static void conn_mgr_mon_thread_fn(void *p1, void *p2, void *p3)
+static void conn_mgr_mon_thread_fn(void)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	k_mutex_lock(&conn_mgr_mon_lock, K_FOREVER);
 
 	conn_mgr_conn_init();
@@ -336,9 +332,8 @@ static int conn_mgr_mon_init(void)
 
 	k_thread_create(&conn_mgr_mon_thread, conn_mgr_mon_stack,
 			CONFIG_NET_CONNECTION_MANAGER_MONITOR_STACK_SIZE,
-			conn_mgr_mon_thread_fn,
+			(k_thread_entry_t)conn_mgr_mon_thread_fn,
 			NULL, NULL, NULL, THREAD_PRIORITY, 0, K_NO_WAIT);
-	k_thread_name_set(&conn_mgr_mon_thread, "conn_mgr_monitor");
 
 	return 0;
 }

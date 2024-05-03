@@ -13,8 +13,6 @@
  */
 
 #include <zephyr/arch/posix/posix_trace.h>
-#include <zephyr/toolchain.h>
-#include "posix_board_if.h"
 
 void nsi_print_error_and_exit(const char *format, ...)
 {
@@ -43,8 +41,9 @@ void nsi_print_trace(const char *format, ...)
 	va_end(variable_args);
 }
 
-FUNC_NORETURN void nsi_exit(int exit_code)
+void nsi_exit(int exit_code)
 {
+	extern void posix_exit(int exit_code);
+
 	posix_exit(exit_code);
-	CODE_UNREACHABLE;
 }

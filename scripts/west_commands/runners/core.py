@@ -362,7 +362,7 @@ class ZephyrBinaryRunner(abc.ABC):
     This class provides an API for these commands. Every subclass is
     called a 'runner' for short. Each runner has a name (like
     'pyocd'), and declares commands it can handle (like
-    'flash'). Boards (like 'nrf52dk/nrf52832') declare which runner(s)
+    'flash'). Boards (like 'nrf52dk_nrf52832') declare which runner(s)
     are compatible with them to the Zephyr build system, along with
     information on how to configure the runner to work with the board.
 
@@ -658,26 +658,24 @@ class ZephyrBinaryRunner(abc.ABC):
                   in the order they appear on the command line.'''
 
     @staticmethod
-    def require(program: str, path: Optional[str] = None) -> str:
+    def require(program: str) -> str:
         '''Require that a program is installed before proceeding.
 
         :param program: name of the program that is required,
                         or path to a program binary.
-        :param path:    PATH where to search for the program binary.
-                        By default check on the system PATH.
 
         If ``program`` is an absolute path to an existing program
         binary, this call succeeds. Otherwise, try to find the program
-        by name on the system PATH or in the given PATH, if provided.
+        by name on the system PATH.
 
         If the program can be found, its path is returned.
         Otherwise, raises MissingProgram.'''
-        ret = shutil.which(program, path=path)
+        ret = shutil.which(program)
         if ret is None:
             raise MissingProgram(program)
         return ret
 
-    def run_server_and_client(self, server, client, **kwargs):
+    def run_server_and_client(self, server, client):
         '''Run a server that ignores SIGINT, and a client that handles it.
 
         This routine portably:
@@ -686,22 +684,20 @@ class ZephyrBinaryRunner(abc.ABC):
           SIGINT
         - runs ``client`` in a subprocess while temporarily ignoring SIGINT
         - cleans up the server after the client exits.
-        - the keyword arguments, if any, will be passed down to both server and
-          client subprocess calls
 
         It's useful to e.g. open a GDB server and client.'''
-        server_proc = self.popen_ignore_int(server, **kwargs)
+        server_proc = self.popen_ignore_int(server)
         try:
-            self.run_client(client, **kwargs)
+            self.run_client(client)
         finally:
             server_proc.terminate()
             server_proc.wait()
 
-    def run_client(self, client, **kwargs):
+    def run_client(self, client):
         '''Run a client that handles SIGINT.'''
         previous = signal.signal(signal.SIGINT, signal.SIG_IGN)
         try:
-            self.check_call(client, **kwargs)
+            self.check_call(client)
         finally:
             signal.signal(signal.SIGINT, previous)
 

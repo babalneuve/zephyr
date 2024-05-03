@@ -315,12 +315,8 @@ static int max11102_17_read(const struct device *dev, const struct adc_sequence 
 #endif
 
 #if CONFIG_ADC_ASYNC
-static void max11102_17_acquisition_thread(void *p1, void *p2, void *p3)
+static void max11102_17_acquisition_thread(const struct device *dev)
 {
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
-	const struct device *dev = p1;
 	while (true) {
 		max11102_17_adc_perform_read(dev);
 	}
@@ -370,9 +366,9 @@ static int max11102_17_init(const struct device *dev)
 	data->current_channel_id = 0;
 
 #if CONFIG_ADC_ASYNC
-	k_tid_t tid = k_thread_create(
+	const k_tid_t tid = k_thread_create(
 		&data->thread, data->stack, CONFIG_ADC_MAX11102_17_ACQUISITION_THREAD_STACK_SIZE,
-		max11102_17_acquisition_thread, (void *)dev, NULL, NULL,
+		(k_thread_entry_t)max11102_17_acquisition_thread, (void *)dev, NULL, NULL,
 		CONFIG_ADC_MAX11102_17_ACQUISITION_THREAD_INIT_PRIO, 0, K_NO_WAIT);
 	k_thread_name_set(tid, "adc_max11102_17");
 #endif

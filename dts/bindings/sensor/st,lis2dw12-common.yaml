@@ -1,23 +1,6 @@
 # Copyright (c) 2021 STMicroelectronics
 # SPDX-License-Identifier: Apache-2.0
 
-description: |
-    When setting the odr property in a .dts or .dtsi file you may include
-    lis2dw12.h and use the macros defined there.
-
-    Example:
-    #include <zephyr/dt-bindings/sensor/lis2dw12.h>
-
-    lis2dw12: lis2dw12@0 {
-      ...
-
-      wakeup-duration = <LIS2DW12_DT_WAKEUP_4_ODR>;
-      ff-threshold = <LIS2DW12_DT_FF_THRESHOLD_500_mg>;
-      tap-mode = <LIS2DW12_DT_SINGLE_DOUBLE_TAP>;
-      power-mode = <LIS2DW12_DT_HP_MODE>;
-      bw-filt = <LIS2DW12_DT_FILTER_BW_ODR_DIV_2>;
-    };
-
 include: sensor-device.yaml
 
 properties:
@@ -33,8 +16,9 @@ properties:
   int-pin:
     type: int
     default: 1
-    enum: [1, 2]
-
+    enum:
+      - 1
+      - 2
     description: |
       Select DRDY pin number (1 or 2).
 
@@ -57,7 +41,11 @@ properties:
          4 #  4g (0.488 mg/LSB)
          2 #  2g (0.244 mg/LSB)
 
-    enum: [16, 8, 4, 2]
+    enum:
+      - 16
+      - 8
+      - 4
+      - 2
 
   odr:
     type: int
@@ -68,7 +56,17 @@ properties:
       If 0 selected as the odr, the accelerometer initializes into
       power off state.
 
-    enum: [0, 1, 12, 25, 50, 100, 200, 400, 800, 1600]
+    enum:
+      - 0
+      - 1
+      - 12
+      - 25
+      - 50
+      - 100
+      - 200
+      - 400
+      - 800
+      - 1600
 
   bw-filt:
     type: int
@@ -76,12 +74,16 @@ properties:
     description: |
       Digital filtering cutoff bandwidth. Default is power-up configuration.
 
-      - 0 # LIS2DW12_DT_FILTER_BW_ODR_DIV_2
-      - 1 # LIS2DW12_DT_FILTER_BW_ODR_DIV_4
-      - 2 # LIS2DW12_DT_FILTER_BW_ODR_DIV_10
-      - 3 # LIS2DW12_DT_FILTER_BW_ODR_DIV_20
+         3 # ODR/20 (HP/LP)
+         2 # ODR/10 (HP/LP)
+         1 # ODR/ 4 (HP/LP)
+         0 # ODR/ 2 (up to ODR = 800 Hz, 400 Hz when ODR = 1600 Hz)
 
-    enum: [0, 1, 2, 3]
+    enum:
+      - 3
+      - 2
+      - 1
+      - 0
 
   power-mode:
     type: int
@@ -89,13 +91,18 @@ properties:
     description: |
       Specify the sensor power mode. Default is power-up configuration.
 
-      - 0 # LIS2DW12_DT_LP_M1
-      - 1 # LIS2DW12_DT_LP_M2
-      - 2 # LIS2DW12_DT_LP_M3
-      - 3 # LIS2DW12_DT_LP_M4
-      - 4 # LIS2DW12_DT_HP_MODE
+        0 # Low Power M1
+        1 # Low Power M2
+        2 # Low Power M3
+        3 # Low Power M4
+        4 # High Performance
 
-    enum: [0, 1, 2, 3, 4]
+    enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
 
   # tap and tap-tap configuration section
   # All default values are selected to match the power-up values.
@@ -107,10 +114,12 @@ properties:
     description: |
       Tap mode. Default is power-up configuration.
 
-      - 0 # LIS2DW12_DT_SINGLE_TAP
-      - 1 # LIS2DW12_DT_SINGLE_DOUBLE_TAP
+        0 # Only Single Tap
+        1 # Single and Double Tap
 
-    enum: [0, 1]
+    enum:
+      - 0
+      - 1
 
   tap-threshold:
     type: array
@@ -219,31 +228,21 @@ properties:
       than the freefall threshold value for the freefall duration long,
       then a freefall trigger occurs. This value is 3 bits long.
       Default value chosen 3 (312 mg) refer to ST DT0100 design tip document.
+      0 # ~156mg
+      1 # ~219mg
+      2 # ~250mg
+      3 # ~312mg
+      4 # ~344mg
+      5 # ~406mg
+      6 # ~469mg
+      7 # ~500mg
 
-      - 0 # LIS2DW12_DT_FF_THRESHOLD_156_mg
-      - 1 # LIS2DW12_DT_FF_THRESHOLD_219_mg
-      - 2 # LIS2DW12_DT_FF_THRESHOLD_250_mg
-      - 3 # LIS2DW12_DT_FF_THRESHOLD_312_mg
-      - 4 # LIS2DW12_DT_FF_THRESHOLD_344_mg
-      - 5 # LIS2DW12_DT_FF_THRESHOLD_406_mg
-      - 6 # LIS2DW12_DT_FF_THRESHOLD_469_mg
-      - 7 # LIS2DW12_DT_FF_THRESHOLD_500_mg
-
-    enum: [0, 1, 2, 3, 4, 5, 6, 7]
-
-  wakeup-duration:
-    type: int
-    default: 0
-    description: |
-      The wakeup duration. Default value is the register reset value.
-      If the accelerometer readings of the all axes are higher
-      than the wakeup threshold value for the wakeup duration long,
-      then a wakeup trigger occurs. This value is 2 bits long in the
-      register and 1 LSB = 1 * 1/ODR.
-
-      - 0 # LIS2DW12_DT_WAKEUP_1_ODR
-      - 1 # LIS2DW12_DT_WAKEUP_2_ODR
-      - 2 # LIS2DW12_DT_WAKEUP_3_ODR
-      - 3 # LIS2DW12_DT_WAKEUP_4_ODR
-
-    enum: [0, 1, 2, 3]
+    enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7

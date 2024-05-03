@@ -18,4 +18,3 @@ Network System Management
    traffic-class.rst
    net_pkt_filter.rst
    net_shell.rst
-   tls_credentials_shell.rst

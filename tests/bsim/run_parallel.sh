@@ -13,8 +13,8 @@ function display_help(){
   echo "  Testcases are searched for in \${SEARCH_PATH},"
   echo "  which by default is the folder the script is run from"
   echo "  You can instead also provide a space separated test list with \${TESTS_LIST}, "
-  echo "  or an input file including a list of tests and/or tests search paths"
-  echo "  \${TESTS_FILE} (w one line per test/path, you can comment lines with #)"
+  echo "  or an input file including a list of tests \${TESTS_FILE} (w one line"
+  echo "  per test, you can comment lines with #)"
   echo ""
   echo "  Examples (run from \${ZEPHYR_BASE}):"
   echo " * Run all tests found under one folder:"
@@ -44,15 +44,13 @@ i=0
 
 if [ -n "${TESTS_FILE}" ]; then
 	#remove comments and empty lines from file
-	search_pattern=$(sed 's/#.*$//;/^$/d' "${TESTS_FILE}") || exit 1
-	all_cases=`find ${search_pattern} -name "*.sh" | \
-	         grep -Ev "(/_|run_parallel|compile|generate_coverage_report.sh)"`
+	all_cases=$(sed 's/#.*$//;/^$/d' "${TESTS_FILE}")
 elif [ -n "${TESTS_LIST}" ]; then
 	all_cases=${TESTS_LIST}
 else
 	SEARCH_PATH="${SEARCH_PATH:-.}"
 	all_cases=`find ${SEARCH_PATH} -name "*.sh" | \
-	         grep -Ev "(/_|run_parallel|compile|generate_coverage_report.sh)"`
+	         grep -Ev "(/_|run_parallel|compile.sh|generate_coverage_report.sh)"`
 	#we dont run ourselves
 fi
 
@@ -63,8 +61,6 @@ tmp_res_file=tmp.xml
 
 all_cases_a=( $all_cases )
 n_cases=$((${#all_cases_a[@]}))
-
-mkdir -p $(dirname ${RESULTS_FILE})
 touch ${RESULTS_FILE}
 echo "Attempting to run ${n_cases} cases (logging to \
  `realpath ${RESULTS_FILE}`)"
@@ -77,12 +73,9 @@ echo -n "" > $tmp_res_file
 if [ `command -v parallel` ]; then
   parallel '
   echo "<testcase name=\"{}\" time=\"0\">"
-  start=$(date +%s%N)
-  {} $@ &> {#}.log ; result=$?
-  dur=$(($(date +%s%N) - $start))
-  dur_s=$(awk -vdur=$dur "BEGIN { printf(\"%0.3f\", dur/1000000000)}")
-  if [ $result -ne 0 ]; then
-    (>&2 echo -e "\e[91m{} FAILED\e[39m ($dur_s s)")
+  {} $@ &> {#}.log
+  if [ $? -ne 0 ]; then
+    (>&2 echo -e "\e[91m{} FAILED\e[39m")
     (>&2 cat {#}.log)
     echo "<failure message=\"failed\" type=\"failure\">"
     cat {#}.log | eval $CLEAN_XML
@@ -91,7 +84,7 @@ if [ `command -v parallel` ]; then
     echo "</testcase>"
     exit 1
   else
-    (>&2 echo -e "{} PASSED ($dur_s s)")
+    (>&2 echo -e "{} PASSED")
     rm {#}.log
     echo "</testcase>"
   fi

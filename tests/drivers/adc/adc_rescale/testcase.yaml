@@ -3,6 +3,4 @@ common:
 tests:
   drivers.adc.rescale:
     depends_on: adc
-    platform_allow:
-      - native_sim
-      - native_sim/native/64
+    platform_allow: native_posix

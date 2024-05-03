@@ -15,10 +15,10 @@ tests:
       - sensors
     filter: dt_compat_enabled("sbs,sbs-gauge")
     platform_allow:
-      - native_sim
+      - native_posix
       - qemu_cortex_a9
-      - qemu_arc/qemu_arc_hs
+      - qemu_arc_hs
     integration_platforms:
-      - native_sim
+      - native_posix
     extra_configs:
       - CONFIG_EMUL=y

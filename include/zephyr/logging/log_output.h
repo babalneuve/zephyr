@@ -54,9 +54,6 @@ extern "C" {
 /** @brief Flag thread id or name prefix. */
 #define LOG_OUTPUT_FLAG_THREAD			BIT(7)
 
-/** @brief Flag forcing to skip logging the source. */
-#define LOG_OUTPUT_FLAG_SKIP_SOURCE		BIT(8)
-
 /**@} */
 
 /** @brief Supported backend logging format types for use
@@ -162,7 +159,7 @@ void log_output_process(const struct log_output *log_output,
 			log_timestamp_t timestamp,
 			const char *domain,
 			const char *source,
-			k_tid_t tid,
+			const k_tid_t tid,
 			uint8_t level,
 			const uint8_t *package,
 			const uint8_t *data,

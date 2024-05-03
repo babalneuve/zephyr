@@ -305,14 +305,13 @@ static int package_uri_write_cb(uint16_t obj_inst_id, uint16_t res_id,
 
 #ifdef CONFIG_LWM2M_FIRMWARE_UPDATE_PULL_SUPPORT
 	uint8_t state = lwm2m_firmware_get_update_state_inst(obj_inst_id);
-	bool empty_uri = data_len == 0 || strnlen(data, data_len) == 0;
 
 	if (state == STATE_IDLE) {
-		if (!empty_uri) {
+		if (data_len > 0) {
 			lwm2m_firmware_set_update_state_inst(obj_inst_id, STATE_DOWNLOADING);
 			lwm2m_firmware_start_transfer(obj_inst_id, package_uri[obj_inst_id]);
 		}
-	} else if (state == STATE_DOWNLOADED && empty_uri) {
+	} else if (state == STATE_DOWNLOADED && data_len == 0U) {
 		/* reset to state idle and result default */
 		lwm2m_firmware_set_update_result_inst(obj_inst_id, RESULT_DEFAULT);
 	}
@@ -507,4 +506,4 @@ static int lwm2m_firmware_init(void)
 	return ret;
 }
 
-LWM2M_CORE_INIT(lwm2m_firmware_init);
+SYS_INIT(lwm2m_firmware_init, APPLICATION, CONFIG_KERNEL_INIT_PRIORITY_DEFAULT);

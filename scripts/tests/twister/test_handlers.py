@@ -209,35 +209,40 @@ def test_handler_record(mocked_instance):
     instance.testcases = [mock.Mock()]
 
     handler = Handler(instance)
+    handler.suite_name_check = True
 
-    harness = twisterlib.harness.Harness()
-    harness.recording = [ {'field_1':  'recording_1_1', 'field_2': 'recording_1_2'},
-                          {'field_1':  'recording_2_1', 'field_2': 'recording_2_2'}
-                        ]
+    harness = twisterlib.harness.Test()
+    harness.recording = ['dummy recording']
+    type(harness).fieldnames = mock.PropertyMock(return_value=[])
+
+    mock_writerow = mock.Mock()
+    mock_writer = mock.Mock(writerow=mock_writerow)
 
     with mock.patch(
         'builtins.open',
         mock.mock_open(read_data='')
     ) as mock_file, \
-        mock.patch(
-        'csv.DictWriter.writerow',
-        mock.Mock()
-    ) as mock_writeheader, \
-        mock.patch(
-        'csv.DictWriter.writerows',
-        mock.Mock()
-    ) as mock_writerows:
+         mock.patch(
+        'csv.writer',
+        mock.Mock(return_value=mock_writer)
+    ) as mock_writer_constructor:
         handler.record(harness)
-
-    print(mock_file.mock_calls)
 
     mock_file.assert_called_with(
         os.path.join(instance.build_dir, 'recording.csv'),
         'at'
     )
 
-    mock_writeheader.assert_has_calls([mock.call({ k:k for k in harness.recording[0].keys()})])
-    mock_writerows.assert_has_calls([mock.call(harness.recording)])
+    mock_writer_constructor.assert_called_with(
+        mock_file(),
+        harness.fieldnames,
+        lineterminator=os.linesep
+    )
+
+    mock_writerow.assert_has_calls(
+        [mock.call(harness.fieldnames)] + \
+        [mock.call(recording) for recording in harness.recording]
+    )
 
 
 def test_handler_terminate(mocked_instance):
@@ -442,25 +447,28 @@ def test_binaryhandler_output_handler(
 
 
 TESTDATA_4 = [
-    (True, False, True, None, None,
+    (True, False, False, True, None, None,
      ['valgrind', '--error-exitcode=2', '--leak-check=full',
       f'--suppressions={ZEPHYR_BASE}/scripts/valgrind.supp',
       '--log-file=build_dir/valgrind.log', '--track-origins=yes',
       'generator', 'run_renode_test']),
-    (False, True, False, 123, None, ['generator', 'run', '--seed=123']),
-    (False, False, False, None, ['ex1', 'ex2'], ['bin', 'ex1', 'ex2']),
+    (False, True, False, False, 123, None, ['generator', 'run', '--seed=123']),
+    (False, False, True, False, None, None,
+     ['west', 'flash', '--skip-rebuild', '-d', 'build_dir']),
+    (False, False, False, False, None, ['ex1', 'ex2'], ['bin', 'ex1', 'ex2']),
 ]
 
 @pytest.mark.parametrize(
-    'robot_test, call_make_run, enable_valgrind, seed,' \
+    'robot_test, call_make_run, call_west_flash, enable_valgrind, seed,' \
     ' extra_args, expected',
     TESTDATA_4,
-    ids=['robot, valgrind', 'make run, seed', 'binary, extra']
+    ids=['robot, valgrind', 'make run, seed', 'west flash', 'binary, extra']
 )
 def test_binaryhandler_create_command(
     mocked_instance,
     robot_test,
     call_make_run,
+    call_west_flash,
     enable_valgrind,
     seed,
     extra_args,
@@ -470,6 +478,7 @@ def test_binaryhandler_create_command(
     handler.generator_cmd = 'generator'
     handler.binary = 'bin'
     handler.call_make_run = call_make_run
+    handler.call_west_flash = call_west_flash
     handler.options = mock.Mock(enable_valgrind=enable_valgrind)
     handler.seed = seed
     handler.extra_test_args = extra_args
@@ -636,6 +645,13 @@ def test_binaryhandler_handle(
     handler._update_instance_info.assert_called_once()
     handler._final_handle_actions.assert_called_once()
 
+    if coverage:
+        call_mock.assert_any_call(
+            ['GCOV_PREFIX=build_dir', 'gcov', 'source_dir',
+             '-b', '-s', 'build_dir'],
+            shell=True
+        )
+
     if isatty:
         call_mock.assert_any_call(['stty', 'sane'], stdin=mock.ANY)
 
@@ -736,7 +752,7 @@ def test_devicehandler_monitor_serial(
     type(harness).state=mock.PropertyMock(side_effect=state_iter)
 
     handler = DeviceHandler(mocked_instance, 'build')
-    handler.options = mock.Mock(enable_coverage=not end_by_state)
+    handler.options = mock.Mock(coverage=not end_by_state)
 
     with mock.patch('builtins.open', mock.mock_open(read_data='')):
         handler.monitor_serial(ser, halt_event, harness)
@@ -1121,13 +1137,13 @@ TESTDATA_14 = [
     ids=['success', 'failed', 'error', 'flash error', 'no status']
 )
 def test_devicehandler_update_instance_info(
-        mocked_instance,
-        harness_state,
-        flash_error,
-        expected_status,
-        expected_reason,
-        do_add_missing
-        ):
+    mocked_instance,
+    harness_state,
+    flash_error,
+    expected_status,
+    expected_reason,
+    do_add_missing
+):
     handler = DeviceHandler(mocked_instance, 'build')
     handler_time = 59
     missing_mock = mock.Mock()
@@ -1141,7 +1157,7 @@ def test_devicehandler_update_instance_info(
     assert handler.instance.reason == expected_reason
 
     if do_add_missing:
-        missing_mock.assert_called_with('blocked', expected_reason)
+        missing_mock.assert_called_once_with('blocked', expected_reason)
 
 
 TESTDATA_15 = [
@@ -1889,6 +1905,7 @@ def test_qemuhandler_thread(
 
     type(mocked_instance.testsuite).timeout = mock.PropertyMock(return_value=timeout)
     handler = QEMUHandler(mocked_instance, 'build')
+    handler.results = {}
     handler.ignore_unexpected_eof = False
     handler.pid_fn = 'pid_fn'
     handler.fifo_fn = 'fifo_fn'
@@ -1948,6 +1965,7 @@ def test_qemuhandler_thread(
             handler.log,
             handler.fifo_fn,
             handler.pid_fn,
+            handler.results,
             harness,
             handler.ignore_unexpected_eof
         )

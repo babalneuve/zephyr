@@ -232,7 +232,7 @@ class Reporting:
         with open(filename, 'wb') as report:
             report.write(result)
 
-    def json_report(self, filename, version="NA", platform=None):
+    def json_report(self, filename, version="NA"):
         logger.info(f"Writing JSON report {filename}")
         report = {}
         report["environment"] = {"os": os.name,
@@ -244,11 +244,8 @@ class Reporting:
         suites = []
 
         for instance in self.instances.values():
-            if platform and platform != instance.platform.name:
-                continue
             suite = {}
             handler_log = os.path.join(instance.build_dir, "handler.log")
-            pytest_log = os.path.join(instance.build_dir, "twister_harness.log")
             build_log = os.path.join(instance.build_dir, "build.log")
             device_log = os.path.join(instance.build_dir, "device.log")
 
@@ -287,9 +284,7 @@ class Reporting:
                 suite['status'] = instance.status
                 suite["reason"] = instance.reason
                 # FIXME
-                if os.path.exists(pytest_log):
-                    suite["log"] = self.process_log(pytest_log)
-                elif os.path.exists(handler_log):
+                if os.path.exists(handler_log):
                     suite["log"] = self.process_log(handler_log)
                 elif os.path.exists(device_log):
                     suite["log"] = self.process_log(device_log)
@@ -306,7 +301,6 @@ class Reporting:
 
             if instance.status is not None:
                 suite["execution_time"] =  f"{float(handler_time):.2f}"
-            suite["build_time"] =  f"{float(instance.build_time):.2f}"
 
             testcases = []
 
@@ -347,10 +341,6 @@ class Reporting:
                 testcases.append(testcase)
 
             suite['testcases'] = testcases
-
-            if instance.recording is not None:
-                suite['recording'] = instance.recording
-
             suites.append(suite)
 
         report["testsuites"] = suites
@@ -404,7 +394,7 @@ class Reporting:
         logger.debug("running footprint_reports")
         deltas = self.compare_metrics(report)
         warnings = 0
-        if deltas:
+        if deltas and show_footprint:
             for i, metric, value, delta, lower_better in deltas:
                 if not all_deltas and ((delta < 0 and lower_better) or
                                        (delta > 0 and not lower_better)):
@@ -417,19 +407,15 @@ class Reporting:
                 if not all_deltas and (percentage < (footprint_threshold / 100.0)):
                     continue
 
-                if show_footprint:
-                    logger.log(
-                        logging.INFO if all_deltas else logging.WARNING,
-                        "{:<25} {:<60} {} {:<+4}, is now {:6} {:+.2%}".format(
-                        i.platform.name, i.testsuite.name,
-                        metric, delta, value, percentage))
-
+                logger.info("{:<25} {:<60} {}{}{}: {} {:<+4}, is now {:6} {:+.2%}".format(
+                    i.platform.name, i.testsuite.name, Fore.YELLOW,
+                    "INFO" if all_deltas else "WARNING", Fore.RESET,
+                    metric, delta, value, percentage))
                 warnings += 1
 
         if warnings:
-            logger.warning("Found {} footprint deltas to {} as a baseline.".format(
-                           warnings,
-                           (report if not last_metrics else "the last twister run.")))
+            logger.warning("Deltas based on metrics from last %s" %
+                           ("release" if not last_metrics else "run"))
 
     def synopsis(self):
         cnt = 0
@@ -460,13 +446,13 @@ class Reporting:
                         f"{example_instance.testsuite.source_dir_rel} -T {example_instance.testsuite.id}")
             logger.info("-+" * 40)
 
-    def summary(self, results, ignore_unrecognized_sections, duration):
+    def summary(self, results, unrecognized_sections, duration):
         failed = 0
         run = 0
         for instance in self.instances.values():
             if instance.status == "failed":
                 failed += 1
-            elif not ignore_unrecognized_sections and instance.metrics.get("unrecognized"):
+            elif instance.metrics.get("unrecognized") and not unrecognized_sections:
                 logger.error("%sFAILED%s: %s has unrecognized binary sections: %s" %
                              (Fore.RED, Fore.RESET, instance.name,
                               str(instance.metrics.get("unrecognized", []))))
@@ -549,13 +535,10 @@ class Reporting:
 
 
     def target_report(self, json_file, outdir, suffix):
-        platforms = {inst.platform for _, inst in self.instances.items()}
+        platforms = {inst.platform.name for _, inst in self.instances.items()}
         for platform in platforms:
             if suffix:
-                filename = os.path.join(outdir,"{}_{}.xml".format(platform.normalized_name, suffix))
-                json_platform_file = os.path.join(outdir,"{}_{}.json".format(platform.normalized_name, suffix))
+                filename = os.path.join(outdir,"{}_{}.xml".format(platform, suffix))
             else:
-                filename = os.path.join(outdir,"{}.xml".format(platform.normalized_name))
-                json_platform_file = os.path.join(outdir,"{}.json".format(platform.normalized_name))
-            self.xunit_report(json_file, filename, platform.name, full_report=True)
-            self.json_report(json_platform_file, version=self.env.version, platform=platform.name)
+                filename = os.path.join(outdir,"{}.xml".format(platform))
+            self.xunit_report(json_file, filename, platform, full_report=True)

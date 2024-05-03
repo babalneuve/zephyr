@@ -7,7 +7,6 @@ project(interrupt)
 target_include_directories(app PRIVATE
   ${ZEPHYR_BASE}/kernel/include
   ${ZEPHYR_BASE}/arch/${ARCH}/include
-  ${ZEPHYR_BASE}/arch/common/include
   )
 
 target_sources(app PRIVATE
@@ -22,8 +21,4 @@ target_sources_ifdef(CONFIG_SHARED_INTERRUPTS app PRIVATE src/static_shared_irq.
 
 if (CONFIG_SHARED_INTERRUPTS)
 target_sources_ifdef(CONFIG_DYNAMIC_INTERRUPTS app PRIVATE src/dynamic_shared_irq.c)
-endif()
-
-if(CONFIG_MULTI_LEVEL_INTERRUPTS)
-  target_sources_ifdef(CONFIG_DYNAMIC_INTERRUPTS app PRIVATE src/sw_isr_table.c)
 endif()

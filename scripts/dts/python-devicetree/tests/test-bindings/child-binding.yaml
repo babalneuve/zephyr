@@ -10,8 +10,6 @@ child-binding:
     child-prop:
       type: int
       required: true
-    child-ref:
-      type: phandle
 
   child-binding:
     description: grandchild node
@@ -19,5 +17,3 @@ child-binding:
       grandchild-prop:
         type: int
         required: true
-      grandchild-ref:
-        type: phandle

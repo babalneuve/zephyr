@@ -1,6 +1,5 @@
 /*
  * Copyright (c) 2023 Intel Corporation
- * Copyright (c) 2024 Schneider Electric
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -232,16 +231,16 @@ struct elf32_sym {
 struct elf64_sym {
 	/** Name of the symbol as an index into the symbol string table */
 	elf64_word st_name;
+	/** Value or location of the symbol */
+	elf64_addr st_value;
+	/** Size of the symbol */
+	elf64_xword st_size;
 	/** Symbol binding and type information */
 	unsigned char st_info;
 	/** Symbol visibility */
 	unsigned char st_other;
 	/** Symbols related section given by section header index */
 	elf64_half st_shndx;
-	/** Value or location of the symbol */
-	elf64_addr st_value;
-	/** Size of the symbol */
-	elf64_xword st_size;
 };
 
 #define SHN_UNDEF 0
@@ -307,12 +306,6 @@ struct elf32_rel {
 	elf32_word r_info;
 };
 
-struct elf32_rela {
-	elf32_addr r_offset;
-	elf32_word r_info;
-	elf32_sword r_addend;
-};
-
 /**
  * @brief Relocation symbol index from r_info
  *
@@ -335,12 +328,6 @@ struct elf64_rel {
 	elf64_addr r_offset;
 	/** Information about relocation, related symbol and type */
 	elf64_xword r_info;
-};
-
-struct elf64_rela {
-	elf64_addr r_offset;
-	elf64_xword r_info;
-	elf64_sxword r_addend;
 };
 
 /** @brief Relocation symbol from r_info
@@ -371,29 +358,9 @@ struct elf64_rela {
 #define R_ARM_PC24 1
 #define R_ARM_ABS32 2
 #define R_ARM_REL32 3
-#define R_ARM_COPY 20
-#define R_ARM_GLOB_DAT 21
-#define R_ARM_JUMP_SLOT 22
-#define R_ARM_RELATIVE 23
+#define R_ARM_COPY 4
 #define R_ARM_CALL 28
-#define R_ARM_JUMP24 29
-#define R_ARM_TARGET1 38
 #define R_ARM_V4BX 40
-#define R_ARM_PREL31 42
-#define R_ARM_MOVW_ABS_NC 43
-#define R_ARM_MOVT_ABS 44
-#define R_ARM_MOVW_PREL_NC 45
-#define R_ARM_MOVT_PREL 46
-#define R_ARM_ALU_PC_G0_NC 57
-#define R_ARM_ALU_PC_G1_NC 59
-#define R_ARM_LDR_PC_G2 63
-
-#define R_ARM_THM_CALL 10
-#define R_ARM_THM_JUMP24 30
-#define R_ARM_THM_MOVW_ABS_NC 47
-#define R_ARM_THM_MOVT_ABS 48
-#define R_ARM_THM_MOVW_PREL_NC 49
-#define R_ARM_THM_MOVT_PREL 50
 
 #define R_XTENSA_NONE 0
 #define R_XTENSA_32 1
@@ -468,8 +435,7 @@ typedef elf64_half elf_half;
 /** Machine sized integer */
 typedef elf64_xword elf_word;
 /** Machine sized relocation struct */
-typedef struct elf64_rel elf_rel_t;
-typedef struct elf64_rela elf_rela_t;
+typedef struct elf64_rela elf_rel_t;
 /** Machine sized symbol struct */
 typedef struct elf64_sym elf_sym_t;
 /** Machine sized macro alias for obtaining a relocation symbol */
@@ -495,7 +461,6 @@ typedef elf32_half elf_half;
 typedef elf32_word elf_word;
 /** Machine sized relocation struct */
 typedef struct elf32_rel elf_rel_t;
-typedef struct elf32_rela elf_rela_t;
 /** Machine sized symbol struct */
 typedef struct elf32_sym elf_sym_t;
 /** Machine sized macro alias for obtaining a relocation symbol */

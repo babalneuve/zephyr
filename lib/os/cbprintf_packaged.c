@@ -982,7 +982,9 @@ int cbprintf_package_convert(void *in_packaged,
 				str_pos++;
 			}
 		} else {
-			str_pos += ros_nbr;
+			if (ros_nbr && flags & CBPRINTF_PACKAGE_CONVERT_KEEP_RO_STR) {
+				str_pos += ros_nbr;
+			}
 		}
 
 		bool drop_ro_str_pos = !(flags &
@@ -997,8 +999,7 @@ int cbprintf_package_convert(void *in_packaged,
 			bool is_ro = ptr_in_rodata(str);
 			int len;
 
-			if (IS_ENABLED(CONFIG_CBPRINTF_CONVERT_CHECK_PTR) &&
-			    fmt_present && is_ptr(fmt, arg_idx)) {
+			if (fmt_present && is_ptr(fmt, arg_idx)) {
 				LOG_WRN("(unsigned) char * used for %%p argument. "
 					"It's recommended to cast it to void * because "
 					"it may cause misbehavior in certain "
@@ -1076,8 +1077,7 @@ calculate_string_length:
 		const char *str = *(const char **)&buf32[arg_pos];
 		bool is_ro = ptr_in_rodata(str);
 
-		if (IS_ENABLED(CONFIG_CBPRINTF_CONVERT_CHECK_PTR) &&
-		    fmt_present && is_ptr(fmt, arg_idx)) {
+		if (fmt_present && is_ptr(fmt, arg_idx)) {
 			continue;
 		}
 

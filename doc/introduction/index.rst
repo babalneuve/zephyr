@@ -80,8 +80,6 @@ Zephyr offers a large and ever growing number of features including:
      * Red/black tree ready queue
      * Traditional multi-queue ready queue
 
-.. _zephyr_intro_configurability:
-
 **Highly configurable / Modular for flexibility**
    Allows an application to incorporate *only* the capabilities it needs as it
    needs them, and to specify their quantity and size.
@@ -125,7 +123,7 @@ Zephyr offers a large and ever growing number of features including:
 
 **Bluetooth Low Energy 5.0 support**
    Bluetooth 5.0 compliant (ESR10) and Bluetooth Low Energy Controller support
-   (LE Link Layer). Includes Bluetooth Mesh and a Bluetooth qualification-ready
+   (LE Link Layer). Includes Bluetooth mesh and a Bluetooth qualification-ready
    Bluetooth controller.
 
    * Generic Access Profile (GAP) with all possible LE roles
@@ -146,8 +144,8 @@ Zephyr offers a large and ever growing number of features including:
 
 **Native Linux, macOS, and Windows Development**
    A command-line CMake build environment runs on popular developer OS
-   systems. A native port (:ref:`native_sim <native_sim>`) lets you build and run Zephyr as a native
-   application on Linux, aiding development and testing.
+   systems. A native POSIX port lets you build and run Zephyr as a native
+   application on Linux and other OSes, aiding development and testing.
 
 **Virtual File System Interface with ext2, FatFs, and LittleFS Support**
    ext2, LittleFS and FatFS support; FCB (Flash Circular Buffer) for memory constrained
@@ -172,9 +170,9 @@ Zephyr offers a large and ever growing number of features including:
   NVS allows storage of binary blobs, strings, integers, longs, and any
   combination of these.
 
-**Native port**
-  :ref:`Native sim <native_sim>` allows running Zephyr as a Linux application with support
-  for various subsystems and networking.
+**Native POSIX port**
+  Supports running Zephyr as a Linux application with support for various
+  subsystems and networking.
 
 
 .. include:: ../../README.rst

@@ -64,98 +64,88 @@ def process_pr(gh, maintainer_file, number):
 
     labels = set()
     area_counter = defaultdict(int)
-    found_maintainers = defaultdict(int)
+    maint = defaultdict(int)
 
     num_files = 0
     all_areas = set()
     fn = list(pr.get_files())
-
-    manifest_change = False
-    for changed_file in fn:
-        if changed_file.filename in ['west.yml','submanifests/optional.yaml']:
-            manifest_change = True
-            break
-
-    # one liner PRs should be trivial
-    if pr.commits == 1 and (pr.additions <= 1 and pr.deletions <= 1) and not manifest_change:
-        labels = {'Trivial'}
-
     if len(fn) > 500:
         log(f"Too many files changed ({len(fn)}), skipping....")
         return
-
-    for changed_file in fn:
+    for f in pr.get_files():
         num_files += 1
-        log(f"file: {changed_file.filename}")
-        areas = maintainer_file.path2areas(changed_file.filename)
+        log(f"file: {f.filename}")
+        areas = maintainer_file.path2areas(f.filename)
 
-        if not areas:
-            continue
+        if areas:
+            all_areas.update(areas)
+            for a in areas:
+                area_counter[a.name] += 1
+                labels.update(a.labels)
+                for p in a.maintainers:
+                    maint[p] += 1
 
-        all_areas.update(areas)
-        is_instance = False
-        sorted_areas = sorted(areas, key=lambda x: 'Platform' in x.name, reverse=True)
-        for area in sorted_areas:
-            c = 1 if not is_instance else 0
-
-            area_counter[area] += c
-            labels.update(area.labels)
-            # FIXME: Here we count the same file multiple times if it exists in
-            # multiple areas with same maintainer
-            for area_maintainer in area.maintainers:
-                found_maintainers[area_maintainer] += c
-
-            if 'Platform' in area.name:
-                is_instance = True
-
-    area_counter = dict(sorted(area_counter.items(), key=lambda item: item[1], reverse=True))
-    log(f"Area matches: {area_counter}")
+    ac = dict(sorted(area_counter.items(), key=lambda item: item[1], reverse=True))
+    log(f"Area matches: {ac}")
     log(f"labels: {labels}")
 
     # Create a list of collaborators ordered by the area match
     collab = list()
-    for area in area_counter:
-        collab += maintainer_file.areas[area.name].maintainers
-        collab += maintainer_file.areas[area.name].collaborators
+    for a in ac:
+        collab += maintainer_file.areas[a].maintainers
+        collab += maintainer_file.areas[a].collaborators
     collab = list(dict.fromkeys(collab))
     log(f"collab: {collab}")
 
-    _all_maintainers = dict(sorted(found_maintainers.items(), key=lambda item: item[1], reverse=True))
+    sm = dict(sorted(maint.items(), key=lambda item: item[1], reverse=True))
 
     log(f"Submitted by: {pr.user.login}")
-    log(f"candidate maintainers: {_all_maintainers}")
+    log(f"candidate maintainers: {sm}")
 
-    maintainers = list(_all_maintainers.keys())
-    assignee = None
+    maintainer = "None"
+    maintainers = list(sm.keys())
 
-    # we start with areas with most files changed and pick the maintainer from the first one.
-    # if the first area is an implementation, i.e. driver or platform, we
-    # continue searching for any other areas
-    for area, count in area_counter.items():
-        if count == 0:
-            continue
-        if len(area.maintainers) > 0:
-            assignee = area.maintainers[0]
+    prop = 0
+    if maintainers:
+        maintainer = maintainers[0]
 
-            if 'Platform' not in area.name:
-                break
+        if len(ac) > 1 and list(ac.values())[0] == list(ac.values())[1]:
+            for aa in ac:
+                if 'Documentation' in aa:
+                    log("++ With multiple areas of same weight including docs, take something else other than Documentation as the maintainer")
+                    for a in all_areas:
+                        if (a.name == aa and
+                            a.maintainers and a.maintainers[0] == maintainer and
+                            len(maintainers) > 1):
+                            maintainer = maintainers[1]
+                elif 'Platform' in aa:
+                    log("++ Platform takes precedence over subsystem...")
+                    log(f"Set maintainer of area {aa}")
+                    for a in all_areas:
+                        if a.name == aa:
+                            if a.maintainers:
+                                maintainer = a.maintainers[0]
+                                break
 
-    # if the submitter is the same as the maintainer, check if we have
-    # multiple maintainers
-    if len(maintainers) > 1 and pr.user.login == assignee:
-        log("Submitter is same as Assignee, trying to find another assignee...")
-        aff = list(area_counter.keys())[0]
-        for area in all_areas:
-            if area == aff:
-                if len(area.maintainers) > 1:
-                    assignee = area.maintainers[1]
-                else:
-                    log(f"This area has only one maintainer, keeping assignee as {assignee}")
 
-    if assignee:
-        prop = (found_maintainers[assignee] / num_files) * 100
-        log(f"Picked assignee: {assignee} ({prop:.2f}% ownership)")
-        log("+++++++++++++++++++++++++")
+        # if the submitter is the same as the maintainer, check if we have
+        # multiple maintainers
+        if pr.user.login == maintainer:
+            log("Submitter is same as Assignee, trying to find another assignee...")
+            aff = list(ac.keys())[0]
+            for a in all_areas:
+                if a.name == aff:
+                    if len(a.maintainers) > 1:
+                        maintainer = a.maintainers[1]
+                    else:
+                        log(f"This area has only one maintainer, keeping assignee as {maintainer}")
+
+        prop = (maint[maintainer] / num_files) * 100
+        if prop < 20:
+            maintainer = "None"
+
+    log(f"Picked maintainer: {maintainer} ({prop:.2f}% ownership)")
+    log("+++++++++++++++++++++++++")
 
     # Set labels
     if labels:
@@ -181,27 +171,14 @@ def process_pr(gh, maintainer_file, number):
             existing_reviewers |= set(r.get_page(page))
             page += 1
 
-        # check for reviewers that remove themselves from list of reviewer and
-        # do not attempt to add them again based on MAINTAINERS file.
-        self_removal = []
-        for event in pr.get_issue_events():
-            if event.event == 'review_request_removed' and event.actor == event.requested_reviewer:
-                self_removal.append(event.actor)
-
-        for collaborator in collab:
+        for c in collab:
             try:
-                gh_user = gh.get_user(collaborator)
-                if pr.user == gh_user or gh_user in existing_reviewers:
-                    continue
-                if not gh_repo.has_in_collaborators(gh_user):
-                    log(f"Skip '{collaborator}': not in collaborators")
-                    continue
-                if gh_user in self_removal:
-                    log(f"Skip '{collaborator}': self removed")
-                    continue
-                reviewers.append(collaborator)
+                u = gh.get_user(c)
+                if pr.user != u and gh_repo.has_in_collaborators(u):
+                    if u not in existing_reviewers:
+                        reviewers.append(c)
             except UnknownObjectException as e:
-                log(f"Can't get user '{collaborator}', account does not exist anymore? ({e})")
+                log(f"Can't get user '{c}', account does not exist anymore? ({e})")
 
         if len(existing_reviewers) < 15:
             reviewer_vacancy = 15 - len(existing_reviewers)
@@ -220,9 +197,9 @@ def process_pr(gh, maintainer_file, number):
 
     ms = []
     # assignees
-    if assignee and not pr.assignee:
+    if maintainer != 'None' and not pr.assignee:
         try:
-            u = gh.get_user(assignee)
+            u = gh.get_user(maintainer)
             ms.append(u)
         except GithubException:
             log(f"Error: Unknown user")

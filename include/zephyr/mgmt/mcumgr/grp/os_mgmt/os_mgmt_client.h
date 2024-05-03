@@ -10,13 +10,6 @@
 #include <inttypes.h>
 #include <zephyr/mgmt/mcumgr/smp/smp_client.h>
 
-/**
- * @brief MCUmgr OS management client API
- * @defgroup mcumgr_os_mgmt_client MCUmgr os_mgmt_client API
- * @ingroup mcumgr
- * @{
- */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -45,12 +38,11 @@ void os_mgmt_client_init(struct os_mgmt_client *client, struct smp_client_object
  *
  * @param client OS mgmt client object
  * @param echo_string Echo string
- * @param max_len Max length of @p echo_string
  *
  * @return 0 on success.
  * @return @ref mcumgr_err_t code on failure.
  */
-int os_mgmt_client_echo(struct os_mgmt_client *client, const char *echo_string, size_t max_len);
+int os_mgmt_client_echo(struct os_mgmt_client *client, const char *echo_string);
 
 /**
  * @brief Send SMP Reset command.
@@ -61,10 +53,6 @@ int os_mgmt_client_echo(struct os_mgmt_client *client, const char *echo_string, 
  * @return @ref mcumgr_err_t code on failure.
  */
 int os_mgmt_client_reset(struct os_mgmt_client *client);
-
-/**
- * @}
- */
 
 #ifdef __cplusplus
 }

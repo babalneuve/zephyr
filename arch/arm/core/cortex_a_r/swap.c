@@ -7,7 +7,7 @@
 #include <zephyr/kernel.h>
 #include <kernel_internal.h>
 
-#include <errno.h>
+extern const int _k_neg_eagain;
 
 /* The 'key' actually represents the BASEPRI register
  * prior to disabling interrupts via the BASEPRI mechanism.
@@ -18,7 +18,7 @@ int arch_swap(unsigned int key)
 {
 	/* store off key and return value */
 	_current->arch.basepri = key;
-	_current->arch.swap_return_value = -EAGAIN;
+	_current->arch.swap_return_value = _k_neg_eagain;
 
 	z_arm_cortex_r_svc();
 	irq_unlock(key);

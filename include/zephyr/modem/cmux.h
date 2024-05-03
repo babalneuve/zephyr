@@ -63,7 +63,10 @@ enum modem_cmux_state {
 
 enum modem_cmux_receive_state {
 	MODEM_CMUX_RECEIVE_STATE_SOF = 0,
-	MODEM_CMUX_RECEIVE_STATE_RESYNC,
+	MODEM_CMUX_RECEIVE_STATE_RESYNC_0,
+	MODEM_CMUX_RECEIVE_STATE_RESYNC_1,
+	MODEM_CMUX_RECEIVE_STATE_RESYNC_2,
+	MODEM_CMUX_RECEIVE_STATE_RESYNC_3,
 	MODEM_CMUX_RECEIVE_STATE_ADDRESS,
 	MODEM_CMUX_RECEIVE_STATE_ADDRESS_CONT,
 	MODEM_CMUX_RECEIVE_STATE_CONTROL,
@@ -140,8 +143,6 @@ struct modem_cmux {
 	uint8_t *receive_buf;
 	uint16_t receive_buf_size;
 	uint16_t receive_buf_len;
-
-	uint8_t work_buf[CONFIG_MODEM_CMUX_WORK_BUFFER_SIZE];
 
 	/* Transmit buffer */
 	struct ring_buf transmit_rb;

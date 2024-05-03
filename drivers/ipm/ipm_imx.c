@@ -1,10 +1,9 @@
 /*
- * Copyright 2018,2023 NXP
+ * Copyright (c) 2018, NXP
  *
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#define DT_DRV_COMPAT nxp_imx_mu
 
 #include <errno.h>
 #include <string.h>
@@ -13,11 +12,11 @@
 #include <zephyr/drivers/ipm.h>
 #include <zephyr/irq.h>
 #include <zephyr/sys/barrier.h>
-
-#ifdef CONFIG_HAS_MCUX
-/* MCUX HAL uses a different header file than the i.MX HAL for this IP block */
+#if defined(CONFIG_IPM_IMX_REV2)
+#define DT_DRV_COMPAT nxp_imx_mu_rev2
 #include "fsl_mu.h"
 #else
+#define DT_DRV_COMPAT nxp_imx_mu
 #include <mu_imx.h>
 #endif
 
@@ -39,7 +38,7 @@ struct imx_mu_data {
 	void *user_data;
 };
 
-#if defined(CONFIG_HAS_MCUX)
+#if defined(CONFIG_IPM_IMX_REV2)
 /*!
  * @brief Check RX full status.
  *
@@ -128,7 +127,7 @@ static void imx_mu_isr(const struct device *dev)
 			}
 			if (all_registers_full) {
 				for (i = 0; i < IMX_IPM_DATA_REGS; i++) {
-#if defined(CONFIG_HAS_MCUX)
+#if defined(CONFIG_IPM_IMX_REV2)
 					data32[i] = MU_ReceiveMsg(base,
 						(id * IMX_IPM_DATA_REGS) + i);
 #else
@@ -167,7 +166,7 @@ static int imx_mu_ipm_send(const struct device *dev, int wait, uint32_t id,
 	const struct imx_mu_config *config = dev->config;
 	MU_Type *base = MU(config);
 	uint32_t data32[IMX_IPM_DATA_REGS] = {0};
-#if !IS_ENABLED(CONFIG_HAS_MCUX)
+#if !IS_ENABLED(CONFIG_IPM_IMX_REV2)
 	mu_status_t status;
 #endif
 	int i;
@@ -183,7 +182,7 @@ static int imx_mu_ipm_send(const struct device *dev, int wait, uint32_t id,
 	/* Actual message is passing using 32 bits registers */
 	memcpy(data32, data, size);
 
-#if defined(CONFIG_HAS_MCUX)
+#if defined(CONFIG_IPM_IMX_REV2)
 	if (wait) {
 		for (i = 0; i < IMX_IPM_DATA_REGS; i++) {
 			MU_SendMsgNonBlocking(base, id * IMX_IPM_DATA_REGS + i,
@@ -250,7 +249,7 @@ static int imx_mu_ipm_set_enabled(const struct device *dev, int enable)
 {
 	const struct imx_mu_config *config = dev->config;
 	MU_Type *base = MU(config);
-#if defined(CONFIG_HAS_MCUX)
+#if defined(CONFIG_IPM_IMX_REV2)
 #if CONFIG_IPM_IMX_MAX_DATA_SIZE_4
 	if (enable) {
 		MU_EnableInterrupts(base, kMU_Rx0FullInterruptEnable);

@@ -26,20 +26,12 @@ extern "C" {
 /**
  * @brief Memory Management Driver APIs
  * @defgroup mm_drv_apis Memory Management Driver APIs
- *
- * This contains APIs for a system-wide memory management
- * driver. Only one instance is permitted on the system.
- *
  * @ingroup memory_management
  * @{
  */
 
-/**
- * @name Caching mode definitions.
- *
- * These are mutually exclusive.
- *
- * @{
+/*
+ * Caching mode definitions. These are mutually exclusive.
  */
 
 /** No caching */
@@ -54,16 +46,9 @@ extern "C" {
 /** Reserved bits for cache modes */
 #define SYS_MM_MEM_CACHE_MASK		(BIT(3) - 1)
 
-/**
- * @}
- */
-
-/**
- * @name Region permission attributes.
- *
+/*
+ * Region permission attributes.
  * Default should be read-only, no user, no exec.
- *
- * @{
  */
 
 /** Region will have read/write access (and not read-only) */
@@ -74,18 +59,6 @@ extern "C" {
 
 /** Region will be accessible to user mode (normally supervisor-only) */
 #define SYS_MM_MEM_PERM_USER		BIT(5)
-
-/**
- * @}
- */
-
-/**
- * @name Memory Mapping and Unmapping
- *
- * On mapping and unmapping of memory.
- *
- * @{
- */
 
 /**
  * @brief Map one physical page into the virtual address space
@@ -200,9 +173,28 @@ int sys_mm_drv_unmap_page(void *virt);
  *
  * @retval 0 if successful
  * @retval -EINVAL if invalid arguments are provided
- * @retval -EFAULT if virtual address is not mapped
+ * @retval -EFAULT if virtual addresses have already been mapped
  */
 int sys_mm_drv_unmap_region(void *virt, size_t size);
+
+/**
+ * @brief Get the mapped physical memory address from virtual address.
+ *
+ * The function queries the translation tables to find the physical
+ * memory address of a mapped virtual address.
+ *
+ * Behavior when providing unaligned address is undefined, this
+ * is assumed to be page aligned.
+ *
+ * @param      virt Page-aligned virtual address
+ * @param[out] phys Mapped physical address (can be NULL if only checking
+ *                  if virtual address is mapped)
+ *
+ * @retval 0 if mapping is found and valid
+ * @retval -EINVAL if invalid arguments are provided
+ * @retval -EFAULT if virtual address is not mapped
+ */
+int sys_mm_drv_page_phys_get(void *virt, uintptr_t *phys);
 
 /**
  * @brief Remap virtual pages into new address
@@ -232,18 +224,6 @@ int sys_mm_drv_unmap_region(void *virt, size_t size);
  *                 new virtual addresses are not all unmapped
  */
 int sys_mm_drv_remap_region(void *virt_old, size_t size, void *virt_new);
-
-/**
- * @}
- */
-
-/**
- * @name Memory Moving
- *
- * On moving already mapped memory.
- *
- * @{
- */
 
 /**
  * @brief Physically move memory, with copy
@@ -314,17 +294,6 @@ int sys_mm_drv_move_region(void *virt_old, size_t size, void *virt_new,
 int sys_mm_drv_move_array(void *virt_old, size_t size, void *virt_new,
 			  uintptr_t *phys_new, size_t phys_cnt);
 
-/**
- * @}
- */
-
-/**
- * @name Memory Mapping Attributes
- *
- * On manipulating attributes of already mapped memory.
- *
- * @{
- */
 
 /**
  * @brief Update memory page flags
@@ -372,37 +341,6 @@ int sys_mm_drv_update_page_flags(void *virt, uint32_t flags);
 int sys_mm_drv_update_region_flags(void *virt, size_t size, uint32_t flags);
 
 /**
- * @}
- */
-
-/**
- * @name Memory Mappings Query
- *
- * On querying information on memory mappings.
- *
- * @{
- */
-
-/**
- * @brief Get the mapped physical memory address from virtual address.
- *
- * The function queries the translation tables to find the physical
- * memory address of a mapped virtual address.
- *
- * Behavior when providing unaligned address is undefined, this
- * is assumed to be page aligned.
- *
- * @param      virt Page-aligned virtual address
- * @param[out] phys Mapped physical address (can be NULL if only checking
- *                  if virtual address is mapped)
- *
- * @retval 0 if mapping is found and valid
- * @retval -EINVAL if invalid arguments are provided
- * @retval -EFAULT if virtual address is not mapped
- */
-int sys_mm_drv_page_phys_get(void *virt, uintptr_t *phys);
-
-/**
  * @brief Represents an available memory region.
  *
  * A memory region that can be used by allocators. Driver defined
@@ -448,10 +386,6 @@ const struct sys_mm_drv_region *sys_mm_drv_query_memory_regions(void);
  *                #sys_mm_drv_query_memory_regions
  */
 void sys_mm_drv_query_memory_regions_free(const struct sys_mm_drv_region *regions);
-
-/**
- * @}
- */
 
 /**
  * @}

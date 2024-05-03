@@ -3,5 +3,4 @@ tests:
     tags:
       - fuel_gauge
     filter: dt_compat_enabled("maxim,max17048")
-    platform_allow:
-      - native_sim
+    platform_allow: native_posix

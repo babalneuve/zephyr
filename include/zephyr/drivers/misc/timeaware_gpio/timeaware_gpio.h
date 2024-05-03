@@ -14,8 +14,6 @@
 /**
  * @brief Time-aware GPIO Interface
  * @defgroup tgpio_interface Time-aware GPIO Interface
- * @since 3.5
- * @version 0.1.0
  * @ingroup io_interfaces
  * @{
  */
@@ -26,7 +24,7 @@
 #include <zephyr/types.h>
 #include <stddef.h>
 #include <zephyr/device.h>
-#include <zephyr/internal/syscall_handler.h>
+#include <zephyr/syscall_handler.h>
 
 #ifdef __cplusplus
 extern "C" {

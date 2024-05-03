@@ -22,6 +22,7 @@
 #include "common/bt_str.h"
 
 #include "crypto.h"
+#include "adv.h"
 #include "mesh.h"
 #include "net.h"
 #include "lpn.h"
@@ -251,7 +252,7 @@ void bt_mesh_kr_update(struct bt_mesh_subnet *sub, bool kr_flag, bool new_key)
 	}
 
 	if (sub->kr_phase == BT_MESH_KR_PHASE_1) {
-		/* MshPRTv1.1: 3.11.4.1:
+		/* Bluetooth Mesh Profile Specification Section 3.10.4.1:
 		 * Can skip phase 2 if we get KR=0 on new key.
 		 */
 		key_refresh(sub, (kr_flag ? BT_MESH_KR_PHASE_2 :
@@ -510,7 +511,7 @@ void bt_mesh_friend_cred_destroy(struct bt_mesh_net_cred *cred)
 
 uint8_t bt_mesh_subnet_kr_phase_set(uint16_t net_idx, uint8_t *phase)
 {
-	/* Table in MshPRTv1.1: 4.2.15: */
+	/* Table in Bluetooth Mesh Profile Specification Section 4.2.14: */
 	const uint8_t valid_transitions[] = {
 		BIT(BT_MESH_KR_PHASE_3), /* Normal phase: KR is started by key update */
 		BIT(BT_MESH_KR_PHASE_2) | BIT(BT_MESH_KR_PHASE_3), /* Phase 1 */
@@ -581,7 +582,7 @@ uint8_t bt_mesh_subnet_node_id_set(uint16_t net_idx,
 	}
 
 #if defined(CONFIG_BT_MESH_PRIV_BEACONS)
-	/* Implements binding from MshPRTv1.1: 4.2.46.1. When enabling non-private node
+	/* Implements binding from section 4.2.46.1 of MshPRTv1.1. When enabling non-private node
 	 * identity state, disable its private counterpart.
 	 */
 	for (int i = 0; i < ARRAY_SIZE(subnets); i++) {
@@ -644,8 +645,8 @@ uint8_t bt_mesh_subnet_priv_node_id_set(uint16_t net_idx,
 	}
 
 #if defined(CONFIG_BT_MESH_PRIV_BEACONS)
-	/* Reverse binding from MshPRTv1.1: 4.2.46.1 doesn't
-	 * allow to set private state if non-private state is enabled.
+	/* Reverse binding from section 4.2.46.1 doesn't allow to set private state if non-private
+	 * state is enabled.
 	 */
 	for (int i = 0; i < ARRAY_SIZE(subnets); i++) {
 		if (subnets[i].net_idx != BT_MESH_KEY_UNUSED &&

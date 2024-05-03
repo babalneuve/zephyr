@@ -1,10 +1,8 @@
 tests:
   bluetooth.mesh.rpl:
-    platform_allow:
-      - native_posix
-      - native_sim
+    platform_allow: native_posix
     tags:
       - bluetooth
       - mesh
     integration_platforms:
-      - native_sim
+      - native_posix

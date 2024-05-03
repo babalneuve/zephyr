@@ -258,4 +258,4 @@ static int ipso_buzzer_init(void)
 	return 0;
 }
 
-LWM2M_OBJ_INIT(ipso_buzzer_init);
+SYS_INIT(ipso_buzzer_init, APPLICATION, CONFIG_KERNEL_INIT_PRIORITY_DEFAULT);

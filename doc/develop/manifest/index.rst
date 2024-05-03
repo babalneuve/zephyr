@@ -30,7 +30,7 @@ Inactive and Optional Projects/Modules
 
 
 The projects below are optional and will not be downloaded when you
-call `west update`. You can add any of the projects or modules listed below
+call `west update`. You can add any of the the projects or modules listed below
 and use them to write application code and extend your workspace with the added
 functionality.
 
@@ -53,12 +53,6 @@ file which includes them.  See :ref:`west-manifest-import` for information on
 recommended ways to do this while still inheriting the mandatory modules from
 Zephyr's :file:`west.yml`.
 
-Use the template :file:`doc/develop/manifest/external/external.rst.tmpl` to add
-external modules to the list below:
+.. rst-class:: rst-columns
 
-.. toctree::
-   :titlesonly:
-   :maxdepth: 1
-   :glob:
-
-   external/*
+- TBD

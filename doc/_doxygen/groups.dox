@@ -1,11 +1,5 @@
 /**
 
-@defgroup internal_api Internal and System API
-@brief Internal and System API
-@{
-
-@}
-
 @defgroup os_services Operating System Services
 @brief Operating System Services
 @{
@@ -68,8 +62,6 @@
 
 @brief Modem APIs
 @defgroup modem Modem APIs
-@since 3.5
-@version 0.1.0
 @{
 @}
 

@@ -8,10 +8,9 @@ zephyr_library_sources(
   cpu_idle.c
   fatal.c
   window_vectors.S
-  xtensa_asm2_util.S
+  xtensa-asm2-util.S
+  xtensa-asm2.c
   irq_manage.c
-  thread.c
-  vector_handlers.c
   )
 
 zephyr_library_sources_ifdef(CONFIG_XTENSA_USE_CORE_CRT1 crt1.S)
@@ -22,21 +21,13 @@ zephyr_library_sources_ifdef(CONFIG_XTENSA_ENABLE_BACKTRACE debug_helpers_asm.S)
 zephyr_library_sources_ifdef(CONFIG_DEBUG_COREDUMP coredump.c)
 zephyr_library_sources_ifdef(CONFIG_TIMING_FUNCTIONS timing.c)
 zephyr_library_sources_ifdef(CONFIG_GDBSTUB gdbstub.c)
-zephyr_library_sources_ifdef(CONFIG_XTENSA_MMU ptables.c mmu.c)
-zephyr_library_sources_ifdef(CONFIG_XTENSA_MPU mpu.c)
-zephyr_library_sources_ifdef(CONFIG_USERSPACE userspace.S syscall_helper.c)
-zephyr_library_sources_ifdef(CONFIG_LLEXT elf.c)
-zephyr_library_sources_ifdef(CONFIG_SMP smp.c)
-zephyr_library_sources_ifdef(CONFIG_XTENSA_HIFI_SHARING xtensa_hifi.S)
-
-zephyr_library_sources_ifdef(
-  CONFIG_KERNEL_VM_USE_CUSTOM_MEM_RANGE_CHECK
-  mem_manage.c
-)
+zephyr_library_sources_ifdef(CONFIG_XTENSA_MMU xtensa_mmu.c)
 
 if("${ZEPHYR_TOOLCHAIN_VARIANT}" STREQUAL "xcc")
   zephyr_library_sources(xcc_stubs.c)
 endif()
+
+zephyr_library_include_directories(include)
 
 add_subdirectory(startup)
 
@@ -54,33 +45,13 @@ file(WRITE ${CORE_ISA_IN} "#include <xtensa/config/core-isa.h>\n")
 add_custom_command(OUTPUT ${CORE_ISA_DM}
   COMMAND ${CMAKE_C_COMPILER} -E -dM -U__XCC__
           -I${ZEPHYR_XTENSA_MODULE_DIR}/zephyr/soc/${CONFIG_SOC}
-          -I${SOC_FULL_DIR}
+          -I${SOC_DIR}/${ARCH}/${SOC_PATH}
           ${CORE_ISA_IN} -o ${CORE_ISA_DM})
-
-if(CONFIG_USERSPACE AND NOT CONFIG_THREAD_LOCAL_STORAGE)
-  # It is possible that the SoC does not have THREADPTR.
-  # This means that we cannot use THREADPTR as a shortcut to
-  # in arch_is_user_context(). However, whether a SoC has
-  # THREADPTR is in core-isa.h which can be parsed in gen_zsr.py.
-  # There, if there is no THREADPTR, we need a scratch register
-  # so we can do arch_is_user_context() via syscall.
-  set(MAY_NEED_SYSCALL_SCRATCH_REG true)
-else()
-  # With thread local storage, the variable is_user_mode is
-  # stored in the thread's TLS area. There is no need for
-  # scratch register.
-  set(MAY_NEED_SYSCALL_SCRATCH_REG false)
-endif()
 
 # Generates a list of device-specific scratch register choices
 set(ZSR_H ${CMAKE_BINARY_DIR}/zephyr/include/generated/zsr.h)
 add_custom_command(OUTPUT ${ZSR_H} DEPENDS ${CORE_ISA_DM}
   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/gen_zsr.py
-                               $<$<BOOL:${CONFIG_XTENSA_MMU}>:--mmu>
-                               $<$<BOOL:${MAY_NEED_SYSCALL_SCRATCH_REG}>:--syscall-scratch>
-                               $<$<BOOL:${CONFIG_KERNEL_COHERENCE}>:--coherence>
                                ${CORE_ISA_DM} ${ZSR_H})
 add_custom_target(zsr_h DEPENDS ${ZSR_H})
 add_dependencies(zephyr_interface zsr_h)
-
-unset(MAY_NEED_SYSCALL_SCRATCH_REG)

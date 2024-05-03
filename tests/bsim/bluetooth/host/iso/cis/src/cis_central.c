@@ -18,7 +18,6 @@ static struct bt_iso_chan *default_chan = &iso_chans[0];
 static struct bt_iso_cig *cig;
 static uint16_t seq_num;
 static volatile size_t enqueue_cnt;
-static uint32_t latency_ms = 10U; /* 10ms */
 static uint32_t interval_us = 10U * USEC_PER_MSEC; /* 10 ms */
 NET_BUF_POOL_FIXED_DEFINE(tx_pool, ENQUEUE_COUNT, BT_ISO_SDU_BUF_SIZE(CONFIG_BT_ISO_TX_MTU),
 			  CONFIG_BT_CONN_TX_USER_DATA_SIZE, NULL);
@@ -53,7 +52,7 @@ static void send_data_cb(struct k_work *work)
 
 	net_buf_add_mem(buf, buf_data, len_to_send);
 
-	ret = bt_iso_chan_send(default_chan, buf, seq_num++);
+	ret = bt_iso_chan_send(default_chan, buf, seq_num++, BT_ISO_TIMESTAMP_NONE);
 	if (ret < 0) {
 		printk("Failed to send ISO data (%d)\n", ret);
 		net_buf_unref(buf);
@@ -174,26 +173,18 @@ static void init(void)
 	}
 }
 
-static void set_cig_defaults(struct bt_iso_cig_param *param)
-{
-	param->cis_channels = &default_chan;
-	param->num_cis = 1U;
-	param->sca = BT_GAP_SCA_UNKNOWN;
-	param->packing = BT_ISO_PACKING_SEQUENTIAL;
-	param->framing = BT_ISO_FRAMING_UNFRAMED;
-	param->c_to_p_latency = latency_ms;   /* ms */
-	param->p_to_c_latency = latency_ms;   /* ms */
-	param->c_to_p_interval = interval_us; /* us */
-	param->p_to_c_interval = interval_us; /* us */
-
-}
-
 static void create_cig(void)
 {
 	struct bt_iso_cig_param param;
 	int err;
 
-	set_cig_defaults(&param);
+	param.cis_channels = &default_chan;
+	param.num_cis = 1U;
+	param.sca = BT_GAP_SCA_UNKNOWN;
+	param.packing = BT_ISO_PACKING_SEQUENTIAL;
+	param.framing = BT_ISO_FRAMING_UNFRAMED;
+	param.latency = 10U;          /* ms */
+	param.interval = interval_us; /* us */
 
 	err = bt_iso_cig_create(&param, &cig);
 	if (err != 0) {
@@ -201,68 +192,6 @@ static void create_cig(void)
 
 		return;
 	}
-}
-
-static int reconfigure_cig_interval(struct bt_iso_cig_param *param)
-{
-	int err;
-
-	/* Test modifying CIG parameter without any CIS */
-	param->num_cis = 0U;
-	param->c_to_p_interval = 7500; /* us */
-	param->p_to_c_interval = param->c_to_p_interval;
-	err = bt_iso_cig_reconfigure(cig, param);
-	if (err != 0) {
-		FAIL("Failed to reconfigure CIG to new interval (%d)\n", err);
-
-		return err;
-	}
-
-	err = bt_iso_cig_reconfigure(cig, param);
-	if (err != 0) {
-		FAIL("Failed to reconfigure CIG to same interval (%d)\n", err);
-
-		return err;
-	}
-
-	/* Test modifying to different values for both intervals */
-	param->c_to_p_interval = 5000; /* us */
-	param->p_to_c_interval = 2500; /* us */
-	err = bt_iso_cig_reconfigure(cig, param);
-	if (err != 0) {
-		FAIL("Failed to reconfigure CIG to new interval (%d)\n", err);
-
-		return err;
-	}
-
-	return 0;
-}
-
-static int reconfigure_cig_latency(struct bt_iso_cig_param *param)
-{
-	int err;
-
-	/* Test modifying CIG latency without any CIS */
-	param->num_cis = 0U;
-	param->c_to_p_latency = 20; /* ms */
-	param->p_to_c_latency = param->c_to_p_latency;
-	err = bt_iso_cig_reconfigure(cig, param);
-	if (err != 0) {
-		FAIL("Failed to reconfigure CIG latency (%d)\n", err);
-
-		return err;
-	}
-
-	param->c_to_p_latency = 30; /* ms */
-	param->p_to_c_latency = 40; /* ms */
-	err = bt_iso_cig_reconfigure(cig, param);
-	if (err != 0) {
-		FAIL("Failed to reconfigure CIG for different latencies (%d)\n", err);
-
-		return err;
-	}
-
-	return 0;
 }
 
 static void reconfigure_cig(void)
@@ -275,7 +204,14 @@ static void reconfigure_cig(void)
 		channels[i] = &iso_chans[i];
 	}
 
-	set_cig_defaults(&param);
+	/* Set parameters to same as the ones used to create the CIG */
+	param.cis_channels = &default_chan;
+	param.num_cis = 1U;
+	param.sca = BT_GAP_SCA_UNKNOWN;
+	param.packing = BT_ISO_PACKING_SEQUENTIAL;
+	param.framing = BT_ISO_FRAMING_UNFRAMED;
+	param.latency = 10U;          /* ms */
+	param.interval = interval_us; /* us */
 
 	/* Test modifying existing CIS */
 	default_chan->qos->tx->rtn++;
@@ -287,25 +223,25 @@ static void reconfigure_cig(void)
 		return;
 	}
 
-	/* Test modifying interval parameter */
-	err = reconfigure_cig_interval(&param);
-	if (err != 0) {
-		return;
-	}
-
-	/* Test modifying latency parameter */
-	err = reconfigure_cig_latency(&param);
-	if (err != 0) {
-		return;
-	}
-
-	/* Add CIS to the CIG and restore all other parameters */
-	set_cig_defaults(&param);
-	param.cis_channels = &channels[1];
+	/* Test modifying CIG parameter without any CIS */
+	param.num_cis = 0U;
+	param.interval = 7500U; /* us */
 
 	err = bt_iso_cig_reconfigure(cig, &param);
 	if (err != 0) {
-		FAIL("Failed to reconfigure CIG with new CIS and original parameters (%d)\n", err);
+		FAIL("Failed to reconfigure CIG to new interval (%d)\n", err);
+
+		return;
+	}
+
+	/* Add CIS to the CIG and restore interval to 10ms */
+	param.cis_channels = &channels[1];
+	param.num_cis = 1U;
+	param.interval = interval_us; /* us */
+
+	err = bt_iso_cig_reconfigure(cig, &param);
+	if (err != 0) {
+		FAIL("Failed to reconfigure CIG with new CIS and original interval (%d)\n", err);
 
 		return;
 	}

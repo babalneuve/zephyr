@@ -42,9 +42,6 @@ static int coredump_empty_backend_query(enum coredump_query_id query_id,
 			ret = 1;
 		}
 		break;
-	case COREDUMP_QUERY_GET_STORED_DUMP_SIZE:
-		ret = 0;
-		break;
 	default:
 		ret = -ENOTSUP;
 		break;
@@ -68,14 +65,6 @@ static int coredump_empty_backend_cmd(enum coredump_cmd_id cmd_id,
 		if (is_valid) {
 			ret = 1;
 		}
-		break;
-	case COREDUMP_CMD_INVALIDATE_STORED_DUMP:
-		is_valid = false;
-		ret = 0;
-		break;
-	case COREDUMP_CMD_ERASE_STORED_DUMP:
-		is_valid = false;
-		ret = 0;
 		break;
 	default:
 		ret = -ENOTSUP;

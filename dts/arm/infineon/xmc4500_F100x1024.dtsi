@@ -93,7 +93,3 @@
 		status = "disabled";
 	};
 };
-
-&can {
-	message-objects = <64>;
-};

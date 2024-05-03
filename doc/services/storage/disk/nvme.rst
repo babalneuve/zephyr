@@ -36,13 +36,18 @@ NVMe configuration
 DTS
 ===
 
-Any board exposing an NVMe disk should provide a DTS overlay to enable its use within Zephyr
+Any board exposing an NVMe disk should provide a DTS overlay to enable its use whitin Zephyr
 
 .. code-block:: devicetree
 
     #include <zephyr/dt-bindings/pcie/pcie.h>
     / {
         pcie0 {
+            #address-cells = <1>;
+            #size-cells = <1>;
+            compatible = "intel,pcie";
+            ranges;
+
             nvme0: nvme0 {
                 compatible = "nvme-controller";
                 vendor-id = <VENDOR_ID>;

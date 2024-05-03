@@ -8,7 +8,7 @@
 #include <zephyr/spinlock.h>
 #include <ksched.h>
 #include <timeout_q.h>
-#include <zephyr/internal/syscall_handler.h>
+#include <zephyr/syscall_handler.h>
 #include <zephyr/drivers/timer/system_timer.h>
 #include <zephyr/sys_clock.h>
 
@@ -105,7 +105,7 @@ void z_add_timeout(struct _timeout *to, _timeout_func_t fn,
 
 #ifdef CONFIG_KERNEL_COHERENCE
 	__ASSERT_NO_MSG(arch_mem_coherent(to));
-#endif /* CONFIG_KERNEL_COHERENCE */
+#endif
 
 	__ASSERT(!sys_dnode_is_linked(&to->node), "");
 	to->fn = fn;
@@ -135,7 +135,7 @@ void z_add_timeout(struct _timeout *to, _timeout_func_t fn,
 			sys_dlist_append(&timeout_list, &to->node);
 		}
 
-		if (to == first() && announce_remaining == 0) {
+		if (to == first()) {
 			sys_clock_set_timeout(next_timeout(), false);
 		}
 	}
@@ -160,6 +160,10 @@ static k_ticks_t timeout_rem(const struct _timeout *timeout)
 {
 	k_ticks_t ticks = 0;
 
+	if (z_is_inactive_timeout(timeout)) {
+		return 0;
+	}
+
 	for (struct _timeout *t = first(); t != NULL; t = next(t)) {
 		ticks += t->dticks;
 		if (timeout == t) {
@@ -167,7 +171,7 @@ static k_ticks_t timeout_rem(const struct _timeout *timeout)
 		}
 	}
 
-	return ticks;
+	return ticks - elapsed();
 }
 
 k_ticks_t z_timeout_remaining(const struct _timeout *timeout)
@@ -175,9 +179,7 @@ k_ticks_t z_timeout_remaining(const struct _timeout *timeout)
 	k_ticks_t ticks = 0;
 
 	K_SPINLOCK(&timeout_lock) {
-		if (!z_is_inactive_timeout(timeout)) {
-			ticks = timeout_rem(timeout) - elapsed();
-		}
+		ticks = timeout_rem(timeout);
 	}
 
 	return ticks;
@@ -188,10 +190,7 @@ k_ticks_t z_timeout_expires(const struct _timeout *timeout)
 	k_ticks_t ticks = 0;
 
 	K_SPINLOCK(&timeout_lock) {
-		ticks = curr_tick;
-		if (!z_is_inactive_timeout(timeout)) {
-			ticks += timeout_rem(timeout);
-		}
+		ticks = curr_tick + timeout_rem(timeout);
 	}
 
 	return ticks;
@@ -255,7 +254,7 @@ void sys_clock_announce(int32_t ticks)
 
 #ifdef CONFIG_TIMESLICING
 	z_time_slice();
-#endif /* CONFIG_TIMESLICING */
+#endif
 }
 
 int64_t sys_clock_tick_get(void)
@@ -274,7 +273,7 @@ uint32_t sys_clock_tick_get_32(void)
 	return (uint32_t)sys_clock_tick_get();
 #else
 	return (uint32_t)curr_tick;
-#endif /* CONFIG_TICKLESS_KERNEL */
+#endif
 }
 
 int64_t z_impl_k_uptime_ticks(void)
@@ -288,7 +287,7 @@ static inline int64_t z_vrfy_k_uptime_ticks(void)
 	return z_impl_k_uptime_ticks();
 }
 #include <syscalls/k_uptime_ticks_mrsh.c>
-#endif /* CONFIG_USERSPACE */
+#endif
 
 k_timepoint_t sys_timepoint_calc(k_timeout_t timeout)
 {
@@ -337,4 +336,4 @@ void z_vrfy_sys_clock_tick_set(uint64_t tick)
 {
 	z_impl_sys_clock_tick_set(tick);
 }
-#endif /* CONFIG_ZTEST */
+#endif

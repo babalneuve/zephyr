@@ -6,14 +6,15 @@
 
 #include <stdlib.h>
 #include <zephyr/sys/slist.h>
+#include <zephyr/random/random.h>
 #include <zephyr/sys/byteorder.h>
 #include <zephyr/bluetooth/hci.h>
-#include <zephyr/bluetooth/crypto.h>
 #include <zephyr/bluetooth/mesh/rpr_srv.h>
 #include <common/bt_str.h>
 #include <zephyr/bluetooth/mesh/sar_cfg.h>
 #include <zephyr/bluetooth/mesh/keys.h>
 #include "access.h"
+#include "adv.h"
 #include "prov.h"
 #include "crypto.h"
 #include "rpr.h"
@@ -46,7 +47,7 @@ enum {
 
 /** Remote provisioning server instance. */
 static struct {
-	const struct bt_mesh_model *mod;
+	struct bt_mesh_model *mod;
 
 	ATOMIC_DEFINE(flags, RPR_SRV_NUM_FLAGS);
 
@@ -193,15 +194,14 @@ static void link_report_send(void)
 
 static void scan_report_schedule(void)
 {
-	uint32_t delay = 0;
+	uint32_t delay;
 
 	if (k_work_delayable_remaining_get(&srv.scan.report) ||
 	    atomic_test_bit(srv.flags, SCAN_REPORT_PENDING)) {
 		return;
 	}
 
-	(void)bt_rand(&delay, sizeof(uint32_t));
-	delay = (delay % 480) + 20;
+	delay = (sys_rand32_get() % 480) + 20;
 
 	k_work_reschedule(&srv.scan.report, K_MSEC(delay));
 }
@@ -423,7 +423,7 @@ static void subnet_evt_handler(struct bt_mesh_subnet *subnet,
 		link_close(BT_MESH_RPR_ERR_LINK_CLOSED_BY_SERVER,
 			   PROV_BEARER_LINK_STATUS_FAIL);
 		/* Skip the link closing stage, as specified in the Bluetooth
-		 * MshPRTv1.1: 4.4.5.4.
+		 * Mesh Profile specification, section 4.4.5.4.
 		 */
 		srv.link.state = BT_MESH_RPR_LINK_IDLE;
 	} else if (atomic_test_bit(srv.flags, SCANNING) &&
@@ -536,7 +536,7 @@ static const struct prov_bearer_cb prov_bearer_cb = {
  * Message handlers
  ******************************************************************************/
 
-static int handle_scan_caps_get(const struct bt_mesh_model *mod, struct bt_mesh_msg_ctx *ctx,
+static int handle_scan_caps_get(struct bt_mesh_model *mod, struct bt_mesh_msg_ctx *ctx,
 				struct net_buf_simple *buf)
 {
 	BT_MESH_MODEL_BUF_DEFINE(rsp, RPR_OP_SCAN_CAPS_STATUS, 2);
@@ -549,7 +549,7 @@ static int handle_scan_caps_get(const struct bt_mesh_model *mod, struct bt_mesh_
 	return 0;
 }
 
-static int handle_scan_get(const struct bt_mesh_model *mod, struct bt_mesh_msg_ctx *ctx,
+static int handle_scan_get(struct bt_mesh_model *mod, struct bt_mesh_msg_ctx *ctx,
 			   struct net_buf_simple *buf)
 {
 	scan_status_send(ctx, BT_MESH_RPR_SUCCESS);
@@ -557,7 +557,7 @@ static int handle_scan_get(const struct bt_mesh_model *mod, struct bt_mesh_msg_c
 	return 0;
 }
 
-static int handle_scan_start(const struct bt_mesh_model *mod, struct bt_mesh_msg_ctx *ctx,
+static int handle_scan_start(struct bt_mesh_model *mod, struct bt_mesh_msg_ctx *ctx,
 			     struct net_buf_simple *buf)
 {
 	struct bt_mesh_rpr_node cli = RPR_NODE(ctx);
@@ -621,7 +621,7 @@ rsp:
 	return 0;
 }
 
-static int handle_extended_scan_start(const struct bt_mesh_model *mod, struct bt_mesh_msg_ctx *ctx,
+static int handle_extended_scan_start(struct bt_mesh_model *mod, struct bt_mesh_msg_ctx *ctx,
 				      struct net_buf_simple *buf)
 {
 	BT_MESH_MODEL_BUF_DEFINE(rsp, RPR_OP_EXTENDED_SCAN_REPORT,
@@ -634,7 +634,7 @@ static int handle_extended_scan_start(const struct bt_mesh_model *mod, struct bt
 	uint8_t timeout;
 	int i;
 
-	/* According to MshPRTv1.1: 4.4.5.5.1.7, scan reports shall be
+	/* According to the Bluetooth Mesh specification, section 4.4.5.5.1.7, scan reports shall be
 	 * sent as segmented messages.
 	 */
 	ctx->send_rel = true;
@@ -784,7 +784,7 @@ rsp:
 	return 0;
 }
 
-static int handle_scan_stop(const struct bt_mesh_model *mod, struct bt_mesh_msg_ctx *ctx,
+static int handle_scan_stop(struct bt_mesh_model *mod, struct bt_mesh_msg_ctx *ctx,
 			    struct net_buf_simple *buf)
 {
 	if (atomic_test_bit(srv.flags, SCANNING)) {
@@ -797,7 +797,7 @@ static int handle_scan_stop(const struct bt_mesh_model *mod, struct bt_mesh_msg_
 	return 0;
 }
 
-static int handle_link_get(const struct bt_mesh_model *mod, struct bt_mesh_msg_ctx *ctx,
+static int handle_link_get(struct bt_mesh_model *mod, struct bt_mesh_msg_ctx *ctx,
 			   struct net_buf_simple *buf)
 {
 	LOG_DBG("");
@@ -807,7 +807,7 @@ static int handle_link_get(const struct bt_mesh_model *mod, struct bt_mesh_msg_c
 	return 0;
 }
 
-static int handle_link_open(const struct bt_mesh_model *mod, struct bt_mesh_msg_ctx *ctx,
+static int handle_link_open(struct bt_mesh_model *mod, struct bt_mesh_msg_ctx *ctx,
 			    struct net_buf_simple *buf)
 {
 	bool is_refresh_procedure = (buf->len == 1);
@@ -938,7 +938,7 @@ rsp:
 	return 0;
 }
 
-static int handle_link_close(const struct bt_mesh_model *mod, struct bt_mesh_msg_ctx *ctx,
+static int handle_link_close(struct bt_mesh_model *mod, struct bt_mesh_msg_ctx *ctx,
 			     struct net_buf_simple *buf)
 {
 	struct bt_mesh_rpr_node cli = RPR_NODE(ctx);
@@ -969,19 +969,13 @@ static int handle_link_close(const struct bt_mesh_model *mod, struct bt_mesh_msg
 	 * which will be used in the link report when the link is fully closed.
 	 */
 
-	/* Disable randomization for the Remote Provisioning Link Status message to avoid reordering
-	 * of it with the Remote Provisioning Link Report message that shall be sent in a sequence
-	 * when closing an active link (see section 4.4.5.5.3.3 of MshPRTv1.1).
-	 */
-	ctx->rnd_delay = false;
-
 	link_status_send(ctx, BT_MESH_RPR_SUCCESS);
 	link_close(BT_MESH_RPR_ERR_LINK_CLOSED_BY_CLIENT, reason);
 
 	return 0;
 }
 
-static int handle_pdu_send(const struct bt_mesh_model *mod, struct bt_mesh_msg_ctx *ctx,
+static int handle_pdu_send(struct bt_mesh_model *mod, struct bt_mesh_msg_ctx *ctx,
 			   struct net_buf_simple *buf)
 {
 	struct bt_mesh_rpr_node cli = RPR_NODE(ctx);
@@ -1309,9 +1303,9 @@ static struct bt_le_scan_cb scan_cb = {
 	.recv = scan_packet_recv,
 };
 
-static int rpr_srv_init(const struct bt_mesh_model *mod)
+static int rpr_srv_init(struct bt_mesh_model *mod)
 {
-	if (mod->rt->elem_idx || srv.mod) {
+	if (mod->elem_idx || srv.mod) {
 		LOG_ERR("Remote provisioning server must be initialized "
 			"on first element");
 		return -EINVAL;
@@ -1326,12 +1320,12 @@ static int rpr_srv_init(const struct bt_mesh_model *mod)
 	k_work_init(&srv.link.report, link_report_send_and_clear);
 	bt_le_scan_cb_register(&scan_cb);
 	mod->keys[0] = BT_MESH_KEY_DEV_LOCAL;
-	mod->rt->flags |= BT_MESH_MOD_DEVKEY_ONLY;
+	mod->flags |= BT_MESH_MOD_DEVKEY_ONLY;
 
 	return 0;
 }
 
-static void rpr_srv_reset(const struct bt_mesh_model *mod)
+static void rpr_srv_reset(struct bt_mesh_model *mod)
 {
 	cli_link_clear();
 	cli_scan_clear();

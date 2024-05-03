@@ -125,12 +125,8 @@ void k_sys_fatal_error_handler(unsigned int reason, const z_arch_esf_t *pEsf)
  * In k_sys_fatal_error_handler above we will check that the ESF provided
  * as a parameter matches these expectations.
  */
-void set_regs_with_known_pattern(void *p1, void *p2, void *p3)
+void set_regs_with_known_pattern(void)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	__asm__ volatile(
 		"mov r1, #1\n"
 		"mov r2, #2\n"
@@ -182,7 +178,7 @@ ZTEST(arm_interrupt, test_arm_esf_collection)
 	TC_PRINT("Testing ESF Reporting\n");
 	k_thread_create(&esf_collection_thread, esf_collection_stack,
 			K_THREAD_STACK_SIZEOF(esf_collection_stack),
-			set_regs_with_known_pattern,
+			(k_thread_entry_t)set_regs_with_known_pattern,
 			NULL, NULL, NULL, K_PRIO_COOP(PRIORITY), 0,
 			K_NO_WAIT);
 
@@ -382,7 +378,7 @@ ZTEST(arm_interrupt, test_arm_interrupt)
 }
 
 #if defined(CONFIG_USERSPACE)
-#include <zephyr/internal/syscall_handler.h>
+#include <zephyr/syscall_handler.h>
 #include "test_syscalls.h"
 
 void z_impl_test_arm_user_interrupt_syscall(void)

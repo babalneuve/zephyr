@@ -29,7 +29,7 @@
 #define DAI_INTEL_SSP_DEFAULT_IDX		1
 
 /* the SSP port fifo depth */
-#define DAI_INTEL_SSP_FIFO_DEPTH		32
+#define DAI_INTEL_SSP_FIFO_DEPTH		16
 
 /* the watermark for the SSP fifo depth setting */
 #define DAI_INTEL_SSP_FIFO_WATERMARK		8
@@ -236,7 +236,7 @@
 #define SHIM_CLKCTL_I2SFDCGB(x)		BIT(20 + x)
 #define SHIM_CLKCTL_I2SEFDCGB(x)	BIT(18 + x)
 
-#ifdef CONFIG_SOC_SERIES_INTEL_ADSP_ACE
+#ifdef CONFIG_SOC_SERIES_INTEL_ACE
 /** \brief Offset of MCLK Divider Control Register. */
 #define MN_MDIVCTRL 0x100
 
@@ -316,10 +316,6 @@ struct dai_intel_ssp_plat_fifo_data {
 };
 
 struct dai_intel_ssp_plat_data {
-	uint32_t ssp_index;
-	int acquire_count;
-	bool is_initialized;
-	bool is_power_en;
 	uint32_t base;
 	uint32_t ip_base;
 	uint32_t shim_base;
@@ -334,25 +330,24 @@ struct dai_intel_ssp_plat_data {
 	struct dai_intel_ssp_mn *mn_inst;
 	struct dai_intel_ssp_freq_table *ftable;
 	uint32_t *fsources;
-	uint32_t clk_active;
-	struct dai_intel_ipc3_ssp_params params;
 };
 
 struct dai_intel_ssp_pdata {
 	uint32_t sscr0;
 	uint32_t sscr1;
 	uint32_t psp;
+	uint32_t state[2];
+	uint32_t clk_active;
 	struct dai_config config;
 	struct dai_properties props;
+	struct dai_intel_ipc3_ssp_params params;
 };
 
 struct dai_intel_ssp {
-	uint32_t dai_index;
-	uint32_t ssp_index;
-	uint32_t state[2];
+	uint32_t index;		/**< index */
 	struct k_spinlock lock;	/**< locking mechanism */
 	int sref;		/**< simple ref counter, guarded by lock */
-	struct dai_intel_ssp_plat_data *ssp_plat_data;
+	struct dai_intel_ssp_plat_data plat_data;
 	void *priv_data;
 };
 

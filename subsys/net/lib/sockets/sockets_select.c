@@ -5,7 +5,7 @@
  */
 
 #include <zephyr/kernel.h>
-#include <zephyr/internal/syscall_handler.h>
+#include <zephyr/syscall_handler.h>
 #include <zephyr/sys/math_extras.h>
 #include <zephyr/net/socket.h>
 #include "sockets_internal.h"
@@ -196,11 +196,6 @@ int z_impl_zsock_select(int nfds, zsock_fd_set *readfds, zsock_fd_set *writefds,
 				ZSOCK_FD_SET(fd, exceptfds);
 				num_selects++;
 			}
-
-			if (writefds != NULL) {
-				ZSOCK_FD_SET(fd, writefds);
-				num_selects++;
-			}
 		}
 
 		res--;
@@ -221,7 +216,7 @@ static int z_vrfy_zsock_select(int nfds, zsock_fd_set *readfds,
 	int ret = -1;
 
 	if (readfds) {
-		readfds_copy = k_usermode_alloc_from_copy((void *)readfds,
+		readfds_copy = z_user_alloc_from_copy((void *)readfds,
 						      sizeof(zsock_fd_set));
 		if (!readfds_copy) {
 			errno = ENOMEM;
@@ -230,7 +225,7 @@ static int z_vrfy_zsock_select(int nfds, zsock_fd_set *readfds,
 	}
 
 	if (writefds) {
-		writefds_copy = k_usermode_alloc_from_copy((void *)writefds,
+		writefds_copy = z_user_alloc_from_copy((void *)writefds,
 						       sizeof(zsock_fd_set));
 		if (!writefds_copy) {
 			errno = ENOMEM;
@@ -239,7 +234,7 @@ static int z_vrfy_zsock_select(int nfds, zsock_fd_set *readfds,
 	}
 
 	if (exceptfds) {
-		exceptfds_copy = k_usermode_alloc_from_copy((void *)exceptfds,
+		exceptfds_copy = z_user_alloc_from_copy((void *)exceptfds,
 							sizeof(zsock_fd_set));
 		if (!exceptfds_copy) {
 			errno = ENOMEM;
@@ -248,7 +243,7 @@ static int z_vrfy_zsock_select(int nfds, zsock_fd_set *readfds,
 	}
 
 	if (timeout) {
-		timeval = k_usermode_alloc_from_copy((void *)timeout,
+		timeval = z_user_alloc_from_copy((void *)timeout,
 						 sizeof(struct zsock_timeval));
 		if (!timeval) {
 			errno = ENOMEM;
@@ -261,17 +256,17 @@ static int z_vrfy_zsock_select(int nfds, zsock_fd_set *readfds,
 
 	if (ret >= 0) {
 		if (readfds_copy) {
-			k_usermode_to_copy((void *)readfds, readfds_copy,
+			z_user_to_copy((void *)readfds, readfds_copy,
 				       sizeof(zsock_fd_set));
 		}
 
 		if (writefds_copy) {
-			k_usermode_to_copy((void *)writefds, writefds_copy,
+			z_user_to_copy((void *)writefds, writefds_copy,
 				       sizeof(zsock_fd_set));
 		}
 
 		if (exceptfds_copy) {
-			k_usermode_to_copy((void *)exceptfds, exceptfds_copy,
+			z_user_to_copy((void *)exceptfds, exceptfds_copy,
 				       sizeof(zsock_fd_set));
 		}
 	}

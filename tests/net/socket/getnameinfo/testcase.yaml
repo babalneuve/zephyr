@@ -1,6 +1,6 @@
 common:
   depends_on: netif
-  filter: CONFIG_FULL_LIBC_SUPPORTED
+  filter: TOOLCHAIN_HAS_NEWLIB == 1
 tests:
   net.socket.get_name_info:
     min_ram: 21

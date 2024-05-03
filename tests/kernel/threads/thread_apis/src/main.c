@@ -18,13 +18,7 @@
 #include <zephyr/kernel.h>
 #include <kernel_internal.h>
 #include <string.h>
-
-/* internal kernel APIs */
 #include <ksched.h>
-#include <kthread.h>
-
-#include <zephyr/logging/log.h>
-LOG_MODULE_REGISTER(test);
 
 struct k_thread tdata;
 #define STACK_SIZE (512 + CONFIG_TEST_EXTRA_STACK_SIZE)
@@ -46,7 +40,7 @@ static ZTEST_DMEM int tp = 10;
  */
 ZTEST(threads_lifecycle, test_systhreads_main)
 {
-	zassert_true(main_prio == CONFIG_MAIN_THREAD_PRIORITY, "%d", CONFIG_MAIN_THREAD_PRIORITY);
+	zassert_true(main_prio == CONFIG_MAIN_THREAD_PRIORITY);
 }
 
 /**
@@ -188,8 +182,8 @@ ZTEST_USER(threads_lifecycle, test_thread_name_user_get_set)
 	zassert_equal(ret, -EINVAL, "not a thread object");
 	ret = k_thread_name_copy(&z_main_thread, thread_name,
 				     sizeof(thread_name));
-	zassert_equal(ret, 0, "couldn't get main thread name: %s (%d)", thread_name, ret);
-	LOG_DBG("Main thread name is '%s'", thread_name);
+	zassert_equal(ret, 0, "couldn't get main thread name");
+	printk("Main thread name is '%s'\n", thread_name);
 
 	/* Set and get child thread's name */
 	k_tid_t tid = k_thread_create(&tdata_name, tstack_name, STACK_SIZE,
@@ -232,7 +226,7 @@ static void umode_entry(void *thread_id, void *p2, void *p3)
 	ARG_UNUSED(p2);
 	ARG_UNUSED(p3);
 
-	if (!z_is_thread_essential(_current) &&
+	if (!z_is_thread_essential() &&
 	    (k_current_get() == (k_tid_t)thread_id)) {
 		ztest_test_pass();
 	} else {
@@ -249,12 +243,12 @@ static void umode_entry(void *thread_id, void *p2, void *p3)
  */
 static void enter_user_mode_entry(void *p1, void *p2, void *p3)
 {
-	z_thread_essential_set(_current);
+	z_thread_essential_set();
 
-	zassert_true(z_is_thread_essential(_current), "Thread isn't set"
+	zassert_true(z_is_thread_essential(), "Thread isn't set"
 		     " as essential\n");
 
-	k_thread_user_mode_enter(umode_entry,
+	k_thread_user_mode_enter((k_thread_entry_t)umode_entry,
 				 k_current_get(), NULL, NULL);
 }
 
@@ -284,7 +278,7 @@ enum control_method {
 	ISR_RUNNING
 };
 
-static void join_entry(void *p1, void *p2, void *p3)
+void join_entry(void *p1, void *p2, void *p3)
 {
 	enum control_method m = (enum control_method)(intptr_t)p1;
 
@@ -294,41 +288,41 @@ static void join_entry(void *p1, void *p2, void *p3)
 	case OTHER_ABORT:
 	case OTHER_ABORT_TIMEOUT:
 	case ISR_RUNNING:
-		LOG_DBG("join_thread: sleeping forever");
+		printk("join_thread: sleeping forever\n");
 		k_sleep(K_FOREVER);
 		break;
 	case SELF_ABORT:
 	case ALREADY_EXIT:
 	case ISR_ALREADY_EXIT:
-		LOG_DBG("join_thread: self-exiting");
+		printk("join_thread: self-exiting\n");
 		return;
 	}
 }
 
-static void control_entry(void *p1, void *p2, void *p3)
+void control_entry(void *p1, void *p2, void *p3)
 {
-	LOG_DBG("control_thread: killing join thread");
+	printk("control_thread: killing join thread\n");
 	k_thread_abort(&join_thread);
 }
 
-static void do_join_from_isr(const void *arg)
+void do_join_from_isr(const void *arg)
 {
 	int *ret = (int *)arg;
 
 	zassert_true(k_is_in_isr());
-	LOG_DBG("isr: joining join_thread");
+	printk("isr: joining join_thread\n");
 	*ret = k_thread_join(&join_thread, K_NO_WAIT);
-	LOG_DBG("isr: k_thread_join() returned with %d", *ret);
+	printk("isr: k_thread_join() returned with %d\n", *ret);
 }
 
 #define JOIN_TIMEOUT_MS	100
 
-static int join_scenario_interval(enum control_method m, int64_t *interval)
+int join_scenario_interval(enum control_method m, int64_t *interval)
 {
 	k_timeout_t timeout = K_FOREVER;
 	int ret;
 
-	LOG_DBG("ztest_thread: method %d, create join_thread", m);
+	printk("ztest_thread: method %d, create join_thread\n", m);
 	k_thread_create(&join_thread, join_stack, STACK_SIZE, join_entry,
 			(void *)m, NULL, NULL, K_PRIO_PREEMPT(1),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -343,7 +337,7 @@ static int join_scenario_interval(enum control_method m, int64_t *interval)
 		timeout = K_MSEC(JOIN_TIMEOUT_MS);
 		__fallthrough;
 	case OTHER_ABORT:
-		LOG_DBG("ztest_thread: create control_thread");
+		printk("ztest_thread: create control_thread\n");
 		k_thread_create(&control_thread, control_stack, STACK_SIZE,
 				control_entry, NULL, NULL, NULL,
 				K_PRIO_PREEMPT(2),
@@ -362,7 +356,7 @@ static int join_scenario_interval(enum control_method m, int64_t *interval)
 	if (m == ISR_ALREADY_EXIT || m == ISR_RUNNING) {
 		irq_offload(do_join_from_isr, (const void *)&ret);
 	} else {
-		LOG_DBG("ztest_thread: joining join_thread");
+		printk("ztest_thread: joining join_thread\n");
 
 		if (interval != NULL) {
 			*interval = k_uptime_get();
@@ -374,7 +368,7 @@ static int join_scenario_interval(enum control_method m, int64_t *interval)
 			*interval = k_uptime_get() - *interval;
 		}
 
-		LOG_DBG("ztest_thread: k_thread_join() returned with %d", ret);
+		printk("ztest_thread: k_thread_join() returned with %d\n", ret);
 	}
 
 	if (ret != 0) {
@@ -427,7 +421,7 @@ K_THREAD_STACK_DEFINE(deadlock1_stack, STACK_SIZE);
 struct k_thread deadlock2_thread;
 K_THREAD_STACK_DEFINE(deadlock2_stack, STACK_SIZE);
 
-static void deadlock1_entry(void *p1, void *p2, void *p3)
+void deadlock1_entry(void *p1, void *p2, void *p3)
 {
 	int ret;
 
@@ -437,7 +431,7 @@ static void deadlock1_entry(void *p1, void *p2, void *p3)
 	zassert_equal(ret, -EDEADLK, "failed mutual join case");
 }
 
-static void deadlock2_entry(void *p1, void *p2, void *p3)
+void deadlock2_entry(void *p1, void *p2, void *p3)
 {
 	int ret;
 
@@ -476,7 +470,6 @@ static void user_start_thread(void *p1, void *p2, void *p3)
 {
 	/* do nothing */
 }
-
 ZTEST_USER(threads_lifecycle, test_thread_timeout_remaining_expires)
 {
 	k_ticks_t r, e, r1, ticks, expected_expires_ticks;
@@ -491,7 +484,7 @@ ZTEST_USER(threads_lifecycle, test_thread_timeout_remaining_expires)
 
 	k_msleep(10);
 	e = k_thread_timeout_expires_ticks(tid);
-	LOG_DBG("thread_expires_ticks: %d, expect: %d", (int)e,
+	TC_PRINT("thread_expires_ticks: %d, expect: %d\n", (int)e,
 		(int)expected_expires_ticks);
 	zassert_true(e >= expected_expires_ticks);
 
@@ -527,7 +520,6 @@ static void foreach_callback(const struct k_thread *thread, void *user_data)
 	((k_thread_runtime_stats_t *)user_data)->execution_cycles +=
 		stats.execution_cycles;
 }
-
 /* This case accumulates every thread's execution_cycles first, then
  * get the total execution_cycles from a global
  * k_thread_runtime_stats_t to see that all time is reflected in the
@@ -575,13 +567,7 @@ ZTEST(threads_lifecycle, test_k_busy_wait)
 
 	/* execution_cycles increases correctly */
 	dt = test_stats.execution_cycles - cycles;
-
-	/* execution cycles may not increase by the full 100µs as the
-	 * system may be doing something else during the busy
-	 * wait. Experimentally, we see at least 80% of the cycles
-	 * consumed in the busy wait loop on current test targets.
-	 */
-	zassert_true(dt >= k_us_to_cyc_floor64(80));
+	zassert_true(dt >= k_us_to_cyc_floor64(100));
 }
 
 static void tp_entry(void *p1, void *p2, void *p3)
@@ -608,7 +594,7 @@ ZTEST_USER(threads_lifecycle_1cpu, test_k_busy_wait_user)
 }
 
 #define INT_ARRAY_SIZE 128
-static int large_stack(size_t *space)
+int large_stack(size_t *space)
 {
 	/* use "volatile" to protect this variable from being optimized out */
 	volatile int a[INT_ARRAY_SIZE];
@@ -619,7 +605,7 @@ static int large_stack(size_t *space)
 
 }
 
-static int small_stack(size_t *space)
+int small_stack(size_t *space)
 {
 	return k_thread_stack_space_get(k_current_get(), space);
 }
@@ -642,7 +628,7 @@ ZTEST_USER(threads_lifecycle, test_k_thread_stack_space_get_user)
 	zassert_true(b <= a);
 }
 
-static void *thread_test_setup(void)
+void *thread_test_setup(void)
 {
 	k_thread_access_grant(k_current_get(), &tdata, tstack,
 			      &tdata_custom, tstack_custom,

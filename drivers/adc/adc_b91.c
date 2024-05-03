@@ -216,12 +216,8 @@ static int adc_b91_adc_start_read(const struct device *dev, const struct adc_seq
 }
 
 /* Main ADC Acquisition thread */
-static void adc_b91_acquisition_thread(void *p1, void *p2, void *p3)
+static void adc_b91_acquisition_thread(const struct device *dev)
 {
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
-	const struct device *dev = p1;
 	int16_t adc_code;
 	struct b91_adc_data *data = dev->data;
 
@@ -264,7 +260,7 @@ static int adc_b91_init(const struct device *dev)
 
 	k_thread_create(&data->thread, data->stack,
 			CONFIG_ADC_B91_ACQUISITION_THREAD_STACK_SIZE,
-			adc_b91_acquisition_thread,
+			(k_thread_entry_t)adc_b91_acquisition_thread,
 			(void *)dev, NULL, NULL,
 			CONFIG_ADC_B91_ACQUISITION_THREAD_PRIO,
 			0, K_NO_WAIT);

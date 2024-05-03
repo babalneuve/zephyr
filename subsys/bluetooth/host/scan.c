@@ -318,9 +318,6 @@ static int start_passive_scan(bool fast_scan)
 int bt_le_scan_update(bool fast_scan)
 {
 	if (atomic_test_bit(bt_dev.flags, BT_DEV_EXPLICIT_SCAN)) {
-		/* The application has already explicitly started scanning.
-		 * We should keep the scanner running to avoid changing scan parameters.
-		 */
 		return 0;
 	}
 
@@ -338,27 +335,25 @@ int bt_le_scan_update(bool fast_scan)
 
 		/* don't restart scan if we have pending connection */
 		conn = bt_conn_lookup_state_le(BT_ID_DEFAULT, NULL,
-					       BT_CONN_INITIATING);
+					       BT_CONN_CONNECTING);
 		if (conn) {
 			bt_conn_unref(conn);
 			return 0;
 		}
 
 		conn = bt_conn_lookup_state_le(BT_ID_DEFAULT, NULL,
-					       BT_CONN_SCAN_BEFORE_INITIATING);
+					       BT_CONN_CONNECTING_SCAN);
 		if (conn) {
 			atomic_set_bit(bt_dev.flags, BT_DEV_SCAN_FILTER_DUP);
 
 			bt_conn_unref(conn);
 
-			/* Start/Restart the scanner */
 			return start_passive_scan(fast_scan);
 		}
 	}
 
 #if defined(CONFIG_BT_PER_ADV_SYNC)
 	if (get_pending_per_adv_sync()) {
-		/* Start/Restart the scanner. */
 		return start_passive_scan(fast_scan);
 	}
 #endif
@@ -383,7 +378,7 @@ static void check_pending_conn(const bt_addr_le_t *id_addr,
 	}
 
 	conn = bt_conn_lookup_state_le(BT_ID_DEFAULT, id_addr,
-				       BT_CONN_SCAN_BEFORE_INITIATING);
+				       BT_CONN_CONNECTING_SCAN);
 	if (!conn) {
 		return;
 	}
@@ -398,7 +393,7 @@ static void check_pending_conn(const bt_addr_le_t *id_addr,
 		goto failed;
 	}
 
-	bt_conn_set_state(conn, BT_CONN_INITIATING);
+	bt_conn_set_state(conn, BT_CONN_CONNECTING);
 	bt_conn_unref(conn);
 	return;
 
@@ -668,19 +663,6 @@ void bt_hci_le_adv_ext_report(struct net_buf *buf)
 			reassembling_advertiser.state = FRAG_ADV_DISCARDING;
 		}
 
-		if (evt->length > buf->len) {
-			LOG_WRN("Adv report corrupted (wants %u out of %u)", evt->length, buf->len);
-
-			/* Start discarding irrespective of the `more_to_come` flag. We
-			 * assume we may have lost a partial adv report in the truncated
-			 * data.
-			 */
-			reassembling_advertiser.state = FRAG_ADV_DISCARDING;
-			net_buf_reset(buf);
-
-			return;
-		}
-
 		if (reassembling_advertiser.state == FRAG_ADV_DISCARDING) {
 			if (!more_to_come) {
 				/* We do no longer need to keep track of this advertiser as
@@ -843,7 +825,7 @@ static void bt_hci_le_per_adv_report_common(struct net_buf *buf)
 
 	info.tx_power = evt->tx_power;
 	info.rssi = evt->rssi;
-	info.cte_type = bt_get_df_cte_type(evt->cte_type);
+	info.cte_type = BIT(evt->cte_type);
 	info.addr = &per_adv_sync->addr;
 	info.sid = per_adv_sync->sid;
 
@@ -1264,7 +1246,6 @@ static void bt_hci_le_past_received_common(struct net_buf *buf)
 	sync_info.addr = &per_adv_sync->addr;
 	sync_info.sid = per_adv_sync->sid;
 	sync_info.service_data = sys_le16_to_cpu(evt->service_data);
-	sync_info.recv_enabled = true;
 
 #if defined(CONFIG_BT_PER_ADV_SYNC_RSP)
 	sync_info.num_subevents =  per_adv_sync->num_subevents;

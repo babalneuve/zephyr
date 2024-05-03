@@ -6,8 +6,7 @@
 # - add the fixture in map file
 common:
   timeout: 5
-  tags:
-    - clock_control
+  tags: clock-control
 tests:
   drivers.clock.stm32_clock_configuration.common_core.l4_l5.sysclksrc_pll_48_msi_4:
     extra_args:
@@ -113,10 +112,6 @@ tests:
       - nucleo_g071rb
   drivers.clock.stm32_clock_configuration.common_core.g4.sysclksrc_hse_24:
     extra_args: DTC_OVERLAY_FILE="boards/clear_clocks.overlay;boards/hse_24.overlay"
-    platform_allow: nucleo_g474re
-  drivers.clock.stm32_clock_configuration.common_core.g4.sysclksrc_hse_24.css:
-    extra_args:
-      DTC_OVERLAY_FILE="boards/clear_clocks.overlay;boards/hse_24.overlay;boards/hse_css.overlay"
     platform_allow: nucleo_g474re
   drivers.clock.stm32_clock_configuration.common_core.l0_l1.sysclksrc_hse_8:
     extra_args:

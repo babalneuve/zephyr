@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 NXP
+ * Copyright 2022 NXP
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -11,7 +11,6 @@ struct uart_nxp_s32_config {
 	uint32_t instance;
 	LINFLEXD_Type *base;
 	const struct pinctrl_dev_config *pincfg;
-	Linflexd_Uart_Ip_UserConfigType hw_cfg;
 };
 
 #ifdef CONFIG_UART_INTERRUPT_DRIVEN
@@ -24,13 +23,16 @@ struct uart_nxp_s32_int {
 };
 #endif
 
-#ifdef CONFIG_UART_INTERRUPT_DRIVEN
 struct uart_nxp_s32_data {
+	Linflexd_Uart_Ip_UserConfigType hw_cfg;
+
+#ifdef CONFIG_UART_INTERRUPT_DRIVEN
 	struct uart_nxp_s32_int int_data;
 	uart_irq_callback_user_data_t callback;
 	void *cb_data;
-};
 #endif /* CONFIG_UART_INTERRUPT_DRIVEN */
+
+};
 
 extern Linflexd_Uart_Ip_StateStructureType
 Linflexd_Uart_Ip_apStateStructure[LINFLEXD_UART_IP_NUMBER_OF_INSTANCES];

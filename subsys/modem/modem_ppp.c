@@ -192,45 +192,40 @@ static uint8_t modem_ppp_wrap_net_pkt_byte(struct modem_ppp *ppp)
 	return 0;
 }
 
-static bool modem_ppp_is_byte_expected(uint8_t byte, uint8_t expected_byte)
-{
-	if (byte == expected_byte) {
-		return true;
-	}
-	LOG_DBG("Dropping byte 0x%02hhx because 0x%02hhx was expected.", byte, expected_byte);
-	return false;
-}
-
 static void modem_ppp_process_received_byte(struct modem_ppp *ppp, uint8_t byte)
 {
 	switch (ppp->receive_state) {
 	case MODEM_PPP_RECEIVE_STATE_HDR_SOF:
-		if (modem_ppp_is_byte_expected(byte, MODEM_PPP_CODE_DELIMITER)) {
+		if (byte == MODEM_PPP_CODE_DELIMITER) {
 			ppp->receive_state = MODEM_PPP_RECEIVE_STATE_HDR_FF;
 		}
+
 		break;
 
 	case MODEM_PPP_RECEIVE_STATE_HDR_FF:
 		if (byte == MODEM_PPP_CODE_DELIMITER) {
 			break;
 		}
-		if (modem_ppp_is_byte_expected(byte, 0xFF)) {
+
+		if (byte == 0xFF) {
 			ppp->receive_state = MODEM_PPP_RECEIVE_STATE_HDR_7D;
 		} else {
 			ppp->receive_state = MODEM_PPP_RECEIVE_STATE_HDR_SOF;
 		}
+
 		break;
 
 	case MODEM_PPP_RECEIVE_STATE_HDR_7D:
-		if (modem_ppp_is_byte_expected(byte, MODEM_PPP_CODE_ESCAPE)) {
+		if (byte == MODEM_PPP_CODE_ESCAPE) {
 			ppp->receive_state = MODEM_PPP_RECEIVE_STATE_HDR_23;
 		} else {
 			ppp->receive_state = MODEM_PPP_RECEIVE_STATE_HDR_SOF;
 		}
+
 		break;
 
 	case MODEM_PPP_RECEIVE_STATE_HDR_23:
-		if (modem_ppp_is_byte_expected(byte, 0x23)) {
+		if (byte == 0x23) {
 			ppp->rx_pkt = net_pkt_rx_alloc_with_buffer(ppp->iface,
 				CONFIG_MODEM_PPP_NET_BUF_FRAG_SIZE, AF_UNSPEC, 0, K_NO_WAIT);
 
@@ -243,6 +238,7 @@ static void modem_ppp_process_received_byte(struct modem_ppp *ppp, uint8_t byte)
 			LOG_DBG("Receiving PPP frame");
 			ppp->receive_state = MODEM_PPP_RECEIVE_STATE_WRITING;
 			net_pkt_cursor_init(ppp->rx_pkt);
+
 		} else {
 			ppp->receive_state = MODEM_PPP_RECEIVE_STATE_HDR_SOF;
 		}
@@ -251,10 +247,11 @@ static void modem_ppp_process_received_byte(struct modem_ppp *ppp, uint8_t byte)
 
 	case MODEM_PPP_RECEIVE_STATE_WRITING:
 		if (byte == MODEM_PPP_CODE_DELIMITER) {
-			LOG_DBG("Received PPP frame (len %zu)", net_pkt_get_len(ppp->rx_pkt));
+			LOG_DBG("Received PPP frame");
 
 			/* Remove FCS */
 			net_pkt_remove_tail(ppp->rx_pkt, MODEM_PPP_FRAME_TAIL_SIZE);
+			net_pkt_cursor_init(ppp->rx_pkt);
 			net_pkt_set_ppp(ppp->rx_pkt, true);
 
 			if (net_recv_data(ppp->iface, ppp->rx_pkt) < 0) {
@@ -263,8 +260,7 @@ static void modem_ppp_process_received_byte(struct modem_ppp *ppp, uint8_t byte)
 			}
 
 			ppp->rx_pkt = NULL;
-			/* Skip SOF because the delimiter may be omitted for successive frames. */
-			ppp->receive_state = MODEM_PPP_RECEIVE_STATE_HDR_FF;
+			ppp->receive_state = MODEM_PPP_RECEIVE_STATE_HDR_SOF;
 			break;
 		}
 
@@ -318,18 +314,8 @@ static void modem_ppp_pipe_callback(struct modem_pipe *pipe, enum modem_pipe_eve
 {
 	struct modem_ppp *ppp = (struct modem_ppp *)user_data;
 
-	switch (event) {
-	case MODEM_PIPE_EVENT_RECEIVE_READY:
+	if (event == MODEM_PIPE_EVENT_RECEIVE_READY) {
 		k_work_submit(&ppp->process_work);
-		break;
-
-	case MODEM_PIPE_EVENT_OPENED:
-	case MODEM_PIPE_EVENT_TRANSMIT_IDLE:
-		k_work_submit(&ppp->send_work);
-		break;
-
-	default:
-		break;
 	}
 }
 
@@ -365,20 +351,22 @@ static void modem_ppp_send_handler(struct k_work *item)
 		}
 	}
 
-	while (!ring_buf_is_empty(&ppp->transmit_rb)) {
-		reserved_size = ring_buf_get_claim(&ppp->transmit_rb, &reserved, UINT32_MAX);
+	reserved_size = ring_buf_get_claim(&ppp->transmit_rb, &reserved, UINT32_MAX);
+	if (reserved_size == 0) {
+		ring_buf_get_finish(&ppp->transmit_rb, 0);
+		return;
+	}
 
-		ret = modem_pipe_transmit(ppp->pipe, reserved, reserved_size);
-		if (ret < 0) {
-			ring_buf_get_finish(&ppp->transmit_rb, 0);
-			break;
-		}
-
+	ret = modem_pipe_transmit(ppp->pipe, reserved, reserved_size);
+	if (ret < 0) {
+		ring_buf_get_finish(&ppp->transmit_rb, 0);
+	} else {
 		ring_buf_get_finish(&ppp->transmit_rb, (uint32_t)ret);
+	}
 
-		if (ret < reserved_size) {
-			break;
-		}
+	/* Resubmit send work if data remains */
+	if ((ring_buf_is_empty(&ppp->transmit_rb) == false) || (ppp->tx_pkt != NULL)) {
+		k_work_submit(&ppp->send_work);
 	}
 }
 
@@ -472,14 +460,12 @@ const struct ppp_api modem_ppp_ppp_api = {
 
 int modem_ppp_attach(struct modem_ppp *ppp, struct modem_pipe *pipe)
 {
-	if (atomic_test_bit(&ppp->state, MODEM_PPP_STATE_ATTACHED_BIT) == true) {
+	if (atomic_test_and_set_bit(&ppp->state, MODEM_PPP_STATE_ATTACHED_BIT) == true) {
 		return 0;
 	}
 
-	ppp->pipe = pipe;
 	modem_pipe_attach(pipe, modem_ppp_pipe_callback, ppp);
-
-	atomic_set_bit(&ppp->state, MODEM_PPP_STATE_ATTACHED_BIT);
+	ppp->pipe = pipe;
 	return 0;
 }
 

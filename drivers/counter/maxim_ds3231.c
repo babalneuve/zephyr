@@ -25,9 +25,6 @@ LOG_MODULE_REGISTER(DS3231, CONFIG_COUNTER_LOG_LEVEL);
 #define REG_DAYDATE_DOW 0x40
 #define REG_ALARM_IGN 0x80
 
-/* Return lower 32-bits of time as counter value */
-#define COUNTER_GET(t) ((uint32_t) (t & UINT32_MAX))
-
 enum {
 	SYNCSM_IDLE,
 	SYNCSM_PREP_READ,
@@ -95,6 +92,8 @@ struct ds3231_data {
 	struct maxim_ds3231_syncpoint syncpoint;
 	struct maxim_ds3231_syncpoint new_sp;
 
+	time_t rtc_registers;
+	time_t rtc_base;
 	uint32_t syncclock_base;
 
 	/* Pointer to the structure used to notify when a synchronize
@@ -422,7 +421,6 @@ static uint32_t decode_rtc(struct ds3231_data *data)
 {
 	struct tm tm = { 0 };
 	const struct register_map *rp = &data->registers;
-	time_t t;
 
 	decode_time(&tm, &rp->sec, true);
 	tm.tm_wday = (rp->dow & 0x07) - 1;
@@ -434,8 +432,8 @@ static uint32_t decode_rtc(struct ds3231_data *data)
 		tm.tm_year += 100;
 	}
 
-	t = timeutil_timegm(&tm);
-	return COUNTER_GET(t);
+	data->rtc_registers = timeutil_timegm(&tm);
+	return data->rtc_registers;
 }
 
 static int update_registers(const struct device *dev)
@@ -453,6 +451,7 @@ static int update_registers(const struct device *dev)
 	if (rc < 0) {
 		return rc;
 	}
+	data->rtc_base = decode_rtc(data);
 
 	return 0;
 }
@@ -765,7 +764,7 @@ static int ds3231_counter_get_value(const struct device *dev,
 	k_sem_give(&data->lock);
 
 	if (rc >= 0) {
-		*ticks = COUNTER_GET(time);
+		*ticks = time;
 	}
 
 	return rc;
@@ -867,7 +866,7 @@ static void sync_prep_write(const struct device *dev)
 
 	data->sync_state = SYNCSM_FINISH_WRITE;
 	k_timer_start(&data->sync_timer, K_MSEC(rem_ms), K_NO_WAIT);
-	LOG_INF("sync %u in %u ms after %u", COUNTER_GET(when), rem_ms, syncclock);
+	LOG_INF("sync %u in %u ms after %u", (uint32_t)when, rem_ms, syncclock);
 }
 
 static void sync_finish_write(const struct device *dev)
@@ -915,7 +914,7 @@ static void sync_finish_write(const struct device *dev)
 		data->syncpoint.rtc.tv_sec = when;
 		data->syncpoint.rtc.tv_nsec = 0;
 		data->syncpoint.syncclock = syncclock;
-		LOG_INF("sync %u at %u", COUNTER_GET(when), syncclock);
+		LOG_INF("sync %u at %u", (uint32_t)when, syncclock);
 	}
 	sync_finish(dev, rc);
 }
@@ -1225,7 +1224,7 @@ int ds3231_counter_set_alarm(const struct device *dev,
 	}
 
 	struct maxim_ds3231_alarm alarm = {
-		.time = COUNTER_GET(when),
+		.time = (uint32_t)when,
 		.handler = counter_alarm_forwarder,
 		.user_data = alarm_cfg->user_data,
 		.flags = MAXIM_DS3231_ALARM_FLAGS_AUTODISABLE,
@@ -1233,7 +1232,7 @@ int ds3231_counter_set_alarm(const struct device *dev,
 
 	if (rc >= 0) {
 		data->counter_handler[id] = alarm_cfg->callback;
-		data->counter_ticks[id] = COUNTER_GET(alarm.time);
+		data->counter_ticks[id] = alarm.time;
 		rc = set_alarm(dev, id, &alarm);
 	}
 
@@ -1301,7 +1300,7 @@ DEVICE_DT_INST_DEFINE(0, ds3231_init, NULL, &ds3231_0_data,
 
 #ifdef CONFIG_USERSPACE
 
-#include <zephyr/internal/syscall_handler.h>
+#include <zephyr/syscall_handler.h>
 
 int z_vrfy_maxim_ds3231_get_syncpoint(const struct device *dev,
 				      struct maxim_ds3231_syncpoint *syncpoint)
@@ -1309,13 +1308,13 @@ int z_vrfy_maxim_ds3231_get_syncpoint(const struct device *dev,
 	struct maxim_ds3231_syncpoint value;
 	int rv;
 
-	K_OOPS(K_SYSCALL_SPECIFIC_DRIVER(dev, K_OBJ_DRIVER_COUNTER, &ds3231_api));
-	K_OOPS(K_SYSCALL_MEMORY_WRITE(syncpoint, sizeof(*syncpoint)));
+	Z_OOPS(Z_SYSCALL_SPECIFIC_DRIVER(dev, K_OBJ_DRIVER_COUNTER, &ds3231_api));
+	Z_OOPS(Z_SYSCALL_MEMORY_WRITE(syncpoint, sizeof(*syncpoint)));
 
 	rv = z_impl_maxim_ds3231_get_syncpoint(dev, &value);
 
 	if (rv >= 0) {
-		K_OOPS(k_usermode_to_copy(syncpoint, &value, sizeof(*syncpoint)));
+		Z_OOPS(z_user_to_copy(syncpoint, &value, sizeof(*syncpoint)));
 	}
 
 	return rv;
@@ -1326,9 +1325,9 @@ int z_vrfy_maxim_ds3231_get_syncpoint(const struct device *dev,
 int z_vrfy_maxim_ds3231_req_syncpoint(const struct device *dev,
 				      struct k_poll_signal *sig)
 {
-	K_OOPS(K_SYSCALL_SPECIFIC_DRIVER(dev, K_OBJ_DRIVER_COUNTER, &ds3231_api));
+	Z_OOPS(Z_SYSCALL_SPECIFIC_DRIVER(dev, K_OBJ_DRIVER_COUNTER, &ds3231_api));
 	if (sig != NULL) {
-		K_OOPS(K_SYSCALL_OBJ(sig, K_OBJ_POLL_SIGNAL));
+		Z_OOPS(Z_SYSCALL_OBJ(sig, K_OBJ_POLL_SIGNAL));
 	}
 
 	return z_impl_maxim_ds3231_req_syncpoint(dev, sig);

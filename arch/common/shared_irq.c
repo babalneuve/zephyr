@@ -4,8 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include "sw_isr_common.h"
-
 #include <zephyr/sw_isr_table.h>
 #include <zephyr/spinlock.h>
 
@@ -20,7 +18,7 @@ void z_shared_isr(const void *data)
 {
 	size_t i;
 	const struct z_shared_isr_table_entry *entry;
-	const struct _isr_table_entry *client;
+	const struct z_shared_isr_client *client;
 
 	entry = data;
 
@@ -42,7 +40,7 @@ void z_isr_install(unsigned int irq, void (*routine)(const void *),
 {
 	struct z_shared_isr_table_entry *shared_entry;
 	struct _isr_table_entry *entry;
-	struct _isr_table_entry *client;
+	struct z_shared_isr_client *client;
 	unsigned int table_idx;
 	int i;
 	k_spinlock_key_t key;
@@ -50,7 +48,7 @@ void z_isr_install(unsigned int irq, void (*routine)(const void *),
 	table_idx = z_get_sw_isr_table_idx(irq);
 
 	/* check for out of bounds table index */
-	if (table_idx >= IRQ_TABLE_SIZE) {
+	if (table_idx >= CONFIG_NUM_IRQS) {
 		return;
 	}
 
@@ -103,10 +101,10 @@ void z_isr_install(unsigned int irq, void (*routine)(const void *),
 	k_spin_unlock(&lock, key);
 }
 
-static void swap_client_data(struct _isr_table_entry *a,
-			     struct _isr_table_entry *b)
+static void swap_client_data(struct z_shared_isr_client *a,
+			     struct z_shared_isr_client *b)
 {
-	struct _isr_table_entry tmp;
+	struct z_shared_isr_client tmp;
 
 	tmp.arg = a->arg;
 	tmp.isr = a->isr;
@@ -162,7 +160,7 @@ int z_isr_uninstall(unsigned int irq,
 {
 	struct z_shared_isr_table_entry *shared_entry;
 	struct _isr_table_entry *entry;
-	struct _isr_table_entry *client;
+	struct z_shared_isr_client *client;
 	unsigned int table_idx;
 	size_t i;
 	k_spinlock_key_t key;
@@ -170,7 +168,7 @@ int z_isr_uninstall(unsigned int irq,
 	table_idx = z_get_sw_isr_table_idx(irq);
 
 	/* check for out of bounds table index */
-	if (table_idx >= IRQ_TABLE_SIZE) {
+	if (table_idx >= CONFIG_NUM_IRQS) {
 		return -EINVAL;
 	}
 

@@ -8,6 +8,8 @@ import re
 import textwrap
 
 from sphinx.cmd.build import get_parser
+import sphinx_rtd_theme
+
 
 args = get_parser().parse_args()
 ZEPHYR_BASE = Path(__file__).resolve().parents[1]
@@ -25,9 +27,6 @@ sys.path.insert(0, str(ZEPHYR_BASE / "doc" / "_scripts"))
 # for autodoc directives on runners.xyz.
 sys.path.insert(0, str(ZEPHYR_BASE / "scripts" / "west_commands"))
 
-# Add the directory which contains the pytest-twister-pytest
-sys.path.insert(0, str(ZEPHYR_BASE / "scripts" / "pylib" / "pytest-twister-harness" / "src"))
-
 import redirects
 
 try:
@@ -38,7 +37,7 @@ except ImportError:
 # -- Project --------------------------------------------------------------
 
 project = "Zephyr Project"
-copyright = "2015-2024 Zephyr Project members and individual contributors"
+copyright = "2015-2023 Zephyr Project members and individual contributors"
 author = "The Zephyr Project Contributors"
 
 # parse version from 'VERSION' file
@@ -66,15 +65,10 @@ with open(ZEPHYR_BASE / "VERSION") as f:
 
 release = version
 
-# parse SDK version from 'SDK_VERSION' file
-with open(ZEPHYR_BASE / "SDK_VERSION") as f:
-    sdk_version = f.read().strip()
-
 # -- General configuration ------------------------------------------------
 
 extensions = [
     "breathe",
-    "sphinx_rtd_theme",
     "sphinx.ext.todo",
     "sphinx.ext.extlinks",
     "sphinx.ext.autodoc",
@@ -86,17 +80,15 @@ extensions = [
     "zephyr.dtcompatible-role",
     "zephyr.link-roles",
     "sphinx_tabs.tabs",
-    "sphinx_sitemap",
     "zephyr.warnings_filter",
     "zephyr.doxyrunner",
-    "zephyr.gh_utils",
+    "zephyr.vcs_link",
     "zephyr.manifest_projects_table",
     "notfound.extension",
     "sphinx_copybutton",
     "sphinx_togglebutton",
     "zephyr.external_content",
     "zephyr.domain",
-    "zephyr.api_overview",
 ]
 
 # Only use SVG converter when it is really needed, e.g. LaTeX.
@@ -113,7 +105,6 @@ else:
     exclude_patterns.append("**/*west-not-found*")
 
 pygments_style = "sphinx"
-highlight_language = "none"
 
 todo_include_todos = False
 
@@ -137,27 +128,14 @@ nitpick_ignore = [
     ("c:identifier", "va_list"),
 ]
 
-SDK_URL_BASE="https://github.com/zephyrproject-rtos/sdk-ng/releases/download"
-
-rst_epilog = f"""
+rst_epilog = """
 .. include:: /substitutions.txt
-
-.. |sdk-version-literal| replace:: ``{sdk_version}``
-.. |sdk-version-trim| unicode:: {sdk_version}
-   :trim:
-.. |sdk-version-ltrim| unicode:: {sdk_version}
-   :ltrim:
-.. _Zephyr SDK bundle: https://github.com/zephyrproject-rtos/sdk-ng/releases/tag/v{sdk_version}
-.. |sdk-url-linux| replace:: `{SDK_URL_BASE}/v{sdk_version}/zephyr-sdk-{sdk_version}_linux-x86_64.tar.xz`
-.. |sdk-url-linux-sha| replace:: `{SDK_URL_BASE}/v{sdk_version}/sha256.sum`
-.. |sdk-url-macos| replace:: `{SDK_URL_BASE}/v{sdk_version}/zephyr-sdk-{sdk_version}_macos-x86_64.tar.xz`
-.. |sdk-url-macos-sha| replace:: `{SDK_URL_BASE}/v{sdk_version}/sha256.sum`
-.. |sdk-url-windows| replace:: `{SDK_URL_BASE}/v{sdk_version}/zephyr-sdk-{sdk_version}_windows-x86_64.7z`
 """
 
 # -- Options for HTML output ----------------------------------------------
 
 html_theme = "sphinx_rtd_theme"
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 html_theme_options = {
     "logo_only": True,
     "prev_next_buttons_location": None
@@ -173,9 +151,6 @@ html_split_index = True
 html_show_sourcelink = False
 html_show_sphinx = False
 html_search_scorer = str(ZEPHYR_BASE / "doc" / "_static" / "js" / "scorer.js")
-html_additional_pages = {
-    "gsearch": "gsearch.html"
-}
 
 is_release = tags.has("release")  # pylint: disable=undefined-variable
 reference_prefix = ""
@@ -189,21 +164,18 @@ html_context = {
     "current_version": version,
     "versions": (
         ("latest", "/"),
-        ("3.6.0", "/3.6.0/"),
         ("3.5.0", "/3.5.0/"),
-        ("2.7.6 (LTS)", "/2.7.6/"),
+        ("3.4.0", "/3.4.0/"),
+        ("3.3.0", "/3.3.0/"),
+        ("2.7.5 (LTS)", "/2.7.5/"),
     ),
-    "display_gh_links": True,
+    "display_vcs_link": True,
     "reference_links": {
         "API": f"{reference_prefix}/doxygen/html/index.html",
         "Kconfig Options": f"{reference_prefix}/kconfig.html",
         "Devicetree Bindings": f"{reference_prefix}/build/dts/api/bindings.html",
         "West Projects": f"{reference_prefix}/develop/manifest/index.html",
-    },
-    # Set google_searchengine_id to your Search Engine ID to replace built-in search
-    # engine with Google's Programmable Search Engine.
-    # See https://programmablesearchengine.google.com/ for details.
-    "google_searchengine_id": "746031aa0d56d4912",
+    }
 }
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -212,7 +184,6 @@ latex_elements = {
     "papersize": "a4paper",
     "maketitle": open(ZEPHYR_BASE / "doc" / "_static" / "latex" / "title.tex").read(),
     "preamble": open(ZEPHYR_BASE / "doc" / "_static" / "latex" / "preamble.tex").read(),
-    "makeindex": r"\usepackage[columns=1]{idxlayout}\makeindex",
     "fontpkg": textwrap.dedent(r"""
                                     \usepackage{noto}
                                     \usepackage{inconsolata-nerd-font}
@@ -289,17 +260,17 @@ link_roles_manifest_baseurl = "https://github.com/zephyrproject-rtos/zephyr"
 
 notfound_urls_prefix = f"/{version}/" if is_release else "/latest/"
 
-# -- Options for zephyr.gh_utils ------------------------------------------
+# -- Options for zephyr.vcs_link ------------------------------------------
 
-gh_link_version = f"v{version}" if is_release else "main"
-gh_link_base_url = f"https://github.com/zephyrproject-rtos/zephyr"
-gh_link_prefixes = {
+vcs_link_version = f"v{version}" if is_release else "main"
+vcs_link_base_url = f"https://github.com/zephyrproject-rtos/zephyr/blob/{vcs_link_version}"
+vcs_link_prefixes = {
     "samples/.*": "",
     "boards/.*": "",
     "snippets/.*": "",
     ".*": "doc",
 }
-gh_link_exclude = [
+vcs_link_exclude = [
     "reference/kconfig.*",
     "build/dts/api/bindings.*",
     "build/dts/api/compatibles.*",
@@ -330,10 +301,6 @@ external_content_keep = [
     "build/dts/api/compatibles/**/*",
 ]
 
-# -- Options for zephyr.domain --------------------------------------------
-
-zephyr_breathe_insert_related_samples = True
-
 # -- Options for sphinx.ext.graphviz --------------------------------------
 
 graphviz_dot = os.environ.get("DOT_EXECUTABLE", "dot")
@@ -352,10 +319,6 @@ graphviz_dot_args = [
 copybutton_prompt_text = r"\$ |uart:~\$ "
 copybutton_prompt_is_regexp = True
 
-# -- Options for sphinx-sitemap ----------------------------------------
-
-sitemap_url_scheme = "{link}"
-
 # -- Linkcheck options ----------------------------------------------------
 
 linkcheck_ignore = [
@@ -370,12 +333,8 @@ linkcheck_timeout = 30
 linkcheck_workers = 10
 linkcheck_anchors = False
 
-# -- Options for zephyr.api_overview --------------------------------------
-
-api_overview_doxygen_base_url = "../../doxygen/html"
 
 def setup(app):
     # theme customizations
     app.add_css_file("css/custom.css")
-    app.add_js_file("js/custom.js")
     app.add_js_file("js/dark-mode-toggle.min.mjs", type="module")

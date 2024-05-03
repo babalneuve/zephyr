@@ -15,8 +15,6 @@
 /**
  * @brief Reset Controller Interface
  * @defgroup reset_controller_interface Reset Controller Interface
- * @since 3.1
- * @version 0.1.0
  * @ingroup io_interfaces
  * @{
  */

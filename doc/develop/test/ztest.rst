@@ -10,6 +10,10 @@ test structure.
 The framework can be used in two ways, either as a generic framework for
 integration testing, or for unit testing specific modules.
 
+To enable support for the latest Ztest API, set
+:kconfig:option:`CONFIG_ZTEST_NEW_API` to ``y``. There is also a legacy API
+that is deprecated and will eventually be removed.
+
 Creating a test suite
 *********************
 
@@ -197,15 +201,15 @@ function can be written as follows:
 
         /* Only suites that use a predicate checking for phase == PWR_PHASE_0 will run. */
         state.phase = PWR_PHASE_0;
-        ztest_run_all(&state, false, 1, 1);
+        ztest_run_all(&state);
 
         /* Only suites that use a predicate checking for phase == PWR_PHASE_1 will run. */
         state.phase = PWR_PHASE_1;
-        ztest_run_all(&state, false, 1, 1);
+        ztest_run_all(&state);
 
         /* Only suites that use a predicate checking for phase == PWR_PHASE_2 will run. */
         state.phase = PWR_PHASE_2;
-        ztest_run_all(&state, false, 1, 1);
+        ztest_run_all(&state);
 
         /* Check that all the suites in this binary ran at least once. */
         ztest_verify_all_test_suites_ran();
@@ -339,8 +343,6 @@ it needs to report either a pass or fail.  For example:
    }
 
    ZTEST_SUITE(common, NULL, NULL, NULL, NULL, NULL);
-
-.. _ztest_unit_testing:
 
 Quick start - Unit testing
 **************************
@@ -553,6 +555,9 @@ See :ref:`FFF Extensions <fff-extensions>`.
 
 Customizing Test Output
 ***********************
+The way output is presented when running tests can be customized.
+An example can be found in :zephyr_file:`tests/ztest/custom_output`.
+
 Customization is enabled by setting :kconfig:option:`CONFIG_ZTEST_TC_UTIL_USER_OVERRIDE` to "y"
 and adding a file :file:`tc_util_user_override.h` with your overrides.
 
@@ -576,7 +581,7 @@ Shuffling Test Sequence
 By default the tests are sorted and ran in alphanumerical order.  Test cases may
 be dependent on this sequence. Enable :kconfig:option:`CONFIG_ZTEST_SHUFFLE` to
 randomize the order. The output from the test will display the seed for failed
-tests.  For native simulator builds you can provide the seed as an argument to
+tests.  For native posix builds you can provide the seed as an argument to
 twister with `--seed`
 
 Static configuration of ZTEST_SHUFFLE contains:
@@ -587,7 +592,7 @@ Static configuration of ZTEST_SHUFFLE contains:
 
 Test Selection
 **************
-For tests built for native simulator, use command line arguments to list
+For POSIX enabled builds with ZTEST_NEW_API use command line arguments to list
 or select tests to run. The test argument expects a comma separated list
 of ``suite::test`` .  You can substitute the test name with an ``*`` to run all
 tests within a suite.

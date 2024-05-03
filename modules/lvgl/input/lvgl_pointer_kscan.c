@@ -10,7 +10,7 @@
 #include "lvgl_display.h"
 
 #include <zephyr/logging/log.h>
-LOG_MODULE_DECLARE(lvgl, CONFIG_LV_Z_LOG_LEVEL);
+LOG_MODULE_DECLARE(lvgl);
 
 static lv_indev_drv_t indev_drv;
 #define KSCAN_NODE DT_CHOSEN(zephyr_keyboard_scan)

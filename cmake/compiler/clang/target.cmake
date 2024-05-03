@@ -20,7 +20,6 @@ find_program(CMAKE_CXX_COMPILER clang++ ${find_program_clang_args})
 
 if(NOT "${ARCH}" STREQUAL "posix")
   include(${ZEPHYR_BASE}/cmake/gcc-m-cpu.cmake)
-  include(${ZEPHYR_BASE}/cmake/gcc-m-fpu.cmake)
 
   if("${ARCH}" STREQUAL "arm")
     list(APPEND TOOLCHAIN_C_FLAGS
@@ -31,8 +30,6 @@ if(NOT "${ARCH}" STREQUAL "posix")
       )
 
     include(${ZEPHYR_BASE}/cmake/compiler/clang/target_arm.cmake)
-  elseif("${ARCH}" STREQUAL "riscv")
-    include(${ZEPHYR_BASE}/cmake/compiler/gcc/target_riscv.cmake)
   endif()
 
   if(DEFINED CMAKE_C_COMPILER_TARGET)

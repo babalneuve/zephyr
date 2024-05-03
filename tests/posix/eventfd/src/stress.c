@@ -78,7 +78,6 @@ static void th_fun(void *arg1, void *arg2, void *arg3)
 				report += report_ms;
 			}
 		}
-		Z_SPIN_DELAY(10);
 	}
 
 	printk("avg: %zu %s/s\n", (size_t)((count[id] * MSEC_PER_SEC) / end_ms), msg[id]);

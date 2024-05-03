@@ -2,6 +2,15 @@
  * Copyright (c) 2020 Intel Corporation.
  *
  * SPDX-License-Identifier: Apache-2.0
+ *
+ * Definitions and helper macros for managing driver memory-mapped
+ * input/output (MMIO) regions appropriately in either RAM or ROM.
+ *
+ * In most cases drivers will just want to include device.h, but
+ * including this separately may be needed for arch-level driver code
+ * which uses the DEVICE_MMIO_TOPLEVEL variants and including the
+ * main device.h would introduce header dependency loops due to that
+ * header's reliance on kernel.h.
  */
 #ifndef ZEPHYR_INCLUDE_SYS_DEVICE_MMIO_H
 #define ZEPHYR_INCLUDE_SYS_DEVICE_MMIO_H
@@ -12,16 +21,6 @@
 /**
  * @defgroup device-mmio Device memory-mapped IO management
  * @ingroup device_model
- *
- * Definitions and helper macros for managing driver memory-mapped
- * input/output (MMIO) regions appropriately in either RAM or ROM.
- *
- * In most cases drivers will just want to include device.h, but
- * including this separately may be needed for arch-level driver code
- * which uses the DEVICE_MMIO_TOPLEVEL variants and including the
- * main device.h would introduce header dependency loops due to that
- * header's reliance on kernel.h.
- *
  * @{
  */
 
@@ -45,7 +44,7 @@
 #ifndef _ASMLANGUAGE
 #include <stdint.h>
 #include <stddef.h>
-#include <zephyr/kernel/mm.h>
+#include <zephyr/sys/mem_manage.h>
 #include <zephyr/sys/sys_io.h>
 
 #ifdef DEVICE_MMIO_IS_IN_RAM
@@ -86,12 +85,12 @@ struct z_device_mmio_rom {
  *
  * @see k_map()
  *
- * @param[out] virt_addr Output linear address storage location, most
- *		         users will want some DEVICE_MMIO_RAM_PTR() value
- * @param[in] phys_addr Physical address base of the MMIO region
- * @param[in] size Size of the MMIO region
- * @param[in] flags Caching mode and access flags, see K_MEM_CACHE_* and
- *                  K_MEM_PERM_* macros
+ * @param virt_addr [out] Output linear address storage location, most
+ *		users will want some DEVICE_MMIO_RAM_PTR() value
+ * @param phys_addr Physical address base of the MMIO region
+ * @param size Size of the MMIO region
+ * @param flags Caching mode and access flags, see K_MEM_CACHE_* and
+ *              K_MEM_PERM_* macros
  */
 __boot_func
 static inline void device_map(mm_reg_t *virt_addr, uintptr_t phys_addr,
@@ -162,15 +161,11 @@ struct z_device_mmio_rom {
  *
  * Example for a driver named "foo":
  *
- * @code{.c}
- *
  * struct foo_driver_data {
  *	DEVICE_MMIO_RAM;
  *	int wibble;
  *	...
  * }
- *
- * @endcode
  *
  * No build-time initialization of this memory is necessary; it
  * will be set up in the init function by DEVICE_MMIO_MAP().
@@ -215,15 +210,11 @@ struct z_device_mmio_rom {
  *
  * Example for a driver named "foo":
  *
- * @code{.c}
- *
  * struct foo_config {
  *	DEVICE_MMIO_ROM;
  *	int baz;
  *	...
  * }
- *
- * @endcode
  *
  * @see DEVICE_MMIO_ROM_INIT()
  */
@@ -249,15 +240,11 @@ struct z_device_mmio_rom {
  *
  * Example for a driver belonging to the "foo" subsystem:
  *
- * @code{.c}
- *
  * struct foo_config my_config = {
  *	DEVICE_MMIO_ROM_INIT(DT_DRV_INST(...)),
  *	.baz = 2;
  *	...
  * }
- *
- * @endcode
  *
  * @see DEVICE_MMIO_ROM()
  *
@@ -345,8 +332,6 @@ struct z_device_mmio_rom {
  *
  * Example for a driver named "foo":
  *
- * @code{.c}
- *
  * struct foo_driver_data {
  *      int blarg;
  *      DEVICE_MMIO_NAMED_RAM(corge);
@@ -354,8 +339,6 @@ struct z_device_mmio_rom {
  *      int wibble;
  *      ...
  * }
- *
- * @endcode
  *
  * No build-time initialization of this memory is necessary; it
  * will be set up in the init function by DEVICE_MMIO_NAMED_MAP().
@@ -402,8 +385,6 @@ struct z_device_mmio_rom {
  *
  * Example for a driver named "foo":
  *
- * @code{.c}
- *
  * struct foo_config {
  *      int bar;
  *      DEVICE_MMIO_NAMED_ROM(corge);
@@ -411,8 +392,6 @@ struct z_device_mmio_rom {
  *      int baz;
  *      ...
  * }
- *
- * @endcode
  *
  * @see DEVICE_MMIO_NAMED_ROM_INIT()
  *
@@ -443,8 +422,6 @@ struct z_device_mmio_rom {
  * Example for an instance of a driver belonging to the "foo" subsystem
  * that will have two regions named 'corge' and 'grault':
  *
- * @code{.c}
- *
  * struct foo_config my_config = {
  *	bar = 7;
  *	DEVICE_MMIO_NAMED_ROM_INIT(corge, DT_DRV_INST(...));
@@ -452,8 +429,6 @@ struct z_device_mmio_rom {
  *	baz = 2;
  *	...
  * }
- *
- * @endcode
  *
  * @see DEVICE_MMIO_NAMED_ROM()
  *

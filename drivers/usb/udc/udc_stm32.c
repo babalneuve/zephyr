@@ -465,16 +465,13 @@ static int udc_stm32_ep_mem_config(const struct device *dev,
 		return 0;
 	}
 
-	words = MIN(ep->mps, cfg->ep_mps) / 4;
-	words = (words <= 64) ? words * 2 : words;
-
 	if (!enable) {
-		if (priv->occupied_mem >= (words * 4)) {
-			priv->occupied_mem -= (words * 4);
-		}
 		HAL_PCDEx_SetTxFiFo(&priv->pcd, USB_EP_GET_IDX(ep->addr), 0);
 		return 0;
 	}
+
+	words = MIN(ep->mps, cfg->ep_mps) / 4;
+	words = (words <= 64) ? words * 2 : words;
 
 	if (cfg->dram_size - priv->occupied_mem < words * 4) {
 		LOG_ERR("Unable to allocate FIFO for 0x%02x", ep->addr);
@@ -917,13 +914,10 @@ static int priv_clock_enable(void)
 		return -ENODEV;
 	}
 
-#if defined(PWR_USBSCR_USB33SV) || defined(PWR_SVMCR_USV)
-	/*
-	 * VDDUSB independent USB supply (PWR clock is on)
-	 * with LL_PWR_EnableVDDUSB function (higher case)
-	 */
+#ifdef CONFIG_SOC_SERIES_STM32U5X
+	/* VDDUSB independent USB supply (PWR clock is on) */
 	LL_PWR_EnableVDDUSB();
-#endif /* PWR_USBSCR_USB33SV or PWR_SVMCR_USV */
+#endif /* CONFIG_SOC_SERIES_STM32U5X */
 #if defined(CONFIG_SOC_SERIES_STM32H7X)
 	LL_PWR_EnableUSBVoltageDetector();
 
@@ -991,16 +985,14 @@ static int priv_clock_enable(void)
 	 */
 	LL_AHB1_GRP1_DisableClockSleep(LL_AHB1_GRP1_PERIPH_USB2OTGHSULPI);
 #endif
-#else /* DT_HAS_COMPAT_STATUS_OKAY(st_stm32_usbphyc) */
-#if !USB_OTG_HS_ULPI_PHY
+#else
 	/* Disable ULPI interface (for external high-speed PHY) clock in low
 	 * power mode. It is disabled by default in run power mode, no need to
 	 * disable it.
 	 */
 	LL_AHB1_GRP1_DisableClockLowPower(LL_AHB1_GRP1_PERIPH_OTGHSULPI);
-#endif /* USB_OTG_HS_ULPI_PHY */
-#endif /* DT_HAS_COMPAT_STATUS_OKAY(st_stm32_usbphyc) */
-#endif /* DT_HAS_COMPAT_STATUS_OKAY(st_stm32_otghs) */
+#endif
+#endif
 
 	return 0;
 }

@@ -32,10 +32,7 @@ void arch_new_thread(struct k_thread *thread, k_thread_stack_t *stack,
 	void *switch_entry;
 	struct x86_initial_frame *iframe;
 
-#if defined(CONFIG_X86_STACK_PROTECTION) && !defined(CONFIG_THREAD_STACK_MEM_MAPPED)
-	/* This unconditionally set the first page of stack as guard page,
-	 * which is only needed if the stack is not memory mapped.
-	 */
+#if CONFIG_X86_STACK_PROTECTION
 	z_x86_set_stack_guard(stack);
 #endif
 #ifdef CONFIG_USERSPACE

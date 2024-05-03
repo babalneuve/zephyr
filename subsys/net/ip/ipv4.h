@@ -50,70 +50,17 @@
 #define NET_IPV4_IGMP_REPORT_V3 0x22 /* v3 Membership report */
 
 struct net_ipv4_igmp_v2_query {
-	/* IGMP message type */
 	uint8_t type;
-	/* Max response code */
 	uint8_t max_rsp;
-	/* 16-bit ones' complement of the entire message */
 	uint16_t chksum;
-	/* The multicast address being queried */
 	struct in_addr address;
 } __packed;
 
 struct net_ipv4_igmp_v2_report {
-	/* IGMP message type */
 	uint8_t type;
-	/* Max response code */
 	uint8_t max_rsp;
-	/* 16-bit ones' complement of the entire message */
 	uint16_t chksum;
-	/* The multicast address being queried */
 	struct in_addr address;
-} __packed;
-
-struct net_ipv4_igmp_v3_query {
-	/* IGMP message type */
-	uint8_t type;
-	/* Max response code */
-	uint8_t max_rsp;
-	/* 16-bit ones' complement of the entire message */
-	uint16_t chksum;
-	/* The multicast address being queried */
-	struct in_addr address;
-	/* Reserved field, ignore */
-	uint8_t reserved: 4;
-	/* Suppress Router-side Processing Flag */
-	uint8_t suppress: 1;
-	/* Querier's Robustness Variable */
-	uint8_t qrv: 3;
-	/* Querier's Query Interval Code */
-	uint8_t qqic;
-	/* Number of Source Addresses */
-	uint16_t sources_len;
-} __packed;
-
-struct net_ipv4_igmp_v3_group_record {
-	/* Record type */
-	uint8_t type;
-	/* Aux Data Len */
-	uint8_t aux_len;
-	/* Number of Source Addresses */
-	uint16_t sources_len;
-	/* The multicast address to report to*/
-	struct in_addr address;
-} __packed;
-
-struct net_ipv4_igmp_v3_report {
-	/* IGMP message type */
-	uint8_t type;
-	/* Reserved field, ignore */
-	uint8_t reserved_1;
-	/* 16-bit ones' complement of the entire message */
-	uint16_t chksum;
-	/* Reserved field, ignore */
-	uint16_t reserved_2;
-	/* Number of Group Records */
-	uint16_t groups_len;
 } __packed;
 
 /**
@@ -127,6 +74,7 @@ struct net_ipv4_igmp_v3_report {
  * @param id Fragment id
  * @param flags Fragmentation flags
  * @param offset Fragment offset
+ * @param ttl Time-to-live value
  *
  * @return 0 on success, negative errno otherwise.
  */
@@ -137,7 +85,8 @@ int net_ipv4_create_full(struct net_pkt *pkt,
 			 uint8_t tos,
 			 uint16_t id,
 			 uint8_t flags,
-			 uint16_t offset);
+			 uint16_t offset,
+			 uint8_t ttl);
 #else
 static inline int net_ipv4_create_full(struct net_pkt *pkt,
 				       const struct in_addr *src,
@@ -145,7 +94,8 @@ static inline int net_ipv4_create_full(struct net_pkt *pkt,
 				       uint8_t tos,
 				       uint16_t id,
 				       uint8_t flags,
-				       uint16_t offset)
+				       uint16_t offset,
+				       uint8_t ttl)
 {
 	ARG_UNUSED(pkt);
 	ARG_UNUSED(src);
@@ -154,6 +104,7 @@ static inline int net_ipv4_create_full(struct net_pkt *pkt,
 	ARG_UNUSED(id);
 	ARG_UNUSED(flags);
 	ARG_UNUSED(offset);
+	ARG_UNUSED(ttl);
 
 	return -ENOTSUP;
 }

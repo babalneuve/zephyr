@@ -19,10 +19,6 @@
 #define MBEDTLS_PLATFORM_EXIT_ALT
 #define MBEDTLS_NO_PLATFORM_ENTROPY
 
-#if defined(CONFIG_MBEDTLS_ZEROIZE_ALT)
-#define MBEDTLS_PLATFORM_ZEROIZE_ALT
-#endif
-
 #if defined(CONFIG_MBEDTLS_ZEPHYR_ENTROPY)
 #define MBEDTLS_ENTROPY_HARDWARE_ALT
 #else
@@ -41,7 +37,6 @@
 #if defined(CONFIG_MBEDTLS_HAVE_TIME_DATE)
 #define MBEDTLS_HAVE_TIME
 #define MBEDTLS_HAVE_TIME_DATE
-#define MBEDTLS_PLATFORM_MS_TIME_ALT
 #endif
 
 #if defined(CONFIG_MBEDTLS_TEST)
@@ -136,10 +131,6 @@
 
 #if defined(CONFIG_MBEDTLS_KEY_EXCHANGE_ECJPAKE_ENABLED)
 #define MBEDTLS_KEY_EXCHANGE_ECJPAKE_ENABLED
-#endif
-
-#if defined(CONFIG_MBEDTLS_HKDF_C)
-#define MBEDTLS_HKDF_C
 #endif
 
 /* Supported cipher modes */
@@ -429,11 +420,11 @@
 #define MBEDTLS_PK_C
 #endif
 
-#if defined(MBEDTLS_ECDSA_C) || defined(MBEDTLS_RSA_C) || defined(MBEDTLS_X509_USE_C)
+#if defined(MBEDTLS_X509_USE_C) || defined(MBEDTLS_ECDSA_C)
 #define MBEDTLS_ASN1_PARSE_C
 #endif
 
-#if defined(MBEDTLS_ECDSA_C) || defined(MBEDTLS_RSA_C) || defined(MBEDTLS_PK_WRITE_C)
+#if defined(MBEDTLS_ECDSA_C) || defined(MBEDTLS_PK_WRITE_C)
 #define MBEDTLS_ASN1_WRITE_C
 #endif
 
@@ -495,9 +486,19 @@
 #include CONFIG_MBEDTLS_USER_CONFIG_FILE
 #endif
 
-#if defined(CONFIG_BUILD_WITH_TFM)
-#define MBEDTLS_PSA_CRYPTO_CLIENT
-#undef MBEDTLS_PSA_CRYPTO_C
-#endif /* CONFIG_BUILD_WITH_TFM */
+#if !defined(CONFIG_MBEDTLS_PSA_CRYPTO_C)
+/* When PSA API is used the checking header is included over the chain:
+ * |-psa/crypto.h
+ * |-psa/crypto_platform.h
+ * |-mbedtls/build_info.h
+ * |-mbedtls/check_config.h
+ * If include this header here then PSA API will be in semiconfigured state
+ * without considering dependencies from mbedtls/config_psa.h.
+ * mbedtls/config_psa.h should be included right after config-tls-generic.h before checking.
+ * Formally, all settings are correct but mbedtls library cannot be built.
+ * The behavior was introduced after adding mbedTLS 3.4.0
+ */
+#include "mbedtls/check_config.h"
+#endif
 
 #endif /* MBEDTLS_CONFIG_H */

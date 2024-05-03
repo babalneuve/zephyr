@@ -104,8 +104,6 @@ static void tmutex_test_lock_unlock(struct k_mutex *pmutex)
 
 static void tThread_T1_priority_inheritance(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p3);
-
 	/* t1 will get mutex first */
 	zassert_true(k_mutex_lock((struct k_mutex *)p1, K_FOREVER) == 0,
 		      "access locked resource from spawn thread T1");
@@ -152,9 +150,6 @@ static void tThread_T1_priority_inheritance(void *p1, void *p2, void *p3)
 
 static void tThread_T2_priority_inheritance(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	if (case_type == 1) {
 		zassert_true(k_mutex_lock((struct k_mutex *)p1, K_FOREVER) == 0,
 		      "access locked resource from spawn thread T2");
@@ -171,9 +166,6 @@ static void tThread_T2_priority_inheritance(void *p1, void *p2, void *p3)
 
 static void tThread_lock_with_time_period(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	zassert_true(k_mutex_lock((struct k_mutex *)p1, K_FOREVER) == 0,
 		      "access locked resource from spawn thread");
 
@@ -185,9 +177,6 @@ static void tThread_lock_with_time_period(void *p1, void *p2, void *p3)
 
 static void tThread_waiter(void *p1, void *p2, void *p3)
 {
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	/* This thread participates in recursive locking tests */
 	/* Wait for mutex to be released */
 	zassert_true(k_mutex_lock((struct k_mutex *)p1, K_FOREVER) == 0,
@@ -272,7 +261,7 @@ ZTEST_USER(mutex_api, test_mutex_recursive)
 	thread_ret = TC_FAIL;
 	/* Spawn a waiter thread */
 	k_thread_create(&tdata3, tstack3, STACK_SIZE,
-			tThread_waiter, &tmutex, NULL, NULL,
+			(k_thread_entry_t)tThread_waiter, &tmutex, NULL, NULL,
 			K_PRIO_PREEMPT(12),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
 
@@ -316,7 +305,7 @@ ZTEST_USER(mutex_api_1cpu, test_mutex_priority_inheritance)
 
 	/* spawn a lower priority thread t1 for holding the mutex */
 	k_thread_create(&tdata, tstack, STACK_SIZE,
-		tThread_T1_priority_inheritance,
+		(k_thread_entry_t)tThread_T1_priority_inheritance,
 			&tmutex, &tdata, NULL,
 			K_PRIO_PREEMPT(THREAD_LOW_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -330,7 +319,7 @@ ZTEST_USER(mutex_api_1cpu, test_mutex_priority_inheritance)
 
 	/* spawn a higher priority thread t2 for holding the mutex */
 	k_thread_create(&tdata2, tstack2, STACK_SIZE,
-		tThread_T2_priority_inheritance,
+		(k_thread_entry_t)tThread_T2_priority_inheritance,
 			&tmutex, &tdata2, NULL,
 			K_PRIO_PREEMPT(THREAD_HIGH_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -346,7 +335,7 @@ ZTEST_USER(mutex_api_1cpu, test_mutex_priority_inheritance)
 
 	/* spawn a lower priority thread t1 for holding the mutex */
 	k_thread_create(&tdata, tstack, STACK_SIZE,
-		tThread_T1_priority_inheritance,
+		(k_thread_entry_t)tThread_T1_priority_inheritance,
 			&tmutex, &tdata, NULL,
 			K_PRIO_PREEMPT(THREAD_HIGH_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -356,7 +345,7 @@ ZTEST_USER(mutex_api_1cpu, test_mutex_priority_inheritance)
 
 	/* spawn a higher priority thread t2 for holding the mutex */
 	k_thread_create(&tdata2, tstack2, STACK_SIZE,
-		tThread_T2_priority_inheritance,
+		(k_thread_entry_t)tThread_T2_priority_inheritance,
 			&tmutex, &tdata2, NULL,
 			K_PRIO_PREEMPT(THREAD_LOW_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -372,7 +361,7 @@ ZTEST_USER(mutex_api_1cpu, test_mutex_priority_inheritance)
 
 	/* spawn a lower priority thread t1 for holding the mutex */
 	k_thread_create(&tdata, tstack, STACK_SIZE,
-		tThread_T1_priority_inheritance,
+		(k_thread_entry_t)tThread_T1_priority_inheritance,
 			&tmutex, &tdata, NULL,
 			K_PRIO_PREEMPT(THREAD_LOW_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
@@ -382,14 +371,14 @@ ZTEST_USER(mutex_api_1cpu, test_mutex_priority_inheritance)
 
 	/* spawn a higher priority thread t2 for holding the mutex */
 	k_thread_create(&tdata2, tstack2, STACK_SIZE,
-		tThread_T2_priority_inheritance,
+		(k_thread_entry_t)tThread_T2_priority_inheritance,
 			&tmutex, &tdata2, NULL,
 			K_PRIO_PREEMPT(THREAD_HIGH_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);
 
 	/* spawn a higher priority thread t3 for holding the mutex */
 	k_thread_create(&tdata3, tstack3, STACK_SIZE,
-		tThread_lock_with_time_period,
+		(k_thread_entry_t)tThread_lock_with_time_period,
 			&tmutex, &tdata3, NULL,
 			K_PRIO_PREEMPT(THREAD_MID_PRIORITY),
 			K_USER | K_INHERIT_PERMS, K_NO_WAIT);

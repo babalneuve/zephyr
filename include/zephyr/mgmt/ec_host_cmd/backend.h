@@ -43,14 +43,11 @@ struct ec_host_cmd_rx_ctx {
 	/**
 	 * Buffer to hold received data. The buffer is provided by the handler if
 	 * CONFIG_EC_HOST_CMD_HANDLER_RX_BUFFER_SIZE > 0. Otherwise, the backend should provide
-	 * the buffer on its own and overwrites @a buf pointer and @a len_max
-	 * in the init function.
+	 * the buffer on its own and overwrites @a buf pointer in the init function.
 	 */
 	uint8_t *buf;
 	/** Number of bytes written to @a buf by backend. */
 	size_t len;
-	/** Maximum number of bytes to receive with one request packet. */
-	size_t len_max;
 };
 
 /**
@@ -66,7 +63,7 @@ struct ec_host_cmd_tx_buf {
 	void *buf;
 	/** Number of bytes to write from @a buf. */
 	size_t len;
-	/** Maximum number of bytes to send with one response packet. */
+	/** Size of @a buf. */
 	size_t len_max;
 };
 

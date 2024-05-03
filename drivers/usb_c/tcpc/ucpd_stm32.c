@@ -1025,24 +1025,44 @@ static int ucpd_transmit_data(const struct device *dev,
 }
 
 /**
+ * @brief Tests if a received Power Delivery message is pending
+ *
+ * @retval true if message is pending, else false
+ */
+static bool ucpd_is_rx_pending_msg(const struct device *dev,
+				   enum pd_packet_type *type)
+{
+	struct tcpc_data *data = dev->data;
+	bool ret;
+
+	ret = (*(uint32_t *)data->ucpd_rx_buffer > 0);
+
+	if (ret & (type != NULL)) {
+		*type = *(uint16_t *)data->ucpd_rx_buffer;
+	}
+
+	return ret;
+}
+
+/**
  * @brief Retrieves the Power Delivery message from the TCPC
  *
- * @retval number of bytes received if msg parameter is provided
- * @retval 0 if there is a message pending and the msg parameter is NULL
- * @retval -ENODATA if there is no pending message
+ * @retval number of bytes received
+ * @retval -EIO on no message to retrieve
+ * @retval -EFAULT on buf being NULL
  */
-static int ucpd_get_rx_pending_msg(const struct device *dev, struct pd_msg *msg)
+static int ucpd_receive_data(const struct device *dev, struct pd_msg *msg)
 {
 	struct tcpc_data *data = dev->data;
 	int ret = 0;
 
-	/* Make sure we have a message to retrieve */
-	if (*(uint32_t *)data->ucpd_rx_buffer == 0) {
-		return -ENODATA;
+	if (msg == NULL) {
+		return -EFAULT;
 	}
 
-	if (msg == NULL) {
-		return 0;
+	/* Make sure we have a message to retrieve */
+	if (!ucpd_is_rx_pending_msg(dev, NULL)) {
+		return -EIO;
 	}
 
 	msg->type = *(uint16_t *)data->ucpd_rx_buffer;
@@ -1366,7 +1386,7 @@ static int ucpd_init(const struct device *dev)
 
 	LOG_DBG("Pinctrl signals configuration");
 	ret = pinctrl_apply_state(config->ucpd_pcfg, PINCTRL_STATE_DEFAULT);
-	if (ret != 0) {
+	if (ret < 0) {
 		LOG_ERR("USB pinctrl setup failed (%d)", ret);
 		return ret;
 	}
@@ -1423,7 +1443,8 @@ static const struct tcpc_driver_api driver_api = {
 	.set_alert_handler_cb = ucpd_set_alert_handler_cb,
 	.get_cc = ucpd_get_cc,
 	.set_rx_enable = ucpd_set_rx_enable,
-	.get_rx_pending_msg = ucpd_get_rx_pending_msg,
+	.is_rx_pending_msg = ucpd_is_rx_pending_msg,
+	.receive_data = ucpd_receive_data,
 	.transmit_data = ucpd_transmit_data,
 	.select_rp_value = ucpd_select_rp_value,
 	.get_rp_value = ucpd_get_rp_value,

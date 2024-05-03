@@ -9,7 +9,6 @@ Protocols
 
    coap
    coap_client
-   coap_server
    http
    lwm2m
    mqtt

@@ -830,11 +830,10 @@ static void spi_mcux_config_func_##id(const struct device *dev) \
 		.dma_dev = DEVICE_DT_GET(DT_INST_DMAS_CTLR_BY_NAME(id, tx)), \
 		.channel =					\
 			DT_INST_DMAS_CELL_BY_NAME(id, tx, channel),	\
-		.dma_cfg = {						\
+		.dma_cfg = {					\
 			.channel_direction = MEMORY_TO_PERIPHERAL,	\
 			.dma_callback = spi_mcux_dma_callback,		\
-			.complete_callback_en = true,			\
-			.block_count = 2,				\
+			.block_count = 2,		\
 		}							\
 	},								\
 	.dma_rx = {						\

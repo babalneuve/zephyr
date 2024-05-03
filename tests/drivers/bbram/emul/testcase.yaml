@@ -7,6 +7,6 @@ tests:
       - drivers
       - bbram
     harness: ztest
-    platform_allow: native_sim
+    platform_allow: native_posix
     integration_platforms:
-      - native_sim
+      - native_posix

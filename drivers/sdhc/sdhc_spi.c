@@ -206,7 +206,7 @@ static int sdhc_spi_response_get(const struct device *dev, struct sdhc_command *
 	struct sdhc_spi_data *dev_data = dev->data;
 	uint8_t *response = dev_data->scratch;
 	uint8_t *end = response + rx_len;
-	int ret, timeout = cmd->timeout_ms;
+	int ret;
 	uint8_t value, i;
 
 	/* First step is finding the first valid byte of the response.
@@ -224,7 +224,7 @@ static int sdhc_spi_response_get(const struct device *dev, struct sdhc_command *
 		 */
 		response = dev_data->scratch;
 		end = response + 1;
-		while (timeout > 0) {
+		for (i = 0; i < 16; i++) {
 			ret = sdhc_spi_rx(config->spi_dev, dev_data->spi_cfg,
 				response, 1);
 			if (ret < 0) {
@@ -233,9 +233,6 @@ static int sdhc_spi_response_get(const struct device *dev, struct sdhc_command *
 			if (*response != 0xff) {
 				break;
 			}
-			/* Delay for a bit, and poll the card again */
-			k_msleep(10);
-			timeout -= 10;
 		}
 		if (*response == 0xff) {
 			return -ETIMEDOUT;
@@ -762,7 +759,7 @@ static int sdhc_spi_init(const struct device *dev)
 	return ret;
 }
 
-static const struct sdhc_driver_api sdhc_spi_api = {
+static struct sdhc_driver_api sdhc_spi_api = {
 	.request = sdhc_spi_request,
 	.set_io = sdhc_spi_set_io,
 	.get_host_props = sdhc_spi_get_host_props,

@@ -110,8 +110,11 @@ __subsystem struct ethphy_driver_api {
  * @retval -EIO If communication with PHY failed.
  * @retval -ENOTSUP If not supported.
  */
-static inline int phy_configure_link(const struct device *dev,
-				     enum phy_link_speed speeds)
+__syscall int phy_configure_link(const struct device *dev,
+				 enum phy_link_speed speeds);
+
+static inline int z_impl_phy_configure_link(const struct device *dev,
+					    enum phy_link_speed speeds)
 {
 	const struct ethphy_driver_api *api =
 		(const struct ethphy_driver_api *)dev->api;
@@ -132,8 +135,11 @@ static inline int phy_configure_link(const struct device *dev,
  * @retval 0 If successful.
  * @retval -EIO If communication with PHY failed.
  */
-static inline int phy_get_link_state(const struct device *dev,
-				     struct phy_link_state *state)
+__syscall int phy_get_link_state(const struct device *dev,
+				 struct phy_link_state *state);
+
+static inline int z_impl_phy_get_link_state(const struct device *dev,
+					    struct phy_link_state *state)
 {
 	const struct ethphy_driver_api *api =
 		(const struct ethphy_driver_api *)dev->api;
@@ -155,9 +161,13 @@ static inline int phy_get_link_state(const struct device *dev,
  * @retval 0 If successful.
  * @retval -ENOTSUP If not supported.
  */
-static inline int phy_link_callback_set(const struct device *dev,
-					phy_callback_t callback,
-					void *user_data)
+__syscall int phy_link_callback_set(const struct device *dev,
+				    phy_callback_t callback,
+				    void *user_data);
+
+static inline int z_impl_phy_link_callback_set(const struct device *dev,
+					       phy_callback_t callback,
+					       void *user_data)
 {
 	const struct ethphy_driver_api *api =
 		(const struct ethphy_driver_api *)dev->api;
@@ -177,8 +187,11 @@ static inline int phy_link_callback_set(const struct device *dev,
  * @retval 0 If successful.
  * @retval -EIO If communication with PHY failed.
  */
-static inline int phy_read(const struct device *dev, uint16_t reg_addr,
-			   uint32_t *value)
+__syscall int phy_read(const struct device *dev, uint16_t reg_addr,
+		       uint32_t *value);
+
+static inline int z_impl_phy_read(const struct device *dev, uint16_t reg_addr,
+				  uint32_t *value)
 {
 	const struct ethphy_driver_api *api =
 		(const struct ethphy_driver_api *)dev->api;
@@ -198,8 +211,11 @@ static inline int phy_read(const struct device *dev, uint16_t reg_addr,
  * @retval 0 If successful.
  * @retval -EIO If communication with PHY failed.
  */
-static inline int phy_write(const struct device *dev, uint16_t reg_addr,
-			    uint32_t value)
+__syscall int phy_write(const struct device *dev, uint16_t reg_addr,
+			uint32_t value);
+
+static inline int z_impl_phy_write(const struct device *dev, uint16_t reg_addr,
+				   uint32_t value)
 {
 	const struct ethphy_driver_api *api =
 		(const struct ethphy_driver_api *)dev->api;
@@ -215,5 +231,7 @@ static inline int phy_write(const struct device *dev, uint16_t reg_addr,
 /**
  * @}
  */
+
+#include <syscalls/phy.h>
 
 #endif /* ZEPHYR_INCLUDE_DRIVERS_PHY_H_ */

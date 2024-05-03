@@ -9,13 +9,13 @@ menuconfig DEBUG_COREDUMP
 
 if DEBUG_COREDUMP
 
-choice DEBUG_COREDUMP_BACKEND
+choice
 	prompt "Coredump backend"
-	default DEBUG_COREDUMP_BACKEND_LOGGING
+	default DEBUG_COREDUMP_BACKEND_LOGGING if LOG
 
 config DEBUG_COREDUMP_BACKEND_LOGGING
 	bool "Use Logging subsystem for coredump"
-	select LOG
+	depends on LOG
 	help
 	  Core dump is done via logging subsystem.
 
@@ -30,7 +30,6 @@ config DEBUG_COREDUMP_BACKEND_FLASH_PARTITION
 
 config DEBUG_COREDUMP_BACKEND_INTEL_ADSP_MEM_WINDOW
 	bool "Use memory window for coredump on Intel ADSP"
-	depends on DT_HAS_INTEL_ADSP_MEM_WINDOW_ENABLED
 	help
 	  Core dump is done via memory window slot[1].
 	  It is Intel ADSP memory region shared with xtensa DSP.
@@ -43,7 +42,7 @@ config DEBUG_COREDUMP_BACKEND_OTHER
 
 endchoice
 
-choice DEBUG_COREDUMP_MEMORY_DUMP
+choice
 	prompt "Memory dump"
 	default DEBUG_COREDUMP_MEMORY_DUMP_LINKER_RAM
 
@@ -71,6 +70,7 @@ endchoice
 
 config DEBUG_COREDUMP_SHELL
 	bool "Coredump shell"
+	default y
 	depends on SHELL
 	help
 	  This shell provides access to coredump and its backends.

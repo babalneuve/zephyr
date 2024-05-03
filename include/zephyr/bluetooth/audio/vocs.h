@@ -29,8 +29,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include <zephyr/bluetooth/conn.h>
-
 #ifdef __cplusplus
 extern "C" {
 #endif

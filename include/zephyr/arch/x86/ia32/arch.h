@@ -45,7 +45,7 @@
  */
 #if defined(CONFIG_USERSPACE)
 #define GS_TLS_SEG	(0x38 | 0x03)
-#elif defined(CONFIG_X86_STACK_PROTECTION)
+#elif defined(CONFIG_HW_STACK_PROTECTION)
 #define GS_TLS_SEG	(0x28 | 0x03)
 #else
 #define GS_TLS_SEG	(0x18 | 0x03)
@@ -396,6 +396,18 @@ static ALWAYS_INLINE unsigned int arch_irq_lock(void)
  * correspond to any IRQ line (such as spurious vector or SW IRQ)
  */
 #define NANO_SOFT_IRQ	((unsigned int) (-1))
+
+/**
+ * @defgroup float_apis Floating Point APIs
+ * @ingroup kernel_apis
+ * @{
+ */
+
+struct k_thread;
+
+/**
+ * @}
+ */
 
 #ifdef CONFIG_X86_ENABLE_TSS
 extern struct task_state_segment _main_tss;

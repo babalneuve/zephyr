@@ -14,7 +14,7 @@ LOG_MODULE_REGISTER(net_utils, CONFIG_NET_UTILS_LOG_LEVEL);
 
 #include <zephyr/kernel.h>
 #include <stdlib.h>
-#include <zephyr/internal/syscall_handler.h>
+#include <zephyr/syscall_handler.h>
 #include <zephyr/types.h>
 #include <stdbool.h>
 #include <string.h>
@@ -34,19 +34,6 @@ char *net_sprint_addr(sa_family_t af, const void *addr)
 	char *s = buf[++i % NBUFS];
 
 	return net_addr_ntop(af, addr, s, NET_IPV6_ADDR_LEN);
-}
-
-const char *net_verdict2str(enum net_verdict verdict)
-{
-	if (verdict == NET_OK) {
-		return "NET_OK";
-	} else if (verdict == NET_CONTINUE) {
-		return "NET_CONTINUE";
-	} else if (verdict == NET_DROP) {
-		return "NET_DROP";
-	}
-
-	return "<unknown>";
 }
 
 const char *net_proto2str(int family, int proto)
@@ -163,9 +150,9 @@ static int net_value_to_udec(char *buf, uint32_t value, int precision)
 char *z_impl_net_addr_ntop(sa_family_t family, const void *src,
 			   char *dst, size_t size)
 {
-	struct in_addr *addr = NULL;
-	struct in6_addr *addr6 = NULL;
-	uint16_t *w = NULL;
+	struct in_addr *addr;
+	struct in6_addr *addr6;
+	uint16_t *w;
 	uint8_t i, bl, bh, longest = 1U;
 	int8_t pos = -1;
 	char delim = ':';
@@ -174,16 +161,11 @@ char *z_impl_net_addr_ntop(sa_family_t family, const void *src,
 	int len = -1;
 	uint16_t value;
 	bool needcolon = false;
-	bool mapped = false;
 
 	if (family == AF_INET6) {
 		addr6 = (struct in6_addr *)src;
 		w = (uint16_t *)addr6->s6_addr16;
 		len = 8;
-
-		if (net_ipv6_addr_is_v4_mapped(addr6)) {
-			mapped = true;
-		}
 
 		for (i = 0U; i < 8; i++) {
 			uint8_t j;
@@ -216,7 +198,6 @@ char *z_impl_net_addr_ntop(sa_family_t family, const void *src,
 		return NULL;
 	}
 
-print_mapped:
 	for (i = 0U; i < len; i++) {
 		/* IPv4 address a.b.c.d */
 		if (len == 4) {
@@ -237,15 +218,6 @@ print_mapped:
 			*ptr++ = delim;
 
 			continue;
-		}
-
-		if (mapped && (i > 5)) {
-			delim = '.';
-			len = 4;
-			addr = (struct in_addr *)(&addr6->s6_addr32[3]);
-			*ptr++ = ':';
-			family = AF_INET;
-			goto print_mapped;
 		}
 
 		/* IPv6 address */
@@ -317,14 +289,14 @@ char *z_vrfy_net_addr_ntop(sa_family_t family, const void *src,
 	char *out;
 	const void *addr;
 
-	K_OOPS(K_SYSCALL_MEMORY_WRITE(dst, size));
+	Z_OOPS(Z_SYSCALL_MEMORY_WRITE(dst, size));
 
 	if (family == AF_INET) {
-		K_OOPS(k_usermode_from_copy(&addr4, (const void *)src,
+		Z_OOPS(z_user_from_copy(&addr4, (const void *)src,
 					sizeof(addr4)));
 		addr = &addr4;
 	} else if (family == AF_INET6) {
-		K_OOPS(k_usermode_from_copy(&addr6, (const void *)src,
+		Z_OOPS(z_user_from_copy(&addr6, (const void *)src,
 					sizeof(addr6)));
 		addr = &addr6;
 	} else {
@@ -336,7 +308,7 @@ char *z_vrfy_net_addr_ntop(sa_family_t family, const void *src,
 		return 0;
 	}
 
-	K_OOPS(k_usermode_to_copy((void *)dst, str, MIN(size, sizeof(str))));
+	Z_OOPS(z_user_to_copy((void *)dst, str, MIN(size, sizeof(str))));
 
 	return dst;
 }
@@ -497,18 +469,18 @@ int z_vrfy_net_addr_pton(sa_family_t family, const char *src,
 		return -EINVAL;
 	}
 
-	if (k_usermode_string_copy(str, (char *)src, sizeof(str)) != 0) {
+	if (z_user_string_copy(str, (char *)src, sizeof(str)) != 0) {
 		return -EINVAL;
 	}
 
-	K_OOPS(K_SYSCALL_MEMORY_WRITE(dst, size));
+	Z_OOPS(Z_SYSCALL_MEMORY_WRITE(dst, size));
 
 	err = z_impl_net_addr_pton(family, str, addr);
 	if (err) {
 		return err;
 	}
 
-	K_OOPS(k_usermode_to_copy((void *)dst, addr, size));
+	Z_OOPS(z_user_to_copy((void *)dst, addr, size));
 
 	return 0;
 }
@@ -552,7 +524,7 @@ uint16_t calc_chksum(uint16_t sum_in, const uint8_t *data, size_t len)
 	 * and the offset of starting
 	 */
 	if (odd_start == CHECKSUM_BIG_ENDIAN) {
-		sum = BSWAP_16(sum_in);
+		sum = __bswap_16(sum_in);
 	} else {
 		sum = sum_in;
 	}
@@ -604,7 +576,7 @@ uint16_t calc_chksum(uint16_t sum_in, const uint8_t *data, size_t len)
 	 * and the offset of starting
 	 */
 	if (odd_start == CHECKSUM_BIG_ENDIAN) {
-		return BSWAP_16((uint16_t)sum);
+		return __bswap_16((uint16_t)sum);
 	} else {
 		return sum;
 	}
@@ -657,7 +629,7 @@ uint16_t net_calc_chksum(struct net_pkt *pkt, uint8_t proto)
 
 	if (IS_ENABLED(CONFIG_NET_IPV4) &&
 	    net_pkt_family(pkt) == AF_INET) {
-		if (proto != IPPROTO_ICMP && proto != IPPROTO_IGMP) {
+		if (proto != IPPROTO_ICMP) {
 			len = 2 * sizeof(struct in_addr);
 			sum = net_pkt_get_len(pkt) -
 				net_pkt_ip_hdr_len(pkt) -
@@ -713,9 +685,14 @@ uint16_t net_calc_chksum_ipv4(struct net_pkt *pkt)
 #endif /* CONFIG_NET_IPV4 */
 
 #if defined(CONFIG_NET_IPV4_IGMP)
-uint16_t net_calc_chksum_igmp(struct net_pkt *pkt)
+uint16_t net_calc_chksum_igmp(uint8_t *data, size_t len)
 {
-	return net_calc_chksum(pkt, IPPROTO_IGMP);
+	uint16_t sum;
+
+	sum = calc_chksum(0, data, len);
+	sum = (sum == 0U) ? 0xffff : htons(sum);
+
+	return ~sum;
 }
 #endif /* CONFIG_NET_IPV4_IGMP */
 
@@ -943,25 +920,6 @@ bool net_ipaddr_parse(const char *str, size_t str_len, struct sockaddr *addr)
 	return parse_ipv6(str, str_len, addr, false);
 #endif
 	return false;
-}
-
-int net_port_set_default(struct sockaddr *addr, uint16_t default_port)
-{
-	if (IS_ENABLED(CONFIG_NET_IPV4) && addr->sa_family == AF_INET &&
-	    net_sin(addr)->sin_port == 0) {
-		net_sin(addr)->sin_port = htons(default_port);
-	} else if (IS_ENABLED(CONFIG_NET_IPV6) && addr->sa_family == AF_INET6 &&
-		   net_sin6(addr)->sin6_port == 0) {
-		net_sin6(addr)->sin6_port = htons(default_port);
-	} else if ((IS_ENABLED(CONFIG_NET_IPV4) && addr->sa_family == AF_INET) ||
-		   (IS_ENABLED(CONFIG_NET_IPV6) && addr->sa_family == AF_INET6)) {
-		; /* Port is already set */
-	} else {
-		LOG_ERR("Unknown address family");
-		return -EINVAL;
-	}
-
-	return 0;
 }
 
 int net_bytes_from_str(uint8_t *buf, int buf_len, const char *src)

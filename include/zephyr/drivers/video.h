@@ -15,8 +15,6 @@
 /**
  * @brief Video Interface
  * @defgroup video_interface Video Interface
- * @since 2.1
- * @version 1.0.0
  * @ingroup io_interfaces
  * @{
  */
@@ -561,19 +559,9 @@ static inline int video_set_signal(const struct device *dev,
 }
 
 /**
- * @brief Allocate aligned video buffer.
- *
- * @param size Size of the video buffer (in bytes).
- * @param align Alignment of the requested memory, must be a power of two.
- *
- * @retval pointer to allocated video buffer
- */
-struct video_buffer *video_buffer_aligned_alloc(size_t size, size_t align);
-
-/**
  * @brief Allocate video buffer.
  *
- * @param size Size of the video buffer (in bytes).
+ * @param size Size of the video buffer.
  *
  * @retval pointer to allocated video buffer
  */
@@ -622,9 +610,6 @@ void video_buffer_release(struct video_buffer *buf);
 
 /** RGB565 pixel format */
 #define VIDEO_PIX_FMT_RGB565 video_fourcc('R', 'G', 'B', 'P') /* 16  RGB-5-6-5 */
-
-/** XRGB32 pixel format */
-#define VIDEO_PIX_FMT_XRGB32 video_fourcc('B', 'X', '2', '4') /* 32  XRGB-8-8-8-8 */
 
 /**
  * @}

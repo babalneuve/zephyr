@@ -25,8 +25,6 @@ extern "C" {
 /**
  * @brief USB-C Device APIs
  * @defgroup _usbc_device_api USB-C Device API
- * @since 3.3
- * @version 0.1.0
  * @{
  */
 
@@ -351,15 +349,6 @@ int usbc_suspend(const struct device *dev);
  * @retval 0 on success
  */
 int usbc_request(const struct device *dev, const enum usbc_policy_request_t req);
-
-/**
- * @internal
- * @brief Bypass the next USB-C stack sleep and execute one more iteration of the state machines.
- * Used internally to decrease the response time.
- *
- * @param dev Runtime device structure
- */
-void usbc_bypass_next_sleep(const struct device *dev);
 
 /**
  * @brief Set pointer to Device Policy Manager (DPM) data

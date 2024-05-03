@@ -27,7 +27,6 @@ struct dma_stm32_stream {
 	uint32_t dst_size;
 	void *user_data; /* holds the client data */
 	dma_callback_t dma_callback;
-	bool cyclic;
 };
 
 struct dma_stm32_data {

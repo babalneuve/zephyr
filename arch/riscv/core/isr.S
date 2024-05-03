@@ -14,7 +14,6 @@
 #include <zephyr/kernel.h>
 #include <zephyr/syscall.h>
 #include <zephyr/arch/riscv/csr.h>
-#include <zephyr/arch/riscv/irq.h>
 #include <zephyr/arch/riscv/syscall.h>
 #include "asm_macros.inc"
 
@@ -41,23 +40,6 @@
 	RV_I(	op a7, __z_arch_esf_t_a7_OFFSET(sp)	);\
 	RV_E(	op ra, __z_arch_esf_t_ra_OFFSET(sp)	)
 
-#ifdef CONFIG_EXCEPTION_DEBUG
-/* Convenience macro for storing callee saved register [s0 - s11] states. */
-#define STORE_CALLEE_SAVED() \
-	RV_E(	sr s0, ___callee_saved_t_s0_OFFSET(sp)		);\
-	RV_E(	sr s1, ___callee_saved_t_s1_OFFSET(sp)		);\
-	RV_I(	sr s2, ___callee_saved_t_s2_OFFSET(sp)		);\
-	RV_I(	sr s3, ___callee_saved_t_s3_OFFSET(sp)		);\
-	RV_I(	sr s4, ___callee_saved_t_s4_OFFSET(sp)		);\
-	RV_I(	sr s5, ___callee_saved_t_s5_OFFSET(sp)		);\
-	RV_I(	sr s6, ___callee_saved_t_s6_OFFSET(sp)		);\
-	RV_I(	sr s7, ___callee_saved_t_s7_OFFSET(sp)		);\
-	RV_I(	sr s8, ___callee_saved_t_s8_OFFSET(sp)		);\
-	RV_I(	sr s9, ___callee_saved_t_s9_OFFSET(sp)		);\
-	RV_I(	sr s10, ___callee_saved_t_s10_OFFSET(sp)	);\
-	RV_I(	sr s11, ___callee_saved_t_s11_OFFSET(sp)	)
-#endif /* CONFIG_EXCEPTION_DEBUG */
-
 	.macro get_current_cpu dst
 #if defined(CONFIG_SMP) || defined(CONFIG_USERSPACE)
 	csrr \dst, mscratch
@@ -68,9 +50,7 @@
 
 /* imports */
 GDATA(_sw_isr_table)
-#ifdef CONFIG_RISCV_SOC_EXCEPTION_FROM_IRQ
 GTEXT(__soc_is_irq)
-#endif
 GTEXT(__soc_handle_irq)
 GTEXT(_Fault)
 #ifdef CONFIG_RISCV_SOC_CONTEXT_SAVE
@@ -78,7 +58,7 @@ GTEXT(__soc_save_context)
 GTEXT(__soc_restore_context)
 #endif /* CONFIG_RISCV_SOC_CONTEXT_SAVE */
 
-GTEXT(z_riscv_fatal_error_csf)
+GTEXT(z_riscv_fatal_error)
 GTEXT(z_get_next_switch_handle)
 GTEXT(z_riscv_switch)
 GTEXT(z_riscv_thread_start)
@@ -90,10 +70,6 @@ GTEXT(sys_trace_isr_exit)
 
 #ifdef CONFIG_USERSPACE
 GDATA(_k_syscall_table)
-#endif
-
-#ifdef CONFIG_RISCV_SOC_HAS_CUSTOM_IRQ_HANDLING
-GTEXT(__soc_handle_all_irqs)
 #endif
 
 /* exports */
@@ -114,8 +90,7 @@ GTEXT(_isr_wrapper)
  * what standard behavior is defined). Hence, the arch level code expects
  * the following functions to be provided at the SOC level:
  *
- *     - __soc_is_irq (optional): decide if we're handling an interrupt or an
-         exception
+ *     - __soc_is_irq: decide if we're handling an interrupt or an exception
  *     - __soc_handle_irq: handle SoC-specific details for a pending IRQ
  *       (e.g. clear a pending bit in a SoC-specific register)
  *
@@ -212,23 +187,10 @@ SECTION_FUNC(exception.entry, _isr_wrapper)
 1:
 #endif
 	andi t0, t2, 0x7f	/* keep only the opcode bits */
-	/*
-	 * Major FP opcodes:
-	 * 0000111 = LOAD-FP
-	 * 0100111 = STORE-FP
-	 * 1000011 = MADD
-	 * 1000111 = MSUB
-	 * 1001011 = NMSUB
-	 * 1001111 = NMADD
-	 * 1010011 = OP-FP
-	 */
 	xori t1, t0, 0b1010011	/* OP-FP */
 	beqz t1, is_fp
-	ori  t1, t0, 0b0100000
-	xori t1, t1, 0b0100111	/* LOAD-FP / STORE-FP */
-	beqz t1, is_fp
-	ori  t1, t0, 0b0001100
-	xori t1, t1, 0b1001111	/* MADD / MSUB / NMSUB / NMADD */
+	ori  t0, t0, 0b0100000
+	xori t1, t0, 0b0100111	/* LOAD-FP / STORE-FP */
 	beqz t1, is_fp
 	/*
 	 * The FRCSR, FSCSR, FRRM, FSRM, FSRMI, FRFLAGS, FSFLAGS and FSFLAGSI
@@ -308,14 +270,10 @@ no_fp:	/* increment _current->arch.exception_depth */
 	 * function (that needs to be implemented by each SOC). The result is
 	 * returned via register a0 (1: interrupt, 0 exception)
 	 */
-#ifdef CONFIG_RISCV_SOC_EXCEPTION_FROM_IRQ
 	jal ra, __soc_is_irq
+
+	/* If a0 != 0, jump to is_interrupt */
 	bnez a0, is_interrupt
-#else
-	csrr t0, mcause
-	srli t0, t0, RISCV_MCAUSE_IRQ_POS
-	bnez t0, is_interrupt
-#endif
 
 	/*
 	 * If the exception is the result of an ECALL, check whether to
@@ -323,22 +281,22 @@ no_fp:	/* increment _current->arch.exception_depth */
 	 * to report the exception.
 	 */
 	csrr t0, mcause
-	li t2, CONFIG_RISCV_MCAUSE_EXCEPTION_MASK
+	li t2, SOC_MCAUSE_EXP_MASK
 	and t0, t0, t2
 
 	/*
-	 * If mcause == RISCV_EXC_ECALLM, handle system call from
+	 * If mcause == SOC_MCAUSE_ECALL_EXP, handle system call from
 	 * kernel thread.
 	 */
-	li t1, RISCV_EXC_ECALLM
+	li t1, SOC_MCAUSE_ECALL_EXP
 	beq t0, t1, is_kernel_syscall
 
 #ifdef CONFIG_USERSPACE
 	/*
-	 * If mcause == RISCV_EXC_ECALLU, handle system call
+	 * If mcause == SOC_MCAUSE_USER_ECALL_EXP, handle system call
 	 * for user mode thread.
 	 */
-	li t1, RISCV_EXC_ECALLU
+	li t1, SOC_MCAUSE_USER_ECALL_EXP
 	beq t0, t1, is_user_syscall
 #endif /* CONFIG_USERSPACE */
 
@@ -403,17 +361,7 @@ do_fault:
 	/* Handle RV_ECALL_RUNTIME_EXCEPT. Retrieve reason in a0, esf in A1. */
 	lr a0, __z_arch_esf_t_a0_OFFSET(sp)
 1:	mv a1, sp
-
-#ifdef CONFIG_EXCEPTION_DEBUG
-	/* Allocate space for caller-saved registers on current thread stack */
-	addi sp, sp, -__callee_saved_t_SIZEOF
-
-	/* Save callee-saved registers to be passed as 3rd arg */
-	STORE_CALLEE_SAVED()		;
-	mv a2, sp
-#endif
-
-	tail z_riscv_fatal_error_csf
+	tail z_riscv_fatal_error
 
 #if defined(CONFIG_IRQ_OFFLOAD)
 do_irq_offload:
@@ -560,17 +508,13 @@ is_interrupt:
 
 on_irq_stack:
 
-#ifdef CONFIG_RISCV_SOC_HAS_CUSTOM_IRQ_HANDLING
-	call __soc_handle_all_irqs
-#else
-
 #ifdef CONFIG_TRACING_ISR
 	call sys_trace_isr_enter
 #endif
 
 	/* Get IRQ causing interrupt */
 	csrr a0, mcause
-	li t0, CONFIG_RISCV_MCAUSE_EXCEPTION_MASK
+	li t0, SOC_MCAUSE_EXP_MASK
 	and a0, a0, t0
 
 	/*
@@ -598,8 +542,6 @@ on_irq_stack:
 
 #ifdef CONFIG_TRACING_ISR
 	call sys_trace_isr_exit
-#endif
-
 #endif
 
 irq_done:

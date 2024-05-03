@@ -90,7 +90,7 @@ struct bt_mesh_priv_beacon_cli_cb {
 
 /** Mesh Private Beacon Client model */
 struct bt_mesh_priv_beacon_cli {
-	const struct bt_mesh_model *model;
+	struct bt_mesh_model *model;
 
 	/* Internal parameters for tracking message responses. */
 	struct bt_mesh_msg_ack_ctx ack_ctx;
@@ -101,20 +101,14 @@ struct bt_mesh_priv_beacon_cli {
 
 /** @brief Set the target's Private Beacon state.
  *
- *  This method can be used asynchronously by setting @p rsp as NULL.
- *  This way the method will not wait for response and will return
- *  immediately after sending the command.
-
  *  @param net_idx Network index to encrypt with.
  *  @param addr    Target node address.
- *  @param val     New Private Beacon value.
- *  @param rsp     If set, returns response status on success.
+ *  @param val     New Private Beacon value. Returns response status on success.
  *
  *  @return 0 on success, or (negative) error code otherwise.
  */
 int bt_mesh_priv_beacon_cli_set(uint16_t net_idx, uint16_t addr,
-				struct bt_mesh_priv_beacon *val,
-				struct bt_mesh_priv_beacon *rsp);
+				struct bt_mesh_priv_beacon *val);
 
 /** @brief Get the target's Private Beacon state.
  *
@@ -129,19 +123,15 @@ int bt_mesh_priv_beacon_cli_get(uint16_t net_idx, uint16_t addr,
 
 /** @brief Set the target's Private GATT Proxy state.
  *
- *  This method can be used asynchronously by setting @p rsp as NULL.
- *  This way the method will not wait for response and will return
- *  immediately after sending the command.
- *
  *  @param net_idx Network index to encrypt with.
  *  @param addr    Target node address.
- *  @param val     New Private GATT Proxy value.
- *  @param rsp     If set, returns response status on success.
+ *  @param val     New Private GATT Proxy value. Returns response status on
+ *                 success.
  *
  *  @return 0 on success, or (negative) error code otherwise.
  */
 int bt_mesh_priv_beacon_cli_gatt_proxy_set(uint16_t net_idx, uint16_t addr,
-					   uint8_t val, uint8_t *rsp);
+					   uint8_t *val);
 
 /** @brief Get the target's Private GATT Proxy state.
  *
@@ -156,20 +146,15 @@ int bt_mesh_priv_beacon_cli_gatt_proxy_get(uint16_t net_idx, uint16_t addr,
 
 /** @brief Set the target's Private Node Identity state.
  *
- *  This method can be used asynchronously by setting @p rsp as NULL.
- *  This way the method will not wait for response and will return
- *  immediately after sending the command.
- *
  *  @param net_idx Network index to encrypt with.
  *  @param addr    Target node address.
- *  @param val     New Private Node Identity value.
- *  @param rsp     If set, returns response status on success.
+ *  @param val     New Private Node Identity value. Returns response status on
+ *                 success.
  *
  *  @return 0 on success, or (negative) error code otherwise.
  */
 int bt_mesh_priv_beacon_cli_node_id_set(uint16_t net_idx, uint16_t addr,
-					struct bt_mesh_priv_node_id *val,
-					struct bt_mesh_priv_node_id *rsp);
+					struct bt_mesh_priv_node_id *val);
 
 /** @brief Get the target's Private Node Identity state.
  *

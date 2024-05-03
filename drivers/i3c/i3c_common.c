@@ -157,13 +157,13 @@ bool i3c_addr_slots_is_free(struct i3c_addr_slots *slots,
 	return (status == I3C_ADDR_SLOT_STATUS_FREE);
 }
 
-uint8_t i3c_addr_slots_next_free_find(struct i3c_addr_slots *slots, uint8_t start_addr)
+uint8_t i3c_addr_slots_next_free_find(struct i3c_addr_slots *slots)
 {
 	uint8_t addr;
 	enum i3c_addr_slot_status status;
 
 	/* Addresses 0 to 7 are reserved. So start at 8. */
-	for (addr = MAX(start_addr, 8); addr < I3C_MAX_ADDR; addr++) {
+	for (addr = 8; addr < I3C_MAX_ADDR; addr++) {
 		status = i3c_addr_slots_status(slots, addr);
 		if (status == I3C_ADDR_SLOT_STATUS_FREE) {
 			return addr;
@@ -252,7 +252,7 @@ int i3c_determine_default_addr(struct i3c_device_desc *target, uint8_t *addr)
 				} else {
 					/* address is not free, get the next one */
 					*addr = i3c_addr_slots_next_free_find(
-						&data->attached_dev.addr_slots, 0);
+						&data->attached_dev.addr_slots);
 				}
 			} else {
 				/* Use the init dynamic address as it's DA, but the RR will need to
@@ -281,7 +281,7 @@ int i3c_determine_default_addr(struct i3c_device_desc *target, uint8_t *addr)
 			} else {
 				/* pick a DA to use */
 				*addr = i3c_addr_slots_next_free_find(
-					&data->attached_dev.addr_slots, 0);
+					&data->attached_dev.addr_slots);
 			}
 		}
 	} else {
@@ -454,7 +454,7 @@ int i3c_dev_list_daa_addr_helper(struct i3c_addr_slots *addr_slots,
 		goto out;
 	}
 
-	if (desc != NULL && desc->dynamic_addr != 0U) {
+	if (desc->dynamic_addr != 0U) {
 		if (assigned_okay) {
 			/* Return the already assigned address if desired so. */
 			dyn_addr = desc->dynamic_addr;
@@ -477,8 +477,9 @@ int i3c_dev_list_daa_addr_helper(struct i3c_addr_slots *addr_slots,
 	 * Use the desired dynamic address as the new dynamic address
 	 * if the slot is free.
 	 */
-	if (desc != NULL && desc->init_dynamic_addr != 0U) {
-		if (i3c_addr_slots_is_free(addr_slots, desc->init_dynamic_addr)) {
+	if (desc->init_dynamic_addr != 0U) {
+		if (i3c_addr_slots_is_free(addr_slots,
+					   desc->init_dynamic_addr)) {
 			dyn_addr = desc->init_dynamic_addr;
 			goto out;
 		}
@@ -487,7 +488,7 @@ int i3c_dev_list_daa_addr_helper(struct i3c_addr_slots *addr_slots,
 	/*
 	 * Find the next available address.
 	 */
-	dyn_addr = i3c_addr_slots_next_free_find(addr_slots, 0);
+	dyn_addr = i3c_addr_slots_next_free_find(addr_slots);
 
 	if (dyn_addr == 0U) {
 		/* No free addresses available */

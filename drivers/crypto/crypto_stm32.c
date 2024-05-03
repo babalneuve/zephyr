@@ -43,20 +43,15 @@ LOG_MODULE_REGISTER(crypto_stm32);
 #define STM32_RCC_CRYPTO_RELEASE_RESET  __HAL_RCC_CRYP_RELEASE_RESET
 #define STM32_CRYPTO_TYPEDEF            CRYP_TypeDef
 #elif DT_HAS_COMPAT_STATUS_OKAY(st_stm32_aes)
-#if defined(CONFIG_SOC_SERIES_STM32WBX)
-#define STM32_RCC_CRYPTO_FORCE_RESET    __HAL_RCC_AES1_FORCE_RESET
-#define STM32_RCC_CRYPTO_RELEASE_RESET  __HAL_RCC_AES1_RELEASE_RESET
-#else
 #define STM32_RCC_CRYPTO_FORCE_RESET    __HAL_RCC_AES_FORCE_RESET
 #define STM32_RCC_CRYPTO_RELEASE_RESET  __HAL_RCC_AES_RELEASE_RESET
-#endif
 #define STM32_CRYPTO_TYPEDEF            AES_TypeDef
 #endif
 
 struct crypto_stm32_session crypto_stm32_sessions[CRYPTO_MAX_SESSION];
 
 static int copy_reverse_words(uint8_t *dst_buf, int dst_len,
-			      const uint8_t *src_buf, int src_len)
+			      uint8_t *src_buf, int src_len)
 {
 	int i;
 

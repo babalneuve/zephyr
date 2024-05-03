@@ -110,8 +110,8 @@ kobjects = OrderedDict([
     ("k_event", ("CONFIG_EVENTS", False, True)),
     ("ztest_suite_node", ("CONFIG_ZTEST", True, False)),
     ("ztest_suite_stats", ("CONFIG_ZTEST", True, False)),
-    ("ztest_unit_test", ("CONFIG_ZTEST", True, False)),
-    ("ztest_test_rule", ("CONFIG_ZTEST", True, False)),
+    ("ztest_unit_test", ("CONFIG_ZTEST_NEW_API", True, False)),
+    ("ztest_test_rule", ("CONFIG_ZTEST_NEW_API", True, False)),
     ("rtio", ("CONFIG_RTIO", False, False)),
     ("rtio_iodev", ("CONFIG_RTIO", False, False)),
     ("sensor_decoder_api", ("CONFIG_SENSOR_ASYNC_API", True, False))
@@ -171,7 +171,6 @@ def debug_die(die, text):
 # -- ELF processing
 
 DW_OP_addr = 0x3
-DW_OP_plus_uconst = 0x23
 DW_OP_fbreg = 0x91
 STACK_TYPE = "z_thread_stack_element"
 thread_counter = 0
@@ -623,11 +622,6 @@ def find_kobjects(elf, syms):
             addr = ((loc.value[1] << 0 ) | (loc.value[2] << 8)  |
                     (loc.value[3] << 16) | (loc.value[4] << 24))
 
-            # Handle a DW_FORM_exprloc that contains a DW_OP_addr, followed immediately by
-            # a DW_OP_plus_uconst.
-            if len(loc.value) >= 7 and loc.value[5] == DW_OP_plus_uconst:
-                addr += (loc.value[6])
-
         if addr == 0:
             # Never linked; gc-sections deleted it
             continue
@@ -730,10 +724,10 @@ header = """%compare-lengths
 %{
 #include <zephyr/kernel.h>
 #include <zephyr/toolchain.h>
-#include <zephyr/internal/syscall_handler.h>
+#include <zephyr/syscall_handler.h>
 #include <string.h>
 %}
-struct k_object;
+struct z_object;
 """
 
 # Different versions of gperf have different prototypes for the lookup
@@ -741,7 +735,7 @@ struct k_object;
 # turned into a string, we told gperf to expect binary strings that are not
 # NULL-terminated.
 footer = """%%
-struct k_object *z_object_gperf_find(const void *obj)
+struct z_object *z_object_gperf_find(const void *obj)
 {
     return z_object_lookup((const char *)obj, sizeof(void *));
 }
@@ -758,10 +752,10 @@ void z_object_gperf_wordlist_foreach(_wordlist_cb_func_t func, void *context)
 }
 
 #ifndef CONFIG_DYNAMIC_OBJECTS
-struct k_object *k_object_find(const void *obj)
+struct z_object *z_object_find(const void *obj)
 	ALIAS_OF(z_object_gperf_find);
 
-void k_object_wordlist_foreach(_wordlist_cb_func_t func, void *context)
+void z_object_wordlist_foreach(_wordlist_cb_func_t func, void *context)
 	ALIAS_OF(z_object_gperf_wordlist_foreach);
 #endif
 """
@@ -800,7 +794,7 @@ def write_gperf_table(fp, syms, objs, little_endian, static_begin, static_end):
             # memory section.
             fp.write("static uint8_t Z_GENERIC_SECTION(.priv_stacks.noinit) "
                      " __aligned(Z_KERNEL_STACK_OBJ_ALIGN)"
-                     " priv_stacks[%d][K_KERNEL_STACK_LEN(CONFIG_PRIVILEGED_STACK_SIZE)];\n"
+                     " priv_stacks[%d][Z_KERNEL_STACK_LEN(CONFIG_PRIVILEGED_STACK_SIZE)];\n"
                      % stack_counter)
 
             fp.write("static const struct z_stack_data stack_data[%d] = {\n"
@@ -891,7 +885,7 @@ def write_gperf_table(fp, syms, objs, little_endian, static_begin, static_end):
 
 
 driver_macro_tpl = """
-#define K_SYSCALL_DRIVER_%(driver_upper)s(ptr, op) K_SYSCALL_DRIVER_GEN(ptr, op, %(driver_lower)s, %(driver_upper)s)
+#define Z_SYSCALL_DRIVER_%(driver_upper)s(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, %(driver_lower)s, %(driver_upper)s)
 """
 
 
@@ -899,9 +893,9 @@ def write_validation_output(fp):
     fp.write("#ifndef DRIVER_VALIDATION_GEN_H\n")
     fp.write("#define DRIVER_VALIDATION_GEN_H\n")
 
-    fp.write("""#define K_SYSCALL_DRIVER_GEN(ptr, op, driver_lower_case, driver_upper_case) \\
-		(K_SYSCALL_OBJ(ptr, K_OBJ_DRIVER_##driver_upper_case) || \\
-		 K_SYSCALL_DRIVER_OP(ptr, driver_lower_case##_driver_api, op))
+    fp.write("""#define Z_SYSCALL_DRIVER_GEN(ptr, op, driver_lower_case, driver_upper_case) \\
+		(Z_SYSCALL_OBJ(ptr, K_OBJ_DRIVER_##driver_upper_case) || \\
+		 Z_SYSCALL_DRIVER_OP(ptr, driver_lower_case##_driver_api, op))
                 """)
 
     for subsystem in subsystems:

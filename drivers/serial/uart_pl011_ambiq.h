@@ -50,27 +50,23 @@ static inline int clk_enable_ambiq_uart(const struct device *dev, uint32_t clk)
 	return pl011_ambiq_clk_set(dev, clk);
 }
 
-/* Problem: writes to power configure register takes some time to take effective.
- * Solution: Check device's power status to ensure that register has taken effective.
- * Note: busy wait is not allowed to use here due to UART is initiated before timer starts.
+/* Problem: writes to pwrcfg reg take at most PWCTRL_MAX_WAIT_US time to propagate.
+ * Solution: busy wait for PWCTRL_MAX_WAIT_US microseconds to ensure that register
+ * writes have propagated.
  */
 
-#define AMBIQ_UART_DEFINE(n)                                                                       \
+#define QUIRK_AMBIQ_UART_DEFINE(n)                                                                 \
 	static int pwr_on_ambiq_uart_##n(void)                                                     \
 	{                                                                                          \
 		uint32_t addr = DT_REG_ADDR(DT_INST_PHANDLE(n, ambiq_pwrcfg)) +                    \
 				DT_INST_PHA(n, ambiq_pwrcfg, offset);                              \
-		uint32_t pwr_status_addr = addr + 4;                                               \
 		sys_write32((sys_read32(addr) | DT_INST_PHA(n, ambiq_pwrcfg, mask)), addr);        \
-		while ((sys_read32(pwr_status_addr) & DT_INST_PHA(n, ambiq_pwrcfg, mask)) !=       \
-		       DT_INST_PHA(n, ambiq_pwrcfg, mask)) {                                       \
-			arch_nop();                                                                \
-		};                                                                                 \
+		k_busy_wait(PWRCTRL_MAX_WAIT_US);                                                  \
 		return 0;                                                                          \
-	}                                                                                          \
-	static inline int clk_enable_ambiq_uart_##n(const struct device *dev, uint32_t clk)        \
-	{                                                                                          \
-		return clk_enable_ambiq_uart(dev, clk);                                            \
 	}
+
+#define PL011_QUIRK_AMBIQ_UART_DEFINE(n)                                                           \
+	COND_CODE_1(DT_NODE_HAS_COMPAT(DT_DRV_INST(n), ambiq_uart), (QUIRK_AMBIQ_UART_DEFINE(n)),  \
+		    ())
 
 #endif /* ZEPHYR_DRIVERS_SERIAL_UART_PL011_AMBIQ_H_ */

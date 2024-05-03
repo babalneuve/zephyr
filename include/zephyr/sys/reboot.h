@@ -32,7 +32,7 @@ extern "C" {
  *
  * When successful, this routine does not return.
  */
-FUNC_NORETURN void sys_reboot(int type);
+extern FUNC_NORETURN void sys_reboot(int type);
 
 #ifdef __cplusplus
 }

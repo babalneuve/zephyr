@@ -9,7 +9,6 @@ LOG_MODULE_DECLARE(usbc_stack, CONFIG_USBC_STACK_LOG_LEVEL);
 
 #include "usbc_stack.h"
 #include "usbc_tc_src_states_internal.h"
-#include <zephyr/drivers/usb_c/usbc_ppc.h>
 
 /**
  * @brief Spec. Release 1.3, section 4.5.2.2.7 Unattached.SRC State
@@ -223,7 +222,6 @@ void tc_attached_src_entry(void *obj)
 	const struct device *dev = tc->dev;
 	struct usbc_port_data *data = dev->data;
 	const struct device *tcpc = data->tcpc;
-	int ret;
 
 	LOG_INF("Attached.SRC");
 
@@ -231,12 +229,7 @@ void tc_attached_src_entry(void *obj)
 	tcpc_set_roles(tcpc, TC_ROLE_SOURCE, TC_ROLE_DFP);
 
 	/* Set cc polarity */
-	ret = tcpc_set_cc_polarity(tcpc, tc->cc_polarity);
-	if (ret != 0) {
-		LOG_ERR("Couldn't set CC polarity to %d: %d", tc->cc_polarity, ret);
-		tc_set_state(dev, TC_ERROR_RECOVERY_STATE);
-		return;
-	}
+	tcpc_set_cc_polarity(tcpc, tc->cc_polarity);
 
 	/* Start sourcing VBUS */
 	if (data->policy_cb_src_en(dev, true) == 0) {
@@ -254,14 +247,6 @@ void tc_attached_src_entry(void *obj)
 
 	/* Enable PD */
 	tc_pd_enable(dev, true);
-
-	/* Enable the VBUS sourcing by the PPC */
-	if (data->ppc != NULL) {
-		ret = ppc_set_src_ctrl(data->ppc, true);
-		if (ret < 0 && ret != -ENOSYS) {
-			LOG_ERR("Couldn't disable PPC source");
-		}
-	}
 }
 
 void tc_attached_src_run(void *obj)
@@ -302,7 +287,6 @@ void tc_attached_src_exit(void *obj)
 	const struct device *dev = tc->dev;
 	struct usbc_port_data *data = dev->data;
 	const struct device *tcpc = data->tcpc;
-	int ret;
 
 	__ASSERT(data->policy_cb_src_en != NULL,
 			"policy_cb_src_en must not be NULL");
@@ -313,19 +297,8 @@ void tc_attached_src_exit(void *obj)
 	/* Stop sourcing VBUS */
 	data->policy_cb_src_en(dev, false);
 
-	/* Disable the VBUS sourcing by the PPC */
-	if (data->ppc != NULL) {
-		ret = ppc_set_src_ctrl(data->ppc, false);
-		if (ret < 0 && ret != -ENOSYS) {
-			LOG_ERR("Couldn't disable PPC source");
-		}
-	}
-
 	/* Stop sourcing VCONN */
-	ret = tcpc_set_vconn(tcpc, false);
-	if (ret != 0 && ret != -ENOSYS) {
-		LOG_ERR("Couldn't disable VCONN source");
-	}
+	tcpc_set_vconn(tcpc, false);
 }
 
 /**
@@ -339,7 +312,6 @@ void tc_cc_rp_entry(void *obj)
 	struct usbc_port_data *data = dev->data;
 	const struct device *tcpc = data->tcpc;
 	enum tc_rp_value rp = TC_RP_USB;
-	int ret;
 
 	/*
 	 * Get initial Rp value from Device Policy Manager or use
@@ -350,17 +322,8 @@ void tc_cc_rp_entry(void *obj)
 	}
 
 	/* Select Rp value */
-	ret = tcpc_select_rp_value(tcpc, rp);
-	if (ret != 0 && ret != -ENOTSUP) {
-		LOG_ERR("Couldn't set Rp value to %d: %d", rp, ret);
-		tc_set_state(dev, TC_ERROR_RECOVERY_STATE);
-		return;
-	}
+	tcpc_select_rp_value(tcpc, rp);
 
 	/* Place Rp on CC lines */
-	ret = tcpc_set_cc(tcpc, TC_CC_RP);
-	if (ret != 0) {
-		LOG_ERR("Couldn't set CC lines to Rp: %d", ret);
-		tc_set_state(dev, TC_ERROR_RECOVERY_STATE);
-	}
+	tcpc_set_cc(tcpc, TC_CC_RP);
 }

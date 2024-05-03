@@ -33,6 +33,5 @@ rsource "Kconfig.aspeed"
 rsource "Kconfig.stm32"
 rsource "Kconfig.numaker"
 rsource "Kconfig.intel_socfpga"
-rsource "Kconfig.npcx"
 
 endif # RESET

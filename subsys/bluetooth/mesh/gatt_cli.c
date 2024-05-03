@@ -18,6 +18,7 @@
 #include "common/bt_str.h"
 
 #include "mesh.h"
+#include "adv.h"
 #include "net.h"
 #include "rpl.h"
 #include "transport.h"
@@ -175,8 +176,8 @@ static void gatt_connected(struct bt_conn *conn, uint8_t conn_err)
 	struct bt_conn_info info;
 	int err;
 
-	err = bt_conn_get_info(conn, &info);
-	if (err || info.role != BT_CONN_ROLE_CENTRAL ||
+	bt_conn_get_info(conn, &info);
+	if (info.role != BT_CONN_ROLE_CENTRAL ||
 	    !server->gatt) {
 		return;
 	}
@@ -213,10 +214,9 @@ static void gatt_disconnected(struct bt_conn *conn, uint8_t reason)
 {
 	struct bt_conn_info info;
 	struct bt_mesh_gatt_server *server = get_server(conn);
-	int err;
 
-	err = bt_conn_get_info(conn, &info);
-	if (err || info.role != BT_CONN_ROLE_CENTRAL ||
+	bt_conn_get_info(conn, &info);
+	if (info.role != BT_CONN_ROLE_CENTRAL ||
 	    !server->gatt) {
 		return;
 	}

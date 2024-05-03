@@ -19,6 +19,7 @@
 #include "host/testing.h"
 
 #include "mesh.h"
+#include "adv.h"
 #include "net.h"
 #include "lpn.h"
 #include "transport.h"
@@ -27,16 +28,10 @@
 #include "op_agg.h"
 #include "settings.h"
 #include "va.h"
-#include "delayable_msg.h"
 
 #define LOG_LEVEL CONFIG_BT_MESH_ACCESS_LOG_LEVEL
 #include <zephyr/logging/log.h>
 LOG_MODULE_REGISTER(bt_mesh_access);
-
-/* 20 - 50ms */
-#define RANDOM_DELAY_SHORT 30
-/* 20 - 500ms */
-#define RANDOM_DELAY_LONG 480
 
 /* Model publication information for persistent storage. */
 struct mod_pub_val {
@@ -97,12 +92,12 @@ static struct mod_relation mod_rel_list[MOD_REL_LIST_SIZE];
 		 (idx)++)
 
 #define IS_MOD_BASE(mod, idx, offset) \
-	(mod_rel_list[(idx)].elem_base == mod->rt->elem_idx && \
-	 mod_rel_list[(idx)].idx_base == mod->rt->mod_idx + (offset))
+	(mod_rel_list[(idx)].elem_base == (mod)->elem_idx && \
+	 mod_rel_list[(idx)].idx_base == (mod)->mod_idx + (offset))
 
 #define IS_MOD_EXTENSION(mod, idx, offset) \
-	 (mod_rel_list[(idx)].elem_ext == mod->rt->elem_idx && \
-	  mod_rel_list[(idx)].idx_ext == mod->rt->mod_idx + (offset))
+	 (mod_rel_list[(idx)].elem_ext == (mod)->elem_idx && \
+	  mod_rel_list[(idx)].idx_ext == (mod)->mod_idx + (offset))
 
 #define RELATION_TYPE_EXT 0xFF
 
@@ -119,8 +114,8 @@ static const struct {
 #endif
 };
 
-void bt_mesh_model_foreach(void (*func)(const struct bt_mesh_model *mod,
-					const struct bt_mesh_elem *elem,
+void bt_mesh_model_foreach(void (*func)(struct bt_mesh_model *mod,
+					struct bt_mesh_elem *elem,
 					bool vnd, bool primary,
 					void *user_data),
 			   void *user_data)
@@ -128,16 +123,16 @@ void bt_mesh_model_foreach(void (*func)(const struct bt_mesh_model *mod,
 	int i, j;
 
 	for (i = 0; i < dev_comp->elem_count; i++) {
-		const struct bt_mesh_elem *elem = &dev_comp->elem[i];
+		struct bt_mesh_elem *elem = &dev_comp->elem[i];
 
 		for (j = 0; j < elem->model_count; j++) {
-			const struct bt_mesh_model *model = &elem->models[j];
+			struct bt_mesh_model *model = &elem->models[j];
 
 			func(model, elem, false, i == 0, user_data);
 		}
 
 		for (j = 0; j < elem->vnd_model_count; j++) {
-			const struct bt_mesh_model *model = &elem->vnd_models[j];
+			struct bt_mesh_model *model = &elem->vnd_models[j];
 
 			func(model, elem, true, i == 0, user_data);
 		}
@@ -174,7 +169,7 @@ static void data_buf_add_le16_offset(struct net_buf_simple *buf,
 	}
 }
 
-static void data_buf_add_mem_offset(struct net_buf_simple *buf, const uint8_t *data, size_t len,
+static void data_buf_add_mem_offset(struct net_buf_simple *buf, uint8_t *data, size_t len,
 				    size_t *offset)
 {
 	if (*offset >= len) {
@@ -186,7 +181,7 @@ static void data_buf_add_mem_offset(struct net_buf_simple *buf, const uint8_t *d
 	*offset = 0;
 }
 
-static void comp_add_model(const struct bt_mesh_model *mod, const struct bt_mesh_elem *elem,
+static void comp_add_model(struct bt_mesh_model *mod, struct bt_mesh_elem *elem,
 			   bool vnd, void *user_data)
 {
 	struct comp_foreach_model_arg *arg = user_data;
@@ -201,8 +196,8 @@ static void comp_add_model(const struct bt_mesh_model *mod, const struct bt_mesh
 
 #if defined(CONFIG_BT_MESH_LARGE_COMP_DATA_SRV)
 
-static size_t metadata_model_size(const struct bt_mesh_model *mod,
-				  const struct bt_mesh_elem *elem, bool vnd)
+static size_t metadata_model_size(struct bt_mesh_model *mod,
+				  struct bt_mesh_elem *elem, bool vnd)
 {
 	const struct bt_mesh_models_metadata_entry *entry;
 	size_t size = 0;
@@ -220,7 +215,7 @@ static size_t metadata_model_size(const struct bt_mesh_model *mod,
 
 	size += sizeof(uint8_t);
 
-	for (entry = mod->metadata; entry && entry->len; ++entry) {
+	for (entry = *mod->metadata; entry && entry->len; ++entry) {
 		size += sizeof(entry->len) + sizeof(entry->id) + entry->len;
 	}
 
@@ -236,19 +231,19 @@ size_t bt_mesh_metadata_page_0_size(void)
 	comp = bt_mesh_comp_get();
 
 	for (i = 0; i < dev_comp->elem_count; i++) {
-		const struct bt_mesh_elem *elem = &dev_comp->elem[i];
+		struct bt_mesh_elem *elem = &dev_comp->elem[i];
 
 		size += sizeof(elem->model_count) +
 			sizeof(elem->vnd_model_count);
 
 		for (j = 0; j < elem->model_count; j++) {
-			const struct bt_mesh_model *model = &elem->models[j];
+			struct bt_mesh_model *model = &elem->models[j];
 
 			size += metadata_model_size(model, elem, false);
 		}
 
 		for (j = 0; j < elem->vnd_model_count; j++) {
-			const struct bt_mesh_model *model = &elem->vnd_models[j];
+			struct bt_mesh_model *model = &elem->vnd_models[j];
 
 			size += metadata_model_size(model, elem, true);
 		}
@@ -257,8 +252,8 @@ size_t bt_mesh_metadata_page_0_size(void)
 	return size;
 }
 
-static int metadata_add_model(const struct bt_mesh_model *mod,
-			      const struct bt_mesh_elem *elem, bool vnd,
+static int metadata_add_model(struct bt_mesh_model *mod,
+			      struct bt_mesh_elem *elem, bool vnd,
 			      void *user_data)
 {
 	const struct bt_mesh_models_metadata_entry *entry;
@@ -286,7 +281,7 @@ static int metadata_add_model(const struct bt_mesh_model *mod,
 	count_ptr = data_buf_add_u8_offset(buf, 0, offset);
 
 	if (mod->metadata) {
-		for (entry = mod->metadata; entry && entry->data != NULL; ++entry) {
+		for (entry = *mod->metadata; entry && entry->data != NULL; ++entry) {
 			data_buf_add_le16_offset(buf, entry->len, offset);
 			data_buf_add_le16_offset(buf, entry->id, offset);
 			data_buf_add_mem_offset(buf, entry->data, entry->len, offset);
@@ -315,7 +310,7 @@ int bt_mesh_metadata_get_page_0(struct net_buf_simple *buf, size_t offset)
 	comp = bt_mesh_comp_get();
 
 	for (i = 0; i < comp->elem_count; i++) {
-		const struct bt_mesh_elem *elem = &dev_comp->elem[i];
+		struct bt_mesh_elem *elem = &dev_comp->elem[i];
 
 		/* Check that the buffer has available tailroom for metadata item counts */
 		if (net_buf_simple_tailroom(buf) < (((offset == 0) ? 2 : (offset == 1) ? 1 : 0)
@@ -327,7 +322,7 @@ int bt_mesh_metadata_get_page_0(struct net_buf_simple *buf, size_t offset)
 		vnd_count_ptr = data_buf_add_u8_offset(buf, 0, &offset);
 
 		for (j = 0; j < elem->model_count; j++) {
-			const struct bt_mesh_model *model = &elem->models[j];
+			struct bt_mesh_model *model = &elem->models[j];
 
 			if (!model->metadata) {
 				continue;
@@ -344,7 +339,7 @@ int bt_mesh_metadata_get_page_0(struct net_buf_simple *buf, size_t offset)
 		}
 
 		for (j = 0; j < elem->vnd_model_count; j++) {
-			const struct bt_mesh_model *model = &elem->vnd_models[j];
+			struct bt_mesh_model *model = &elem->vnd_models[j];
 
 			if (!model->metadata) {
 				continue;
@@ -365,7 +360,7 @@ int bt_mesh_metadata_get_page_0(struct net_buf_simple *buf, size_t offset)
 }
 #endif
 
-static int comp_add_elem(struct net_buf_simple *buf, const struct bt_mesh_elem *elem,
+static int comp_add_elem(struct net_buf_simple *buf, struct bt_mesh_elem *elem,
 			 size_t *offset)
 {
 	struct comp_foreach_model_arg arg = {
@@ -382,12 +377,12 @@ static int comp_add_elem(struct net_buf_simple *buf, const struct bt_mesh_elem *
 
 	if (net_buf_simple_tailroom(buf) < ((elem_size - *offset) + BT_MESH_MIC_SHORT)) {
 		if (IS_ENABLED(CONFIG_BT_MESH_LARGE_COMP_DATA_SRV)) {
-			/* MshPRTv1.1: 4.4.1.2.2:
+			/* Mesh Profile 1.1 Section 4.4.1.2.2:
 			 * If the complete list of models does not fit in the Data field,
 			 * the element shall not be reported.
 			 */
 			LOG_DBG("Element 0x%04x didn't fit in the Data field",
-				elem->rt->addr);
+				elem->addr);
 			return 0;
 		}
 
@@ -401,13 +396,13 @@ static int comp_add_elem(struct net_buf_simple *buf, const struct bt_mesh_elem *
 	data_buf_add_u8_offset(buf, elem->vnd_model_count, offset);
 
 	for (i = 0; i < elem->model_count; i++) {
-		const struct bt_mesh_model *model = &elem->models[i];
+		struct bt_mesh_model *model = &elem->models[i];
 
 		comp_add_model(model, elem, false, &arg);
 	}
 
 	for (i = 0; i < elem->vnd_model_count; i++) {
-		const struct bt_mesh_model *model = &elem->vnd_models[i];
+		struct bt_mesh_model *model = &elem->vnd_models[i];
 
 		comp_add_model(model, elem, true, &arg);
 	}
@@ -457,8 +452,7 @@ int bt_mesh_comp_data_get_page_0(struct net_buf_simple *buf, size_t offset)
 	return 0;
 }
 
-static uint8_t count_mod_ext(const struct bt_mesh_model *mod,
-			     uint8_t *max_offset, uint8_t sig_offset)
+static uint8_t count_mod_ext(struct bt_mesh_model *mod, uint8_t *max_offset, uint8_t sig_offset)
 {
 	int i;
 	uint8_t extensions = 0;
@@ -482,7 +476,7 @@ static uint8_t count_mod_ext(const struct bt_mesh_model *mod,
 	return extensions;
 }
 
-static bool is_cor_present(const struct bt_mesh_model *mod, uint8_t *cor_id, uint8_t sig_offset)
+static bool is_cor_present(struct bt_mesh_model *mod, uint8_t *cor_id, uint8_t sig_offset)
 {
 	int i;
 
@@ -500,9 +494,8 @@ static bool is_cor_present(const struct bt_mesh_model *mod, uint8_t *cor_id, uin
 	return false;
 }
 
-static void prep_model_item_header(const struct bt_mesh_model *mod, uint8_t *cor_id,
-				   uint8_t *mod_cnt, struct net_buf_simple *buf,
-				   size_t *offset, uint8_t sig_offset)
+static void prep_model_item_header(struct bt_mesh_model *mod, uint8_t *cor_id, uint8_t *mod_cnt,
+				   struct net_buf_simple *buf, size_t *offset, uint8_t sig_offset)
 {
 	uint8_t ext_mod_cnt;
 	bool cor_present;
@@ -529,7 +522,7 @@ static void prep_model_item_header(const struct bt_mesh_model *mod, uint8_t *cor
 	memset(mod_cnt, ext_mod_cnt, sizeof(uint8_t));
 }
 
-static void add_items_to_page(struct net_buf_simple *buf, const struct bt_mesh_model *mod,
+static void add_items_to_page(struct net_buf_simple *buf, struct bt_mesh_model *mod,
 			      uint8_t ext_mod_cnt, size_t *offset, uint8_t sig_offset)
 {
 	int i, elem_offset;
@@ -538,7 +531,7 @@ static void add_items_to_page(struct net_buf_simple *buf, const struct bt_mesh_m
 	MOD_REL_LIST_FOR_EACH(i) {
 		if (IS_MOD_EXTENSION(mod, i, sig_offset) &&
 		    mod_rel_list[i].type == RELATION_TYPE_EXT) {
-			elem_offset = mod->rt->elem_idx - mod_rel_list[i].elem_base;
+			elem_offset = mod->elem_idx - mod_rel_list[i].elem_base;
 			mod_idx = mod_rel_list[i].idx_base;
 			if (ext_mod_cnt < 32 &&
 				elem_offset < 4 &&
@@ -562,7 +555,7 @@ static void add_items_to_page(struct net_buf_simple *buf, const struct bt_mesh_m
 	}
 }
 
-static size_t mod_items_size(const struct bt_mesh_model *mod, uint8_t sig_offset)
+static size_t mod_items_size(struct bt_mesh_model *mod, uint8_t sig_offset)
 {
 	int i, offset;
 	size_t temp_size = 0;
@@ -574,7 +567,7 @@ static size_t mod_items_size(const struct bt_mesh_model *mod, uint8_t sig_offset
 
 	MOD_REL_LIST_FOR_EACH(i) {
 		if (IS_MOD_EXTENSION(mod, i, sig_offset)) {
-			offset = mod->rt->elem_idx - mod_rel_list[i].elem_base;
+			offset = mod->elem_idx - mod_rel_list[i].elem_base;
 			temp_size += (ext_mod_cnt < 32 && offset < 4 && offset > -5) ? 1 : 2;
 		}
 	}
@@ -582,7 +575,7 @@ static size_t mod_items_size(const struct bt_mesh_model *mod, uint8_t sig_offset
 	return temp_size;
 }
 
-static size_t page1_elem_size(const struct bt_mesh_elem *elem)
+static size_t page1_elem_size(struct bt_mesh_elem *elem)
 {
 	size_t temp_size = 2;
 
@@ -618,12 +611,12 @@ static int bt_mesh_comp_data_get_page_1(struct net_buf_simple *buf, size_t offse
 
 		if (net_buf_simple_tailroom(buf) < ((elem_size - offset) + BT_MESH_MIC_SHORT)) {
 			if (IS_ENABLED(CONFIG_BT_MESH_LARGE_COMP_DATA_SRV)) {
-				/* MshPRTv1.1: 4.4.1.2.2:
+				/* Mesh Profile 1.1 Section 4.4.1.2.2:
 				 * If the complete list of models does not fit in the Data field,
 				 * the element shall not be reported.
 				 */
 				LOG_DBG("Element 0x%04x didn't fit in the Data field",
-					comp->elem[i].rt->addr);
+					comp->elem[i].addr);
 				return 0;
 			}
 
@@ -676,7 +669,7 @@ static int bt_mesh_comp_data_get_page_2(struct net_buf_simple *buf, size_t offse
 
 		if (net_buf_simple_tailroom(buf) < ((elem_size - offset) + BT_MESH_MIC_SHORT)) {
 			if (IS_ENABLED(CONFIG_BT_MESH_LARGE_COMP_DATA_SRV)) {
-				/* MshPRTv1.1: 4.4.1.2.2:
+				/* Mesh Profile 1.1 Section 4.4.1.2.2:
 				 * If the complete list of models does not fit in the Data field,
 				 * the element shall not be reported.
 				 */
@@ -694,13 +687,13 @@ static int bt_mesh_comp_data_get_page_2(struct net_buf_simple *buf, size_t offse
 		data_buf_add_u8_offset(buf, dev_comp2->record[i].version.z, &offset);
 		data_buf_add_u8_offset(buf, dev_comp2->record[i].elem_offset_cnt, &offset);
 		if (dev_comp2->record[i].elem_offset_cnt) {
-			data_buf_add_mem_offset(buf, dev_comp2->record[i].elem_offset,
+			data_buf_add_mem_offset(buf, (uint8_t *)dev_comp2->record[i].elem_offset,
 						dev_comp2->record[i].elem_offset_cnt, &offset);
 		}
 
 		data_buf_add_le16_offset(buf, dev_comp2->record[i].data_len, &offset);
 		if (dev_comp2->record[i].data_len) {
-			data_buf_add_mem_offset(buf, dev_comp2->record[i].data,
+			data_buf_add_mem_offset(buf, (uint8_t *)dev_comp2->record[i].data,
 						dev_comp2->record[i].data_len, &offset);
 		}
 	}
@@ -708,7 +701,7 @@ static int bt_mesh_comp_data_get_page_2(struct net_buf_simple *buf, size_t offse
 	return 0;
 }
 
-int32_t bt_mesh_model_pub_period_get(const struct bt_mesh_model *mod)
+int32_t bt_mesh_model_pub_period_get(struct bt_mesh_model *mod)
 {
 	int32_t period;
 
@@ -748,7 +741,7 @@ int32_t bt_mesh_model_pub_period_get(const struct bt_mesh_model *mod)
 	}
 }
 
-static int32_t next_period(const struct bt_mesh_model *mod)
+static int32_t next_period(struct bt_mesh_model *mod)
 {
 	struct bt_mesh_model_pub *pub = mod->pub;
 	uint32_t period = 0;
@@ -766,16 +759,8 @@ static int32_t next_period(const struct bt_mesh_model *mod)
 
 		if (period && elapsed >= period) {
 			LOG_WRN("Retransmission interval is too short");
-
-			if (!!pub->delayable) {
-				LOG_WRN("Publication period is too short for"
-					" retransmissions");
-			}
-
-			/* Keep retransmitting the message with the interval sacrificing the
-			 * next publication period start.
-			 */
-			return BT_MESH_PUB_TRANSMIT_INT(mod->pub->retransmit);
+			/* Return smallest positive number since 0 means disabled */
+			return 1;
 		}
 	}
 
@@ -788,11 +773,6 @@ static int32_t next_period(const struct bt_mesh_model *mod)
 
 	if (elapsed >= period) {
 		LOG_WRN("Publication sending took longer than the period");
-
-		if (!!pub->delayable) {
-			LOG_WRN("Publication period is too short to be delayable");
-		}
-
 		/* Return smallest positive number since 0 means disabled */
 		return 1;
 	}
@@ -802,7 +782,7 @@ static int32_t next_period(const struct bt_mesh_model *mod)
 
 static void publish_sent(int err, void *user_data)
 {
-	const struct bt_mesh_model *mod = user_data;
+	struct bt_mesh_model *mod = user_data;
 	int32_t delay;
 
 	LOG_DBG("err %d, time %u", err, k_uptime_get_32());
@@ -832,20 +812,20 @@ static const struct bt_mesh_send_cb pub_sent_cb = {
 	.end = publish_sent,
 };
 
-static int publish_transmit(const struct bt_mesh_model *mod)
+static int publish_transmit(struct bt_mesh_model *mod)
 {
 	NET_BUF_SIMPLE_DEFINE(sdu, BT_MESH_TX_SDU_MAX);
 	struct bt_mesh_model_pub *pub = mod->pub;
 	struct bt_mesh_msg_ctx ctx = BT_MESH_MSG_CTX_INIT_PUB(pub);
 	struct bt_mesh_net_tx tx = {
 		.ctx = &ctx,
-		.src = bt_mesh_model_elem(mod)->rt->addr,
+		.src = bt_mesh_model_elem(mod)->addr,
 		.friend_cred = pub->cred,
 	};
 
 	net_buf_simple_add_mem(&sdu, pub->msg->data, pub->msg->len);
 
-	return bt_mesh_trans_send(&tx, &sdu, &pub_sent_cb, (void *)mod);
+	return bt_mesh_trans_send(&tx, &sdu, &pub_sent_cb, mod);
 }
 
 static int pub_period_start(struct bt_mesh_model_pub *pub)
@@ -866,43 +846,10 @@ static int pub_period_start(struct bt_mesh_model_pub *pub)
 		/* Skip this publish attempt. */
 		LOG_DBG("Update failed, skipping publish (err: %d)", err);
 		pub->count = 0;
-		publish_sent(err, (void *)pub->mod);
+		publish_sent(err, pub->mod);
 		return err;
 	}
 
-	return 0;
-}
-
-static uint16_t pub_delay_get(int random_delay_window)
-{
-	if (!IS_ENABLED(CONFIG_BT_MESH_DELAYABLE_PUBLICATION)) {
-		return 0;
-	}
-
-	uint16_t num = 0;
-
-	(void)bt_rand(&num, sizeof(num));
-
-	return 20 + (num % random_delay_window);
-}
-
-static int pub_delay_schedule(struct bt_mesh_model_pub *pub, int delay)
-{
-	uint16_t random;
-	int err;
-
-	if (!IS_ENABLED(CONFIG_BT_MESH_DELAYABLE_PUBLICATION)) {
-		return -ENOTSUP;
-	}
-
-	random = pub_delay_get(delay);
-	err = k_work_reschedule(&pub->timer, K_MSEC(random));
-	if (err < 0) {
-		LOG_ERR("Unable to delay publication (err %d)", err);
-		return err;
-	}
-
-	LOG_DBG("Publication delayed by %dms", random);
 	return 0;
 }
 
@@ -922,7 +869,7 @@ static void mod_publish(struct k_work *work)
 		return;
 	}
 
-	LOG_DBG("timestamp: %u", k_uptime_get_32());
+	LOG_DBG("%u", k_uptime_get_32());
 
 	if (pub->count) {
 		pub->count--;
@@ -931,7 +878,7 @@ static void mod_publish(struct k_work *work)
 		    bt_mesh_model_pub_is_retransmission(pub->mod)) {
 			err = pub->update(pub->mod);
 			if (err) {
-				publish_sent(err, (void *)pub->mod);
+				publish_sent(err, pub->mod);
 				return;
 			}
 		}
@@ -941,30 +888,23 @@ static void mod_publish(struct k_work *work)
 		if (err) {
 			return;
 		}
-
-		/* Delay the first publication in a period. */
-		if (!!pub->delayable && !pub_delay_schedule(pub, RANDOM_DELAY_SHORT)) {
-			/* Increment count as it would do BT_MESH_PUB_MSG_TOTAL */
-			pub->count++;
-			return;
-		}
 	}
 
 	err = publish_transmit(pub->mod);
 	if (err) {
 		LOG_ERR("Failed to publish (err %d)", err);
-		publish_sent(err, (void *)pub->mod);
+		publish_sent(err, pub->mod);
 	}
 }
 
-const struct bt_mesh_elem *bt_mesh_model_elem(const struct bt_mesh_model *mod)
+struct bt_mesh_elem *bt_mesh_model_elem(struct bt_mesh_model *mod)
 {
-	return &dev_comp->elem[mod->rt->elem_idx];
+	return &dev_comp->elem[mod->elem_idx];
 }
 
-const struct bt_mesh_model *bt_mesh_model_get(bool vnd, uint8_t elem_idx, uint8_t mod_idx)
+struct bt_mesh_model *bt_mesh_model_get(bool vnd, uint8_t elem_idx, uint8_t mod_idx)
 {
-	const struct bt_mesh_elem *elem;
+	struct bt_mesh_elem *elem;
 
 	if (elem_idx >= dev_comp->elem_count) {
 		LOG_ERR("Invalid element index %u", elem_idx);
@@ -991,7 +931,7 @@ const struct bt_mesh_model *bt_mesh_model_get(bool vnd, uint8_t elem_idx, uint8_
 }
 
 #if defined(CONFIG_BT_MESH_MODEL_VND_MSG_CID_FORCE)
-static int bt_mesh_vnd_mod_msg_cid_check(const struct bt_mesh_model *mod)
+static int bt_mesh_vnd_mod_msg_cid_check(struct bt_mesh_model *mod)
 {
 	uint16_t cid;
 	const struct bt_mesh_model_op *op;
@@ -1014,7 +954,7 @@ static int bt_mesh_vnd_mod_msg_cid_check(const struct bt_mesh_model *mod)
 }
 #endif
 
-static void mod_init(const struct bt_mesh_model *mod, const struct bt_mesh_elem *elem,
+static void mod_init(struct bt_mesh_model *mod, struct bt_mesh_elem *elem,
 		     bool vnd, bool primary, void *user_data)
 {
 	int i;
@@ -1033,9 +973,9 @@ static void mod_init(const struct bt_mesh_model *mod, const struct bt_mesh_elem 
 		mod->keys[i] = BT_MESH_KEY_UNUSED;
 	}
 
-	mod->rt->elem_idx = elem - dev_comp->elem;
+	mod->elem_idx = elem - dev_comp->elem;
 	if (vnd) {
-		mod->rt->mod_idx = mod - elem->vnd_models;
+		mod->mod_idx = mod - elem->vnd_models;
 
 		if (IS_ENABLED(CONFIG_BT_MESH_MODEL_VND_MSG_CID_FORCE)) {
 			*err = bt_mesh_vnd_mod_msg_cid_check(mod);
@@ -1045,7 +985,7 @@ static void mod_init(const struct bt_mesh_model *mod, const struct bt_mesh_elem 
 		}
 
 	} else {
-		mod->rt->mod_idx = mod - elem->models;
+		mod->mod_idx = mod - elem->models;
 	}
 
 	if (mod->cb && mod->cb->init) {
@@ -1066,13 +1006,13 @@ int bt_mesh_comp_register(const struct bt_mesh_comp *comp)
 
 	err = 0;
 
-	if (MOD_REL_LIST_SIZE > 0) {
+	if (IS_ENABLED(CONFIG_BT_MESH_COMP_PAGE_1)) {
 		memset(mod_rel_list, 0, sizeof(mod_rel_list));
 	}
 
 	bt_mesh_model_foreach(mod_init, &err);
 
-	if (MOD_REL_LIST_SIZE > 0) {
+	if (IS_ENABLED(CONFIG_BT_MESH_COMP_PAGE_1)) {
 		int i;
 
 		MOD_REL_LIST_FOR_EACH(i) {
@@ -1115,12 +1055,12 @@ void bt_mesh_comp_provision(uint16_t addr)
 	LOG_DBG("addr 0x%04x elem_count %zu", addr, dev_comp->elem_count);
 
 	for (i = 0; i < dev_comp->elem_count; i++) {
-		const struct bt_mesh_elem *elem = &dev_comp->elem[i];
+		struct bt_mesh_elem *elem = &dev_comp->elem[i];
 
-		elem->rt->addr = addr++;
+		elem->addr = addr++;
 
-		LOG_DBG("addr 0x%04x mod_count %u vnd_mod_count %u", elem->rt->addr,
-			elem->model_count, elem->vnd_model_count);
+		LOG_DBG("addr 0x%04x mod_count %u vnd_mod_count %u", elem->addr, elem->model_count,
+			elem->vnd_model_count);
 	}
 }
 
@@ -1131,9 +1071,9 @@ void bt_mesh_comp_unprovision(void)
 	dev_primary_addr = BT_MESH_ADDR_UNASSIGNED;
 
 	for (int i = 0; i < dev_comp->elem_count; i++) {
-		const struct bt_mesh_elem *elem = &dev_comp->elem[i];
+		struct bt_mesh_elem *elem = &dev_comp->elem[i];
 
-		elem->rt->addr = BT_MESH_ADDR_UNASSIGNED;
+		elem->addr = BT_MESH_ADDR_UNASSIGNED;
 	}
 }
 
@@ -1142,7 +1082,7 @@ uint16_t bt_mesh_primary_addr(void)
 	return dev_primary_addr;
 }
 
-static uint16_t *model_group_get(const struct bt_mesh_model *mod, uint16_t addr)
+static uint16_t *model_group_get(struct bt_mesh_model *mod, uint16_t addr)
 {
 	int i;
 
@@ -1157,15 +1097,15 @@ static uint16_t *model_group_get(const struct bt_mesh_model *mod, uint16_t addr)
 
 struct find_group_visitor_ctx {
 	uint16_t *entry;
-	const struct bt_mesh_model *mod;
+	struct bt_mesh_model *mod;
 	uint16_t addr;
 };
 
-static enum bt_mesh_walk find_group_mod_visitor(const struct bt_mesh_model *mod, void *user_data)
+static enum bt_mesh_walk find_group_mod_visitor(struct bt_mesh_model *mod, void *user_data)
 {
 	struct find_group_visitor_ctx *ctx = user_data;
 
-	if (mod->rt->elem_idx != ctx->mod->rt->elem_idx) {
+	if (mod->elem_idx != ctx->mod->elem_idx) {
 		return BT_MESH_WALK_CONTINUE;
 	}
 
@@ -1178,7 +1118,7 @@ static enum bt_mesh_walk find_group_mod_visitor(const struct bt_mesh_model *mod,
 	return BT_MESH_WALK_CONTINUE;
 }
 
-uint16_t *bt_mesh_model_find_group(const struct bt_mesh_model **mod, uint16_t addr)
+uint16_t *bt_mesh_model_find_group(struct bt_mesh_model **mod, uint16_t addr)
 {
 	struct find_group_visitor_ctx ctx = {
 		.mod = *mod,
@@ -1193,7 +1133,7 @@ uint16_t *bt_mesh_model_find_group(const struct bt_mesh_model **mod, uint16_t ad
 }
 
 #if CONFIG_BT_MESH_LABEL_COUNT > 0
-static const uint8_t **model_uuid_get(const struct bt_mesh_model *mod, const uint8_t *uuid)
+static const uint8_t **model_uuid_get(struct bt_mesh_model *mod, const uint8_t *uuid)
 {
 	int i;
 
@@ -1215,15 +1155,15 @@ static const uint8_t **model_uuid_get(const struct bt_mesh_model *mod, const uin
 
 struct find_uuid_visitor_ctx {
 	const uint8_t **entry;
-	const struct bt_mesh_model *mod;
+	struct bt_mesh_model *mod;
 	const uint8_t *uuid;
 };
 
-static enum bt_mesh_walk find_uuid_mod_visitor(const struct bt_mesh_model *mod, void *user_data)
+static enum bt_mesh_walk find_uuid_mod_visitor(struct bt_mesh_model *mod, void *user_data)
 {
 	struct find_uuid_visitor_ctx *ctx = user_data;
 
-	if (mod->rt->elem_idx != ctx->mod->rt->elem_idx) {
+	if (mod->elem_idx != ctx->mod->elem_idx) {
 		return BT_MESH_WALK_CONTINUE;
 	}
 
@@ -1237,7 +1177,7 @@ static enum bt_mesh_walk find_uuid_mod_visitor(const struct bt_mesh_model *mod, 
 }
 #endif /* CONFIG_BT_MESH_LABEL_COUNT > 0 */
 
-const uint8_t **bt_mesh_model_find_uuid(const struct bt_mesh_model **mod, const uint8_t *uuid)
+const uint8_t **bt_mesh_model_find_uuid(struct bt_mesh_model **mod, const uint8_t *uuid)
 {
 #if CONFIG_BT_MESH_LABEL_COUNT > 0
 	struct find_uuid_visitor_ctx ctx = {
@@ -1255,10 +1195,10 @@ const uint8_t **bt_mesh_model_find_uuid(const struct bt_mesh_model **mod, const 
 #endif
 }
 
-static const struct bt_mesh_model *bt_mesh_elem_find_group(const struct bt_mesh_elem *elem,
+static struct bt_mesh_model *bt_mesh_elem_find_group(struct bt_mesh_elem *elem,
 						     uint16_t group_addr)
 {
-	const struct bt_mesh_model *model;
+	struct bt_mesh_model *model;
 	uint16_t *match;
 	int i;
 
@@ -1283,7 +1223,7 @@ static const struct bt_mesh_model *bt_mesh_elem_find_group(const struct bt_mesh_
 	return NULL;
 }
 
-const struct bt_mesh_elem *bt_mesh_elem_find(uint16_t addr)
+struct bt_mesh_elem *bt_mesh_elem_find(uint16_t addr)
 {
 	uint16_t index;
 
@@ -1291,7 +1231,7 @@ const struct bt_mesh_elem *bt_mesh_elem_find(uint16_t addr)
 		return NULL;
 	}
 
-	index = addr - dev_comp->elem[0].rt->addr;
+	index = addr - dev_comp->elem[0].addr;
 	if (index >= dev_comp->elem_count) {
 		return NULL;
 	}
@@ -1312,7 +1252,7 @@ bool bt_mesh_has_addr(uint16_t addr)
 	}
 
 	for (index = 0; index < dev_comp->elem_count; index++) {
-		const struct bt_mesh_elem *elem = &dev_comp->elem[index];
+		struct bt_mesh_elem *elem = &dev_comp->elem[index];
 
 		if (bt_mesh_elem_find_group(elem, addr)) {
 			return true;
@@ -1355,7 +1295,7 @@ uint8_t bt_mesh_elem_count(void)
 	return dev_comp->elem_count;
 }
 
-bool bt_mesh_model_has_key(const struct bt_mesh_model *mod, uint16_t key)
+bool bt_mesh_model_has_key(struct bt_mesh_model *mod, uint16_t key)
 {
 	int i;
 
@@ -1370,14 +1310,14 @@ bool bt_mesh_model_has_key(const struct bt_mesh_model *mod, uint16_t key)
 	return false;
 }
 
-static bool model_has_dst(const struct bt_mesh_model *mod, uint16_t dst, const uint8_t *uuid)
+static bool model_has_dst(struct bt_mesh_model *mod, uint16_t dst, const uint8_t *uuid)
 {
 	if (BT_MESH_ADDR_IS_UNICAST(dst)) {
-		return (dev_comp->elem[mod->rt->elem_idx].rt->addr == dst);
+		return (dev_comp->elem[mod->elem_idx].addr == dst);
 	} else if (BT_MESH_ADDR_IS_VIRTUAL(dst)) {
 		return !!bt_mesh_model_find_uuid(&mod, uuid);
 	} else if (BT_MESH_ADDR_IS_GROUP(dst) ||
-		  (BT_MESH_ADDR_IS_FIXED_GROUP(dst) &&  mod->rt->elem_idx != 0)) {
+		  (BT_MESH_ADDR_IS_FIXED_GROUP(dst) &&  mod->elem_idx != 0)) {
 		return !!bt_mesh_model_find_group(&mod, dst);
 	}
 
@@ -1385,17 +1325,17 @@ static bool model_has_dst(const struct bt_mesh_model *mod, uint16_t dst, const u
 	 * the lower layers have already confirmed that we are subscribing to
 	 * it. All models on the primary element should receive the message.
 	 */
-	return mod->rt->elem_idx == 0;
+	return mod->elem_idx == 0;
 }
 
-static const struct bt_mesh_model_op *find_op(const struct bt_mesh_elem *elem,
-					      uint32_t opcode, const struct bt_mesh_model **model)
+static const struct bt_mesh_model_op *find_op(struct bt_mesh_elem *elem,
+					      uint32_t opcode, struct bt_mesh_model **model)
 {
 	uint8_t i;
 	uint8_t count;
 	/* This value shall not be used in shipping end products. */
 	uint32_t cid = UINT32_MAX;
-	const struct bt_mesh_model *models;
+	struct bt_mesh_model *models;
 
 	/* SIG models cannot contain 3-byte (vendor) OpCodes, and
 	 * vendor models cannot contain SIG (1- or 2-byte) OpCodes, so
@@ -1473,16 +1413,16 @@ static int get_opcode(struct net_buf_simple *buf, uint32_t *opcode)
 }
 
 static int element_model_recv(struct bt_mesh_msg_ctx *ctx, struct net_buf_simple *buf,
-			      const struct bt_mesh_elem *elem, uint32_t opcode)
+			      struct bt_mesh_elem *elem, uint32_t opcode)
 {
 	const struct bt_mesh_model_op *op;
-	const struct bt_mesh_model *model;
+	struct bt_mesh_model *model;
 	struct net_buf_simple_state state;
 	int err;
 
 	op = find_op(elem, opcode, &model);
 	if (!op) {
-		LOG_DBG("No OpCode 0x%08x for elem 0x%02x", opcode, elem->rt->addr);
+		LOG_ERR("No OpCode 0x%08x for elem 0x%02x", opcode, elem->addr);
 		return ACCESS_STATUS_WRONG_OPCODE;
 	}
 
@@ -1502,10 +1442,6 @@ static int element_model_recv(struct bt_mesh_msg_ctx *ctx, struct net_buf_simple
 	} else if ((op->len < 0) && (buf->len != (size_t)(-op->len))) {
 		LOG_ERR("Invalid message size for OpCode 0x%08x", opcode);
 		return ACCESS_STATUS_MESSAGE_NOT_UNDERSTOOD;
-	}
-
-	if (IS_ENABLED(CONFIG_BT_MESH_ACCESS_DELAYABLE_MSG_CTX_ENABLED)) {
-		ctx->rnd_delay = true;
 	}
 
 	net_buf_simple_save(buf, &state);
@@ -1541,24 +1477,21 @@ int bt_mesh_model_recv(struct bt_mesh_msg_ctx *ctx, struct net_buf_simple *buf)
 	LOG_DBG("OpCode 0x%08x", opcode);
 
 	if (BT_MESH_ADDR_IS_UNICAST(ctx->recv_dst)) {
-		index = ctx->recv_dst - dev_comp->elem[0].rt->addr;
+		index = ctx->recv_dst - dev_comp->elem[0].addr;
 
 		if (index >= dev_comp->elem_count) {
 			LOG_ERR("Invalid address 0x%02x", ctx->recv_dst);
-			return ACCESS_STATUS_INVALID_ADDRESS;
+			err = ACCESS_STATUS_INVALID_ADDRESS;
 		} else {
-			const struct bt_mesh_elem *elem = &dev_comp->elem[index];
+			struct bt_mesh_elem *elem = &dev_comp->elem[index];
 
 			err = element_model_recv(ctx, buf, elem, opcode);
 		}
 	} else {
-		err = ACCESS_STATUS_MESSAGE_NOT_UNDERSTOOD;
 		for (index = 0; index < dev_comp->elem_count; index++) {
-			const struct bt_mesh_elem *elem = &dev_comp->elem[index];
-			int err_elem;
+			struct bt_mesh_elem *elem = &dev_comp->elem[index];
 
-			err_elem = element_model_recv(ctx, buf, elem, opcode);
-			err = err_elem == ACCESS_STATUS_SUCCESS ? err_elem : err;
+			(void)element_model_recv(ctx, buf, elem, opcode);
 		}
 	}
 
@@ -1569,31 +1502,12 @@ int bt_mesh_model_recv(struct bt_mesh_msg_ctx *ctx, struct net_buf_simple *buf)
 	return err;
 }
 
-int bt_mesh_access_recv(struct bt_mesh_msg_ctx *ctx, struct net_buf_simple *buf)
-{
-	int err;
-
-	err = bt_mesh_model_recv(ctx, buf);
-
-	if (IS_ENABLED(CONFIG_BT_MESH_ACCESS_LAYER_MSG) && msg_cb) {
-		/* Mesh assumes that the application has processed the message.
-		 * Access layer returns success to trigger RPL update and prevent
-		 * replay attack over application.
-		 */
-		err = 0;
-	}
-
-	return err;
-}
-
-int bt_mesh_model_send(const struct bt_mesh_model *model, struct bt_mesh_msg_ctx *ctx,
+int bt_mesh_model_send(struct bt_mesh_model *model, struct bt_mesh_msg_ctx *ctx,
 		       struct net_buf_simple *msg,
 		       const struct bt_mesh_send_cb *cb, void *cb_data)
 {
-	if (IS_ENABLED(CONFIG_BT_MESH_OP_AGG_SRV) && bt_mesh_op_agg_srv_accept(ctx, msg)) {
-		return bt_mesh_op_agg_srv_send(model, msg);
-	} else if (IS_ENABLED(CONFIG_BT_MESH_OP_AGG_CLI) && bt_mesh_op_agg_cli_accept(ctx, msg)) {
-		return bt_mesh_op_agg_cli_send(model, msg);
+	if (IS_ENABLED(CONFIG_BT_MESH_OP_AGG) && bt_mesh_op_agg_accept(ctx)) {
+		return bt_mesh_op_agg_send(model, ctx, msg, cb);
 	}
 
 	if (!bt_mesh_model_has_key(model, ctx->app_idx)) {
@@ -1601,19 +1515,10 @@ int bt_mesh_model_send(const struct bt_mesh_model *model, struct bt_mesh_msg_ctx
 		return -EINVAL;
 	}
 
-#if defined CONFIG_BT_MESH_ACCESS_DELAYABLE_MSG
-	/* No sense to use delayable message for unicast loopback. */
-	if (ctx->rnd_delay &&
-	    !(bt_mesh_has_addr(ctx->addr) && BT_MESH_ADDR_IS_UNICAST(ctx->addr))) {
-		return bt_mesh_delayable_msg_manage(ctx, msg, bt_mesh_model_elem(model)->rt->addr,
-						    cb, cb_data);
-	}
-#endif
-
-	return bt_mesh_access_send(ctx, msg, bt_mesh_model_elem(model)->rt->addr, cb, cb_data);
+	return bt_mesh_access_send(ctx, msg, bt_mesh_model_elem(model)->addr, cb, cb_data);
 }
 
-int bt_mesh_model_publish(const struct bt_mesh_model *model)
+int bt_mesh_model_publish(struct bt_mesh_model *model)
 {
 	struct bt_mesh_model_pub *pub = model->pub;
 
@@ -1648,24 +1553,12 @@ int bt_mesh_model_publish(const struct bt_mesh_model *model)
 	LOG_DBG("Publish Retransmit Count %u Interval %ums", pub->count,
 		BT_MESH_PUB_TRANSMIT_INT(pub->retransmit));
 
-	/* Delay the publication for longer time when the publication is triggered manually (section
-	 * 3.7.3.1):
-	 *
-	 * When the publication of a message is the result of a power-up, a state transition
-	 * progress update, or completion of a state transition, multiple nodes may be reporting the
-	 * state change at the same time. To reduce the probability of a message collision, these
-	 * messages should be sent with a random delay between 20 and 500 milliseconds.
-	 */
-	if (!!pub->delayable && !pub_delay_schedule(pub, RANDOM_DELAY_LONG)) {
-		return 0;
-	}
-
 	k_work_reschedule(&pub->timer, K_NO_WAIT);
 
 	return 0;
 }
 
-const struct bt_mesh_model *bt_mesh_model_find_vnd(const struct bt_mesh_elem *elem,
+struct bt_mesh_model *bt_mesh_model_find_vnd(const struct bt_mesh_elem *elem,
 					     uint16_t company, uint16_t id)
 {
 	uint8_t i;
@@ -1680,7 +1573,7 @@ const struct bt_mesh_model *bt_mesh_model_find_vnd(const struct bt_mesh_elem *el
 	return NULL;
 }
 
-const struct bt_mesh_model *bt_mesh_model_find(const struct bt_mesh_elem *elem,
+struct bt_mesh_model *bt_mesh_model_find(const struct bt_mesh_elem *elem,
 					 uint16_t id)
 {
 	uint8_t i;
@@ -1699,8 +1592,8 @@ const struct bt_mesh_comp *bt_mesh_comp_get(void)
 	return dev_comp;
 }
 
-void bt_mesh_model_extensions_walk(const struct bt_mesh_model *model,
-				   enum bt_mesh_walk (*cb)(const struct bt_mesh_model *mod,
+void bt_mesh_model_extensions_walk(struct bt_mesh_model *model,
+				   enum bt_mesh_walk (*cb)(struct bt_mesh_model *mod,
 							   void *user_data),
 				   void *user_data)
 {
@@ -1708,14 +1601,14 @@ void bt_mesh_model_extensions_walk(const struct bt_mesh_model *model,
 	(void)cb(model, user_data);
 	return;
 #else
-	const struct bt_mesh_model *it;
+	struct bt_mesh_model *it;
 
-	if (cb(model, user_data) == BT_MESH_WALK_STOP || !model->rt->next) {
+	if (cb(model, user_data) == BT_MESH_WALK_STOP || !model->next) {
 		return;
 	}
 
 	/* List is circular. Step through all models until we reach the start: */
-	for (it = model->rt->next; it != model; it = it->rt->next) {
+	for (it = model->next; it != model; it = it->next) {
 		if (cb(it, user_data) == BT_MESH_WALK_STOP) {
 			return;
 		}
@@ -1727,7 +1620,7 @@ void bt_mesh_model_extensions_walk(const struct bt_mesh_model *model,
 /* For vendor models, determine the offset within the model relation list
  * by counting the number of standard SIG models in the associated element.
  */
-static uint8_t get_sig_offset(const struct bt_mesh_model *mod)
+static uint8_t get_sig_offset(struct bt_mesh_model *mod)
 {
 	const struct bt_mesh_elem *elem = bt_mesh_model_elem(mod);
 	uint8_t i;
@@ -1740,16 +1633,16 @@ static uint8_t get_sig_offset(const struct bt_mesh_model *mod)
 	return 0;
 }
 
-static int mod_rel_register(const struct bt_mesh_model *base,
-				 const struct bt_mesh_model *ext,
+static int mod_rel_register(struct bt_mesh_model *base,
+				 struct bt_mesh_model *ext,
 				 uint8_t type)
 {
 	LOG_DBG("");
 	struct mod_relation extension = {
-		base->rt->elem_idx,
-		base->rt->mod_idx + get_sig_offset(base),
-		ext->rt->elem_idx,
-		ext->rt->mod_idx + get_sig_offset(ext),
+		base->elem_idx,
+		base->mod_idx + get_sig_offset(base),
+		ext->elem_idx,
+		ext->mod_idx + get_sig_offset(ext),
 		type,
 	};
 	int i;
@@ -1764,64 +1657,59 @@ static int mod_rel_register(const struct bt_mesh_model *base,
 			return 0;
 		}
 	}
-
-	LOG_ERR("CONFIG_BT_MESH_MODEL_EXTENSION_LIST_SIZE is too small");
+	LOG_ERR("Failed to extend");
 	return -ENOMEM;
 }
 
-int bt_mesh_model_extend(const struct bt_mesh_model *extending_mod,
-			 const struct bt_mesh_model *base_mod)
+int bt_mesh_model_extend(struct bt_mesh_model *extending_mod, struct bt_mesh_model *base_mod)
 {
-	const struct bt_mesh_model *a = extending_mod;
-	const struct bt_mesh_model *b = base_mod;
-	const struct bt_mesh_model *a_next = a->rt->next;
-	const struct bt_mesh_model *b_next = b->rt->next;
-	const struct bt_mesh_model *it;
+	struct bt_mesh_model *a = extending_mod;
+	struct bt_mesh_model *b = base_mod;
+	struct bt_mesh_model *a_next = a->next;
+	struct bt_mesh_model *b_next = b->next;
+	struct bt_mesh_model *it;
 
-	base_mod->rt->flags |= BT_MESH_MOD_EXTENDED;
+	base_mod->flags |= BT_MESH_MOD_EXTENDED;
 
 	if (a == b) {
 		return 0;
 	}
 
 	/* Check if a's list contains b */
-	for (it = a; (it != NULL) && (it->rt->next != a); it = it->rt->next) {
+	for (it = a; (it != NULL) && (it->next != a); it = it->next) {
 		if (it == b) {
-			goto register_extension;
+			return 0;
 		}
 	}
 
 	/* Merge lists */
 	if (a_next) {
-		b->rt->next = a_next;
+		b->next = a_next;
 	} else {
-		b->rt->next = a;
+		b->next = a;
 	}
 
 	if (b_next) {
-		a->rt->next = b_next;
+		a->next = b_next;
 	} else {
-		a->rt->next = b;
+		a->next = b;
 	}
 
-register_extension:
-	if (MOD_REL_LIST_SIZE > 0) {
+
+	if (IS_ENABLED(CONFIG_BT_MESH_COMP_PAGE_1)) {
 		return mod_rel_register(base_mod, extending_mod, RELATION_TYPE_EXT);
-	} else if (IS_ENABLED(CONFIG_BT_MESH_COMP_PAGE_1)) {
-		LOG_ERR("CONFIG_BT_MESH_MODEL_EXTENSION_LIST_SIZE is too small");
-		return -ENOMEM;
 	}
 
 	return 0;
 }
 
-int bt_mesh_model_correspond(const struct bt_mesh_model *corresponding_mod,
-			     const struct bt_mesh_model *base_mod)
+int bt_mesh_model_correspond(struct bt_mesh_model *corresponding_mod,
+			     struct bt_mesh_model *base_mod)
 {
 	int i, err;
 	uint8_t cor_id = 0;
 
-	if (MOD_REL_LIST_SIZE == 0) {
+	if (!IS_ENABLED(CONFIG_BT_MESH_COMP_PAGE_1)) {
 		return -ENOTSUP;
 	}
 
@@ -1850,12 +1738,12 @@ int bt_mesh_model_correspond(const struct bt_mesh_model *corresponding_mod,
 }
 #endif /* CONFIG_BT_MESH_MODEL_EXTENSIONS */
 
-bool bt_mesh_model_is_extended(const struct bt_mesh_model *model)
+bool bt_mesh_model_is_extended(struct bt_mesh_model *model)
 {
-	return model->rt->flags & BT_MESH_MOD_EXTENDED;
+	return model->flags & BT_MESH_MOD_EXTENDED;
 }
 
-static int mod_set_bind(const struct bt_mesh_model *mod, size_t len_rd,
+static int mod_set_bind(struct bt_mesh_model *mod, size_t len_rd,
 			settings_read_cb read_cb, void *cb_arg)
 {
 	ssize_t len;
@@ -1883,7 +1771,7 @@ static int mod_set_bind(const struct bt_mesh_model *mod, size_t len_rd,
 	return 0;
 }
 
-static int mod_set_sub(const struct bt_mesh_model *mod, size_t len_rd,
+static int mod_set_sub(struct bt_mesh_model *mod, size_t len_rd,
 		       settings_read_cb read_cb, void *cb_arg)
 {
 	size_t size = mod->groups_cnt * sizeof(mod->groups[0]);
@@ -1930,7 +1818,7 @@ static int mod_set_sub(const struct bt_mesh_model *mod, size_t len_rd,
 	return 0;
 }
 
-static int mod_set_sub_va(const struct bt_mesh_model *mod, size_t len_rd,
+static int mod_set_sub_va(struct bt_mesh_model *mod, size_t len_rd,
 			  settings_read_cb read_cb, void *cb_arg)
 {
 #if CONFIG_BT_MESH_LABEL_COUNT > 0
@@ -1967,7 +1855,7 @@ static int mod_set_sub_va(const struct bt_mesh_model *mod, size_t len_rd,
 	return 0;
 }
 
-static int mod_set_pub(const struct bt_mesh_model *mod, size_t len_rd,
+static int mod_set_pub(struct bt_mesh_model *mod, size_t len_rd,
 		       settings_read_cb read_cb, void *cb_arg)
 {
 	struct mod_pub_val pub;
@@ -2037,7 +1925,7 @@ pub_base_set:
 	return 0;
 }
 
-static int mod_data_set(const struct bt_mesh_model *mod,
+static int mod_data_set(struct bt_mesh_model *mod,
 			const char *name, size_t len_rd,
 			settings_read_cb read_cb, void *cb_arg)
 {
@@ -2056,7 +1944,7 @@ static int mod_data_set(const struct bt_mesh_model *mod,
 static int mod_set(bool vnd, const char *name, size_t len_rd,
 		   settings_read_cb read_cb, void *cb_arg)
 {
-	const struct bt_mesh_model *mod;
+	struct bt_mesh_model *mod;
 	uint8_t elem_idx, mod_idx;
 	uint16_t mod_key;
 	int len;
@@ -2145,10 +2033,10 @@ static int comp_set(const char *name, size_t len_rd, settings_read_cb read_cb,
 }
 BT_MESH_SETTINGS_DEFINE(comp, "cmp", comp_set);
 
-static void encode_mod_path(const struct bt_mesh_model *mod, bool vnd,
+static void encode_mod_path(struct bt_mesh_model *mod, bool vnd,
 			    const char *key, char *path, size_t path_len)
 {
-	uint16_t mod_key = (((uint16_t)mod->rt->elem_idx << 8) | mod->rt->mod_idx);
+	uint16_t mod_key = (((uint16_t)mod->elem_idx << 8) | mod->mod_idx);
 
 	if (vnd) {
 		snprintk(path, path_len, "bt/mesh/v/%x/%s", mod_key, key);
@@ -2157,7 +2045,7 @@ static void encode_mod_path(const struct bt_mesh_model *mod, bool vnd,
 	}
 }
 
-static void store_pending_mod_bind(const struct bt_mesh_model *mod, bool vnd)
+static void store_pending_mod_bind(struct bt_mesh_model *mod, bool vnd)
 {
 	uint16_t keys[CONFIG_BT_MESH_MODEL_KEY_COUNT];
 	char path[20];
@@ -2185,7 +2073,7 @@ static void store_pending_mod_bind(const struct bt_mesh_model *mod, bool vnd)
 	}
 }
 
-static void store_pending_mod_sub(const struct bt_mesh_model *mod, bool vnd)
+static void store_pending_mod_sub(struct bt_mesh_model *mod, bool vnd)
 {
 	uint16_t groups[CONFIG_BT_MESH_MODEL_GROUP_COUNT];
 	char path[20];
@@ -2212,7 +2100,7 @@ static void store_pending_mod_sub(const struct bt_mesh_model *mod, bool vnd)
 	}
 }
 
-static void store_pending_mod_sub_va(const struct bt_mesh_model *mod, bool vnd)
+static void store_pending_mod_sub_va(struct bt_mesh_model *mod, bool vnd)
 {
 #if CONFIG_BT_MESH_LABEL_COUNT > 0
 	uint16_t uuidxs[CONFIG_BT_MESH_LABEL_COUNT];
@@ -2244,7 +2132,7 @@ static void store_pending_mod_sub_va(const struct bt_mesh_model *mod, bool vnd)
 #endif /* CONFIG_BT_MESH_LABEL_COUNT > 0 */
 }
 
-static void store_pending_mod_pub(const struct bt_mesh_model *mod, bool vnd)
+static void store_pending_mod_pub(struct bt_mesh_model *mod, bool vnd)
 {
 	struct mod_pub_val pub = {0};
 	char path[20];
@@ -2277,32 +2165,32 @@ static void store_pending_mod_pub(const struct bt_mesh_model *mod, bool vnd)
 	}
 }
 
-static void store_pending_mod(const struct bt_mesh_model *mod,
-			      const struct bt_mesh_elem *elem, bool vnd,
+static void store_pending_mod(struct bt_mesh_model *mod,
+			      struct bt_mesh_elem *elem, bool vnd,
 			      bool primary, void *user_data)
 {
-	if (!mod->rt->flags) {
+	if (!mod->flags) {
 		return;
 	}
 
-	if (mod->rt->flags & BT_MESH_MOD_BIND_PENDING) {
-		mod->rt->flags &= ~BT_MESH_MOD_BIND_PENDING;
+	if (mod->flags & BT_MESH_MOD_BIND_PENDING) {
+		mod->flags &= ~BT_MESH_MOD_BIND_PENDING;
 		store_pending_mod_bind(mod, vnd);
 	}
 
-	if (mod->rt->flags & BT_MESH_MOD_SUB_PENDING) {
-		mod->rt->flags &= ~BT_MESH_MOD_SUB_PENDING;
+	if (mod->flags & BT_MESH_MOD_SUB_PENDING) {
+		mod->flags &= ~BT_MESH_MOD_SUB_PENDING;
 		store_pending_mod_sub(mod, vnd);
 		store_pending_mod_sub_va(mod, vnd);
 	}
 
-	if (mod->rt->flags & BT_MESH_MOD_PUB_PENDING) {
-		mod->rt->flags &= ~BT_MESH_MOD_PUB_PENDING;
+	if (mod->flags & BT_MESH_MOD_PUB_PENDING) {
+		mod->flags &= ~BT_MESH_MOD_PUB_PENDING;
 		store_pending_mod_pub(mod, vnd);
 	}
 
-	if (mod->rt->flags & BT_MESH_MOD_DATA_PENDING) {
-		mod->rt->flags &= ~BT_MESH_MOD_DATA_PENDING;
+	if (mod->flags & BT_MESH_MOD_DATA_PENDING) {
+		mod->flags &= ~BT_MESH_MOD_DATA_PENDING;
 		mod->cb->pending_store(mod);
 	}
 }
@@ -2312,21 +2200,21 @@ void bt_mesh_model_pending_store(void)
 	bt_mesh_model_foreach(store_pending_mod, NULL);
 }
 
-void bt_mesh_model_bind_store(const struct bt_mesh_model *mod)
+void bt_mesh_model_bind_store(struct bt_mesh_model *mod)
 {
-	mod->rt->flags |= BT_MESH_MOD_BIND_PENDING;
+	mod->flags |= BT_MESH_MOD_BIND_PENDING;
 	bt_mesh_settings_store_schedule(BT_MESH_SETTINGS_MOD_PENDING);
 }
 
-void bt_mesh_model_sub_store(const struct bt_mesh_model *mod)
+void bt_mesh_model_sub_store(struct bt_mesh_model *mod)
 {
-	mod->rt->flags |= BT_MESH_MOD_SUB_PENDING;
+	mod->flags |= BT_MESH_MOD_SUB_PENDING;
 	bt_mesh_settings_store_schedule(BT_MESH_SETTINGS_MOD_PENDING);
 }
 
-void bt_mesh_model_pub_store(const struct bt_mesh_model *mod)
+void bt_mesh_model_pub_store(struct bt_mesh_model *mod)
 {
-	mod->rt->flags |= BT_MESH_MOD_PUB_PENDING;
+	mod->flags |= BT_MESH_MOD_PUB_PENDING;
 	bt_mesh_settings_store_schedule(BT_MESH_SETTINGS_MOD_PENDING);
 }
 
@@ -2404,6 +2292,7 @@ size_t bt_mesh_comp_page_size(uint8_t page)
 
 int bt_mesh_comp_store(void)
 {
+#if IS_ENABLED(CONFIG_BT_MESH_V1d1)
 	NET_BUF_SIMPLE_DEFINE(buf, CONFIG_BT_MESH_COMP_PST_BUF_SIZE);
 	int err;
 
@@ -2433,7 +2322,7 @@ int bt_mesh_comp_store(void)
 
 		LOG_DBG("Stored CDP%d", comp_data_pages[i].page);
 	}
-
+#endif
 	return 0;
 }
 
@@ -2510,7 +2399,7 @@ int bt_mesh_comp_read(struct net_buf_simple *buf, uint8_t page)
 	return 0;
 }
 
-int bt_mesh_model_data_store(const struct bt_mesh_model *mod, bool vnd,
+int bt_mesh_model_data_store(struct bt_mesh_model *mod, bool vnd,
 			     const char *name, const void *data,
 			     size_t data_len)
 {
@@ -2659,7 +2548,7 @@ int bt_mesh_models_metadata_change_prepare(void)
 #endif
 }
 
-static void commit_mod(const struct bt_mesh_model *mod, const struct bt_mesh_elem *elem,
+static void commit_mod(struct bt_mesh_model *mod, struct bt_mesh_elem *elem,
 		       bool vnd, bool primary, void *user_data)
 {
 	if (mod->pub && mod->pub->update &&
@@ -2667,21 +2556,8 @@ static void commit_mod(const struct bt_mesh_model *mod, const struct bt_mesh_ele
 		int32_t ms = bt_mesh_model_pub_period_get(mod);
 
 		if (ms > 0) {
-			/* Delay the first publication after power-up for longer time (section
-			 * 3.7.3.1):
-			 *
-			 * When the publication of a message is the result of a power-up, a state
-			 * transition progress update, or completion of a state transition, multiple
-			 * nodes may be reporting the state change at the same time. To reduce the
-			 * probability of a message collision, these messages should be sent with a
-			 * random delay between 20 and 500 milliseconds.
-			 */
-			uint16_t random;
-
-			random = !!mod->pub->delayable ? pub_delay_get(RANDOM_DELAY_LONG) : 0;
-
-			LOG_DBG("Starting publish timer (period %u ms, delay %u ms)", ms, random);
-			k_work_schedule(&mod->pub->timer, K_MSEC(ms + random));
+			LOG_DBG("Starting publish timer (period %u ms)", ms);
+			k_work_schedule(&mod->pub->timer, K_MSEC(ms));
 		}
 	}
 
@@ -2701,9 +2577,9 @@ void bt_mesh_model_settings_commit(void)
 	bt_mesh_model_foreach(commit_mod, NULL);
 }
 
-void bt_mesh_model_data_store_schedule(const struct bt_mesh_model *mod)
+void bt_mesh_model_data_store_schedule(struct bt_mesh_model *mod)
 {
-	mod->rt->flags |= BT_MESH_MOD_DATA_PENDING;
+	mod->flags |= BT_MESH_MOD_DATA_PENDING;
 	bt_mesh_settings_store_schedule(BT_MESH_SETTINGS_MOD_PENDING);
 }
 
@@ -2732,25 +2608,4 @@ uint8_t bt_mesh_comp_parse_page(struct net_buf_simple *buf)
 	}
 
 	return page;
-}
-
-void bt_mesh_access_init(void)
-{
-#if defined CONFIG_BT_MESH_ACCESS_DELAYABLE_MSG
-	bt_mesh_delayable_msg_init();
-#endif
-}
-
-void bt_mesh_access_suspend(void)
-{
-#if defined CONFIG_BT_MESH_ACCESS_DELAYABLE_MSG
-	bt_mesh_delayable_msg_stop();
-#endif
-}
-
-void bt_mesh_access_reset(void)
-{
-#if defined CONFIG_BT_MESH_ACCESS_DELAYABLE_MSG
-	bt_mesh_delayable_msg_stop();
-#endif
 }

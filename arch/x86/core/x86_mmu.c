@@ -7,7 +7,7 @@
 
 #include <zephyr/kernel.h>
 #include <zephyr/arch/x86/mmustructs.h>
-#include <zephyr/kernel/mm.h>
+#include <zephyr/sys/mem_manage.h>
 #include <zephyr/sys/__assert.h>
 #include <zephyr/sys/check.h>
 #include <zephyr/logging/log.h>
@@ -1355,7 +1355,7 @@ void z_x86_mmu_init(void)
 #endif
 }
 
-#ifdef CONFIG_X86_STACK_PROTECTION
+#if CONFIG_X86_STACK_PROTECTION
 __pinned_func
 void z_x86_set_stack_guard(k_thread_stack_t *stack)
 {

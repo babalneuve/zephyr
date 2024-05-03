@@ -29,7 +29,7 @@
 #include <kernel_internal.h>
 #include <zephyr/linker/linker-defs.h>
 #include <pmp.h>
-#include <zephyr/arch/arch_interface.h>
+#include <zephyr/sys/arch_interface.h>
 #include <zephyr/arch/riscv/csr.h>
 
 #define LOG_LEVEL CONFIG_MPU_LOG_LEVEL
@@ -161,8 +161,8 @@ static bool set_pmp_entry(unsigned int *index_p, uint8_t perm,
 	unsigned int index = *index_p;
 	bool ok = true;
 
-	__ASSERT((start & (CONFIG_PMP_GRANULARITY - 1)) == 0, "misaligned start address");
-	__ASSERT((size & (CONFIG_PMP_GRANULARITY - 1)) == 0, "misaligned size");
+	__ASSERT((start & 0x3) == 0, "misaligned start address");
+	__ASSERT((size & 0x3) == 0, "misaligned size");
 
 	if (index >= index_limit) {
 		LOG_ERR("out of PMP slots");

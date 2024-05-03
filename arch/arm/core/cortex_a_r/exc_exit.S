@@ -18,7 +18,6 @@
 #include <zephyr/linker/sections.h>
 #include <offsets_short.h>
 #include <zephyr/arch/cpu.h>
-#include "macro_priv.inc"
 
 _ASM_FILE_PROLOGUE
 
@@ -53,8 +52,8 @@ GDATA(_kernel)
 	bne system_thread_exit\@
 
 	/* Restore user stack pointer */
-	get_cpu r0
-	ldr r0, [r0, #___cpu_t_current_OFFSET]
+	ldr r0, =_kernel
+	ldr r0, [r0, #_kernel_offset_to_current]
 	cps #MODE_SYS
 	ldr sp, [r0, #_thread_offset_to_sp_usr] /* sp_usr */
 	cps #MODE_SVC
@@ -69,8 +68,8 @@ system_thread_exit\@:
 	 * If the floating point context pointer is null, then a context was
 	 * saved so restore the float context from the exception stack frame.
 	 */
-	get_cpu r2
-	ldr r1, [r2, #___cpu_t_fp_ctx_OFFSET]
+	ldr r2, =_kernel
+	ldr r1, [r2, #_kernel_offset_to_fp_ctx]
 	cmp r1, #0
 	beq vfp_restore\@
 
@@ -80,7 +79,7 @@ system_thread_exit\@:
 	 */
 	cmp r0, #0
 	moveq r1, #0
-	streq r1, [r2, #___cpu_t_fp_ctx_OFFSET]
+	streq r1, [r2, #_kernel_offset_to_fp_ctx]
 	b vfp_exit\@
 
 vfp_restore\@:
@@ -141,24 +140,23 @@ SECTION_SUBSEC_FUNC(TEXT, _HandlerModeExit, z_arm_int_exit)
 
 #ifdef CONFIG_PREEMPT_ENABLED
 	/* Do not context switch if exiting a nested interrupt */
-	get_cpu r3
-	ldr r0, [r3, #___cpu_t_nested_OFFSET]
+	ldr r3, =_kernel
+	ldr r0, [r3, #_kernel_offset_to_nested]
 	cmp r0, #1
 	bhi __EXIT_INT
 
-	ldr r1, [r3, #___cpu_t_current_OFFSET]
-	ldr r2, =_kernel
-	ldr r0, [r2, #_kernel_offset_to_ready_q_cache]
+	ldr r1, [r3, #_kernel_offset_to_current]
+	ldr r0, [r3, #_kernel_offset_to_ready_q_cache]
 	cmp r0, r1
 	blne z_arm_do_swap
 __EXIT_INT:
 #endif /* CONFIG_PREEMPT_ENABLED */
 
 	/* Decrement interrupt nesting count */
-	get_cpu r2
-	ldr r0, [r2, #___cpu_t_nested_OFFSET]
+	ldr r2, =_kernel
+	ldr r0, [r2, #_kernel_offset_to_nested]
 	sub r0, r0, #1
-	str r0, [r2, #___cpu_t_nested_OFFSET]
+	str r0, [r2, #_kernel_offset_to_nested]
 
 	/* Restore previous stack pointer */
 	pop {r2, r3}
@@ -209,8 +207,8 @@ __EXIT_INT:
  */
 SECTION_SUBSEC_FUNC(TEXT, _HandlerModeExit, z_arm_exc_exit)
 	/* Do not context switch if exiting a nested exception */
-	get_cpu r3
-	ldr r1, [r3, #___cpu_t_nested_OFFSET]
+	ldr r3, =_kernel
+	ldr r1, [r3, #_kernel_offset_to_nested]
 	cmp r1, #1
 	bhi __EXIT_EXC
 
@@ -241,10 +239,10 @@ SECTION_SUBSEC_FUNC(TEXT, _HandlerModeExit, z_arm_exc_exit)
 	bl z_arm_do_swap
 
 	/* Decrement exception nesting count */
-	get_cpu r3
-	ldr r0, [r3, #___cpu_t_nested_OFFSET]
+	ldr r3, =_kernel
+	ldr r0, [r3, #_kernel_offset_to_nested]
 	sub r0, r0, #1
-	str r0, [r3, #___cpu_t_nested_OFFSET]
+	str r0, [r3, #_kernel_offset_to_nested]
 
 	/* Return to the switched thread */
 	cps #MODE_SYS
@@ -257,9 +255,9 @@ SECTION_SUBSEC_FUNC(TEXT, _HandlerModeExit, z_arm_exc_exit)
 
 __EXIT_EXC:
 	/* Decrement exception nesting count */
-	ldr r0, [r3, #___cpu_t_nested_OFFSET]
+	ldr r0, [r3, #_kernel_offset_to_nested]
 	sub r0, r0, #1
-	str r0, [r3, #___cpu_t_nested_OFFSET]
+	str r0, [r3, #_kernel_offset_to_nested]
 
 #if defined(CONFIG_FPU_SHARING)
 	add sp, sp, #___fpu_t_SIZEOF

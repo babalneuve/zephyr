@@ -12,7 +12,7 @@
 
 /**
  * @defgroup wifi_mgmt Wi-Fi Management
- * @brief Wi-Fi Management API.
+ * Wi-Fi Management API.
  * @ingroup networking
  * @{
  */
@@ -49,8 +49,6 @@ enum wifi_security_type {
 	WIFI_SECURITY_TYPE_WEP,
 	/** WPA-PSK security. */
 	WIFI_SECURITY_TYPE_WPA_PSK,
-	/** WPA/WPA2/WPA3 PSK security. */
-	WIFI_SECURITY_TYPE_WPA_AUTO_PERSONAL,
 
 	__WIFI_SECURITY_TYPE_AFTER_LAST,
 	WIFI_SECURITY_TYPE_MAX = __WIFI_SECURITY_TYPE_AFTER_LAST - 1,
@@ -58,7 +56,7 @@ enum wifi_security_type {
 };
 
 /** Helper function to get user-friendly security type name. */
-const char *wifi_security_txt(enum wifi_security_type security);
+const char * const wifi_security_txt(enum wifi_security_type security);
 
 /** IEEE 802.11w - Management frame protection. */
 enum wifi_mfp_options {
@@ -75,7 +73,7 @@ enum wifi_mfp_options {
 };
 
 /** Helper function to get user-friendly MFP name.*/
-const char *wifi_mfp_txt(enum wifi_mfp_options mfp);
+const char * const wifi_mfp_txt(enum wifi_mfp_options mfp);
 
 /**
  * @brief IEEE 802.11 operational frequency bands (not exhaustive).
@@ -97,7 +95,7 @@ enum wifi_frequency_bands {
 };
 
 /** Helper function to get user-friendly frequency band name. */
-const char *wifi_band_txt(enum wifi_frequency_bands band);
+const char * const wifi_band_txt(enum wifi_frequency_bands band);
 
 #define WIFI_SSID_MAX_LEN 32
 #define WIFI_PSK_MIN_LEN 8
@@ -140,20 +138,8 @@ enum wifi_iface_state {
 	WIFI_STATE_UNKNOWN
 };
 
-/* We rely on the strict order of the enum values, so, let's check it */
-BUILD_ASSERT(WIFI_STATE_DISCONNECTED < WIFI_STATE_INTERFACE_DISABLED &&
-	     WIFI_STATE_INTERFACE_DISABLED < WIFI_STATE_INACTIVE &&
-	     WIFI_STATE_INACTIVE < WIFI_STATE_SCANNING &&
-	     WIFI_STATE_SCANNING < WIFI_STATE_AUTHENTICATING &&
-	     WIFI_STATE_AUTHENTICATING < WIFI_STATE_ASSOCIATING &&
-	     WIFI_STATE_ASSOCIATING < WIFI_STATE_ASSOCIATED &&
-	     WIFI_STATE_ASSOCIATED < WIFI_STATE_4WAY_HANDSHAKE &&
-	     WIFI_STATE_4WAY_HANDSHAKE < WIFI_STATE_GROUP_HANDSHAKE &&
-	     WIFI_STATE_GROUP_HANDSHAKE < WIFI_STATE_COMPLETED);
-
-
 /** Helper function to get user-friendly interface state name. */
-const char *wifi_state_txt(enum wifi_iface_state state);
+const char * const wifi_state_txt(enum wifi_iface_state state);
 
 /** Wi-Fi interface modes.
  *
@@ -179,7 +165,7 @@ enum wifi_iface_mode {
 };
 
 /** Helper function to get user-friendly interface mode name. */
-const char *wifi_mode_txt(enum wifi_iface_mode mode);
+const char * const wifi_mode_txt(enum wifi_iface_mode mode);
 
 /** Wi-Fi link operating modes
  *
@@ -211,7 +197,7 @@ enum wifi_link_mode {
 };
 
 /** Helper function to get user-friendly link mode name. */
-const char *wifi_link_mode_txt(enum wifi_link_mode link_mode);
+const char * const wifi_link_mode_txt(enum wifi_link_mode link_mode);
 
 /** Wi-Fi scanning types. */
 enum wifi_scan_type {
@@ -230,7 +216,7 @@ enum wifi_ps {
 };
 
 /** Helper function to get user-friendly ps name. */
-const char *wifi_ps_txt(enum wifi_ps ps_name);
+const char * const wifi_ps_txt(enum wifi_ps ps_name);
 
 /** Wi-Fi power save modes. */
 enum wifi_ps_mode {
@@ -244,7 +230,7 @@ enum wifi_ps_mode {
 };
 
 /** Helper function to get user-friendly ps mode name. */
-const char *wifi_ps_mode_txt(enum wifi_ps_mode ps_mode);
+const char * const wifi_ps_mode_txt(enum wifi_ps_mode ps_mode);
 
 /* Interface index Min and Max values */
 #define WIFI_INTERFACE_INDEX_MIN 1
@@ -287,7 +273,7 @@ enum wifi_twt_operation {
 };
 
 /** Helper function to get user-friendly twt operation name. */
-const char *wifi_twt_operation_txt(enum wifi_twt_operation twt_operation);
+const char * const wifi_twt_operation_txt(enum wifi_twt_operation twt_operation);
 
 /** Wi-Fi Target Wake Time (TWT) negotiation types. */
 enum wifi_twt_negotiation_type {
@@ -300,7 +286,7 @@ enum wifi_twt_negotiation_type {
 };
 
 /** Helper function to get user-friendly twt negotiation type name. */
-const char *wifi_twt_negotiation_type_txt(enum wifi_twt_negotiation_type twt_negotiation);
+const char * const wifi_twt_negotiation_type_txt(enum wifi_twt_negotiation_type twt_negotiation);
 
 /** Wi-Fi Target Wake Time (TWT) setup commands. */
 enum wifi_twt_setup_cmd {
@@ -323,7 +309,7 @@ enum wifi_twt_setup_cmd {
 };
 
 /** Helper function to get user-friendly twt setup cmd name. */
-const char *wifi_twt_setup_cmd_txt(enum wifi_twt_setup_cmd twt_setup);
+const char * const wifi_twt_setup_cmd_txt(enum wifi_twt_setup_cmd twt_setup);
 
 /** Wi-Fi Target Wake Time (TWT) negotiation status. */
 enum wifi_twt_setup_resp_status {
@@ -357,14 +343,6 @@ enum wifi_twt_fail_reason {
 	WIFI_TWT_FAIL_IP_NOT_ASSIGNED,
 	/** Flow already exists */
 	WIFI_TWT_FAIL_FLOW_ALREADY_EXISTS,
-};
-
-/** Wi-Fi Target Wake Time (TWT) teradown status. */
-enum wifi_twt_teardown_status {
-	/** TWT teardown success */
-	WIFI_TWT_TEARDOWN_SUCCESS = 0,
-	/** TWT teardown failure */
-	WIFI_TWT_TEARDOWN_FAILED,
 };
 
 /** @cond INTERNAL_HIDDEN */
@@ -423,7 +401,7 @@ enum wifi_ps_wakeup_mode {
 };
 
 /** Helper function to get user-friendly ps wakeup mode name. */
-const char *wifi_ps_wakeup_mode_txt(enum wifi_ps_wakeup_mode ps_wakeup_mode);
+const char * const wifi_ps_wakeup_mode_txt(enum wifi_ps_wakeup_mode ps_wakeup_mode);
 
 /** Wi-Fi power save error codes. */
 enum wifi_config_ps_param_fail_reason {

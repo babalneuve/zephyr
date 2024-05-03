@@ -310,13 +310,7 @@ def scan_testsuite_path(testsuite_path):
         except ValueError as e:
             logger.error("%s: error parsing source file: %s" % (filename, e))
 
-    src_dir_pathlib_path = Path(src_dir_path)
     for filename in find_c_files_in(testsuite_path):
-        # If we have already scanned those files in the src_dir step, skip them.
-        filename_path = Path(filename)
-        if src_dir_pathlib_path in filename_path.parents:
-            continue
-
         try:
             result: ScanPathResult = scan_file(filename)
             if result.warnings:
@@ -407,7 +401,6 @@ class TestSuite(DisablePyTestCollectionMixin):
         self.source_dir_rel = os.path.relpath(os.path.realpath(suite_path), start=canonical_zephyr_base)
         self.yamlfile = suite_path
         self.testcases = []
-        self.integration_platforms = []
 
         self.ztest_suite_names = []
 
@@ -457,7 +450,7 @@ class TestSuite(DisablePyTestCollectionMixin):
             relative_ts_root = ""
 
         # workdir can be "."
-        unique = os.path.normpath(os.path.join(relative_ts_root, workdir, name)).replace(os.sep, '/')
+        unique = os.path.normpath(os.path.join(relative_ts_root, workdir, name))
         return unique
 
     @staticmethod

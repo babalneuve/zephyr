@@ -36,19 +36,8 @@ if (CONFIG_SOC_FAMILY_INFINEON_CAT1A)
   add_subdirectory(abstraction-rtos)
 endif()
 
-## Add Wi-Fi assets for AIROC devices
-if (CONFIG_WIFI_AIROC)
-  add_subdirectory(wifi-host-driver)
-
-  ## Add core-lib sources for CAT1 devices
-  add_subdirectory_ifndef(CONFIG_SOC_FAMILY_INFINEON_CAT1 core-lib)
-
-  ## Add abstraction-rtos sources
-  add_subdirectory_ifndef(CONFIG_SOC_FAMILY_INFINEON_CAT1 abstraction-rtos)
-endif()
-
-## Add BT assets for AIROC devices
-if (CONFIG_BT_AIROC)
+## Add btstack-integration for CYW43xx BT devices
+if (CONFIG_BT_CYW43XXX)
   add_subdirectory(btstack-integration)
 endif()
 

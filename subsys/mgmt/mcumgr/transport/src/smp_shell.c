@@ -59,10 +59,13 @@ enum smp_shell_mcumgr_state {
 };
 
 #ifdef CONFIG_MCUMGR_TRANSPORT_SHELL_INPUT_TIMEOUT
+extern struct shell_transport shell_transport_uart;
+
 static void smp_shell_input_timeout_handler(struct k_timer *timer)
 {
 	ARG_UNUSED(timer);
-	struct smp_shell_data *const data = shell_uart_smp_shell_data_get_ptr();
+	struct shell_uart *sh_uart = (struct shell_uart *)shell_transport_uart.ctx;
+	struct smp_shell_data *const data = &sh_uart->ctrl_blk->smp;
 
 	atomic_clear_bit(&data->esc_state, ESC_MCUMGR_PKT_1);
 	atomic_clear_bit(&data->esc_state, ESC_MCUMGR_PKT_2);
@@ -210,11 +213,13 @@ static uint16_t smp_shell_get_mtu(const struct net_buf *nb)
 
 static int smp_shell_tx_raw(const void *data, int len)
 {
-	static const struct device *const sh_dev = DEVICE_DT_GET(DT_CHOSEN(zephyr_shell_uart));
+	const struct shell *const sh = shell_backend_uart_get_ptr();
+	const struct shell_uart *const su = sh->iface->ctx;
+	const struct shell_uart_ctrl_blk *const scb = su->ctrl_blk;
 	const uint8_t *out = data;
 
 	while ((out != NULL) && (len != 0)) {
-		uart_poll_out(sh_dev, *out);
+		uart_poll_out(scb->dev, *out);
 		++out;
 		--len;
 	}
@@ -242,7 +247,7 @@ int smp_shell_init(void)
 	rc = smp_transport_init(&smp_shell_transport);
 #ifdef CONFIG_SMP_CLIENT
 	if (rc == 0) {
-		smp_client_transport.smpt = &smp_shell_transport;
+		smp_client_transport.smpt = &CONFIG_SMP_CLIENT;
 		smp_client_transport.smpt_type = SMP_SHELL_TRANSPORT;
 		smp_client_transport_register(&smp_client_transport);
 	}

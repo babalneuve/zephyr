@@ -607,12 +607,8 @@ static int h5_queue(struct net_buf *buf)
 	return 0;
 }
 
-static void tx_thread(void *p1, void *p2, void *p3)
+static void tx_thread(void)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	LOG_DBG("");
 
 	/* FIXME: make periodic sending */
@@ -657,12 +653,8 @@ static void h5_set_txwin(uint8_t *conf)
 	conf[2] = h5.tx_win & 0x07;
 }
 
-static void rx_thread(void *p1, void *p2, void *p3)
+static void rx_thread(void)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	LOG_DBG("");
 
 	while (true) {
@@ -729,7 +721,7 @@ static void h5_init(void)
 	k_fifo_init(&h5.tx_queue);
 	k_thread_create(&tx_thread_data, tx_stack,
 			K_KERNEL_STACK_SIZEOF(tx_stack),
-			tx_thread, NULL, NULL, NULL,
+			(k_thread_entry_t)tx_thread, NULL, NULL, NULL,
 			K_PRIO_COOP(CONFIG_BT_HCI_TX_PRIO),
 			0, K_NO_WAIT);
 	k_thread_name_set(&tx_thread_data, "tx_thread");
@@ -737,7 +729,7 @@ static void h5_init(void)
 	k_fifo_init(&h5.rx_queue);
 	k_thread_create(&rx_thread_data, rx_stack,
 			K_KERNEL_STACK_SIZEOF(rx_stack),
-			rx_thread, NULL, NULL, NULL,
+			(k_thread_entry_t)rx_thread, NULL, NULL, NULL,
 			K_PRIO_COOP(CONFIG_BT_RX_PRIO),
 			0, K_NO_WAIT);
 	k_thread_name_set(&rx_thread_data, "rx_thread");

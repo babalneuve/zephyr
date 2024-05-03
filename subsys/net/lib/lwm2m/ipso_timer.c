@@ -366,4 +366,4 @@ static int ipso_timer_init(void)
 	return 0;
 }
 
-LWM2M_OBJ_INIT(ipso_timer_init);
+SYS_INIT(ipso_timer_init, APPLICATION, CONFIG_KERNEL_INIT_PRIORITY_DEFAULT);

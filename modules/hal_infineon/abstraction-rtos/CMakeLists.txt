@@ -5,7 +5,7 @@
 zephyr_include_directories(${ZEPHYR_HAL_INFINEON_MODULE_DIR}/abstraction-rtos/include)
 
 # Enable Zephyr support
-zephyr_include_directories_ifdef(CONFIG_USE_INFINEON_ABSTRACTION_RTOS
+zephyr_include_directories_ifdef(CONFIG_ABSTRACTION_RTOS_COMPONENT_ZEPHYR
         include/COMPONENT_ZEPHYR)
-zephyr_library_sources_ifdef(CONFIG_USE_INFINEON_ABSTRACTION_RTOS
+zephyr_library_sources_ifdef(CONFIG_ABSTRACTION_RTOS_COMPONENT_ZEPHYR
         source/COMPONENT_ZEPHYR/cyabs_rtos_zephyr.c)

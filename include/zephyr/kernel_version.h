@@ -44,7 +44,7 @@ extern "C" {
  *
  * @return kernel version
  */
-uint32_t sys_kernel_version_get(void);
+extern uint32_t sys_kernel_version_get(void);
 
 /**
  * @}

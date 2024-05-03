@@ -11,9 +11,9 @@
 #include <zephyr/drivers/rtc.h>
 #include <zephyr/drivers/rtc/rtc_fake.h>
 
-#ifdef CONFIG_ZTEST
+#ifdef CONFIG_ZTEST_NEW_API
 #include <zephyr/ztest.h>
-#endif /* CONFIG_ZTEST */
+#endif /* CONFIG_ZTEST_NEW_API */
 
 DEFINE_FAKE_VALUE_FUNC(int, rtc_fake_set_time, const struct device *, const struct rtc_time *);
 DEFINE_FAKE_VALUE_FUNC(int, rtc_fake_get_time, const struct device *, struct rtc_time *);
@@ -40,7 +40,7 @@ DEFINE_FAKE_VALUE_FUNC(int, rtc_fake_set_calibration, const struct device *, int
 DEFINE_FAKE_VALUE_FUNC(int, rtc_fake_get_calibration, const struct device *, int32_t *);
 #endif /* CONFIG_RTC_CALIBRATION */
 
-#ifdef CONFIG_ZTEST
+#ifdef CONFIG_ZTEST_NEW_API
 static void fake_rtc_reset_rule_before(const struct ztest_unit_test *test, void *fixture)
 {
 	ARG_UNUSED(test);
@@ -68,9 +68,9 @@ static void fake_rtc_reset_rule_before(const struct ztest_unit_test *test, void 
 }
 
 ZTEST_RULE(fake_rtc_reset_rule, fake_rtc_reset_rule_before, NULL);
-#endif /* CONFIG_ZTEST */
+#endif /* CONFIG_ZTEST_NEW_API */
 
-static const struct rtc_driver_api rtc_fake_driver_api = {
+struct rtc_driver_api rtc_fake_driver_api = {
 	.set_time = rtc_fake_set_time,
 	.get_time = rtc_fake_get_time,
 #ifdef CONFIG_RTC_ALARM

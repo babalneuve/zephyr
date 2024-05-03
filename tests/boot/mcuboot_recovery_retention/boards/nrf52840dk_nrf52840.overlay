@@ -3,7 +3,6 @@
 / {
 	chosen {
 		zephyr,boot-mode = &boot_mode0;
-		zephyr,uart-mcumgr = &cdc_acm_uart;
 	};
 };
 
@@ -14,14 +13,6 @@
 		compatible = "zephyr,retention";
 		status = "okay";
 		reg = <0x0 0x1>;
-	};
-};
-
-&zephyr_udc0 {
-	status = "okay";
-
-	cdc_acm_uart: cdc_acm_uart {
-		compatible = "zephyr,cdc-acm-uart";
 	};
 };
 

@@ -58,10 +58,8 @@ static int can_transceiver_gpio_set_state(const struct device *dev, bool enabled
 	return 0;
 }
 
-static int can_transceiver_gpio_enable(const struct device *dev, can_mode_t mode)
+static int can_transceiver_gpio_enable(const struct device *dev)
 {
-	ARG_UNUSED(mode);
-
 	return can_transceiver_gpio_set_state(dev, true);
 }
 

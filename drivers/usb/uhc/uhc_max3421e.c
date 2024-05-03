@@ -652,12 +652,8 @@ static int max3421e_handle_bus_irq(const struct device *dev)
 	return ret;
 }
 
-static void uhc_max3421e_thread(void *p1, void *p2, void *p3)
+static void uhc_max3421e_thread(const struct device *dev)
 {
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
-	const struct device *dev = p1;
 	struct max3421e_data *priv = uhc_get_private(dev);
 
 	LOG_DBG("MAX3421E thread started");
@@ -1080,7 +1076,7 @@ static int max3421e_driver_init(const struct device *dev)
 	k_mutex_init(&data->mutex);
 	k_thread_create(&drv_stack_data, drv_stack,
 			K_KERNEL_STACK_SIZEOF(drv_stack),
-			uhc_max3421e_thread,
+			(k_thread_entry_t)uhc_max3421e_thread,
 			(void *)dev, NULL, NULL,
 			K_PRIO_COOP(2), 0, K_NO_WAIT);
 	k_thread_name_set(&drv_stack_data, "uhc_max3421e");

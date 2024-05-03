@@ -94,9 +94,9 @@ function(toolchain_ld_link_elf)
 
     ${LINKERFLAGPREFIX},-Map=${TOOLCHAIN_LD_LINK_ELF_OUTPUT_MAP}
     ${LINKERFLAGPREFIX},--whole-archive
-    ${WHOLE_ARCHIVE_LIBS}
+    ${ZEPHYR_LIBS_PROPERTY}
     ${LINKERFLAGPREFIX},--no-whole-archive
-    ${NO_WHOLE_ARCHIVE_LIBS}
+    kernel
     $<TARGET_OBJECTS:${OFFSETS_LIB}>
     ${LIB_INCLUDE_DIR}
     -L${PROJECT_BINARY_DIR}
@@ -110,6 +110,6 @@ endfunction(toolchain_ld_link_elf)
 # Load toolchain_ld-family macros
 include(${ZEPHYR_BASE}/cmake/linker/${LINKER}/target_base.cmake)
 include(${ZEPHYR_BASE}/cmake/linker/${LINKER}/target_baremetal.cmake)
-include(${ZEPHYR_BASE}/cmake/linker/${LINKER}/target_cpp.cmake)
+include(${ZEPHYR_BASE}/cmake/linker/ld/target_cpp.cmake)
 include(${ZEPHYR_BASE}/cmake/linker/ld/target_relocation.cmake)
 include(${ZEPHYR_BASE}/cmake/linker/ld/target_configure.cmake)

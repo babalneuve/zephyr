@@ -15,8 +15,6 @@
  * @file
  * @brief Public LoRa APIs
  * @defgroup lora_api LoRa APIs
- * @since 2.2
- * @version 0.1.0
  * @ingroup io_interfaces
  * @{
  */

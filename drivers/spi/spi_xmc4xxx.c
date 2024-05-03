@@ -123,9 +123,9 @@ static void spi_xmc4xxx_shift_frames(const struct device *dev)
 				   XMC_SPI_CH_STATUS_FLAG_RECEIVE_INDICATION |
 				   XMC_SPI_CH_STATUS_FLAG_ALTERNATIVE_RECEIVE_INDICATION);
 
-	spi_context_update_tx(ctx, 1, 1);
-
 	XMC_SPI_CH_Transmit(config->spi, tx_data, XMC_SPI_CH_MODE_STANDARD);
+
+	spi_context_update_tx(ctx, 1, 1);
 
 #if defined(CONFIG_SPI_XMC4XXX_INTERRUPT)
 	return;
@@ -195,8 +195,7 @@ static int spi_xmc4xxx_configure(const struct device *dev, const struct spi_conf
 	bool CPOL = SPI_MODE_GET(settings) & SPI_MODE_CPOL;
 	bool CPHA = SPI_MODE_GET(settings) & SPI_MODE_CPHA;
 	XMC_SPI_CH_CONFIG_t usic_cfg = {.baudrate = spi_cfg->frequency};
-	XMC_SPI_CH_BRG_SHIFT_CLOCK_PASSIVE_LEVEL_t clock_settings =
-		XMC_SPI_CH_BRG_SHIFT_CLOCK_PASSIVE_LEVEL_0_DELAY_ENABLED;
+	XMC_SPI_CH_BRG_SHIFT_CLOCK_PASSIVE_LEVEL_t clock_settings;
 
 	if (spi_context_configured(ctx, spi_cfg)) {
 		return 0;
@@ -469,9 +468,7 @@ static int spi_xmc4xxx_transceive_dma(const struct device *dev, const struct spi
 		spi_context_cs_control(ctx, false);
 	}
 
-#if defined(CONFIG_SPI_XMC4XXX_INTERRUPT)
 	irq_enable(config->irq_num_rx);
-#endif
 	spi_context_release(ctx, ret);
 
 	return ret;

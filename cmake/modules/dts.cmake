@@ -9,6 +9,9 @@ include(pre_dt)
 find_package(HostTools)
 find_package(Dtc 1.4.6)
 
+# Zephyr code is usually configured using devicetree, but this is
+# still technically optional (see e.g. CONFIG_HAS_DTS).
+#
 # This module makes information from the devicetree available to
 # various build stages, as well as to other arbitrary Python scripts:
 #
@@ -122,42 +125,23 @@ set(DTS_CMAKE                   ${PROJECT_BINARY_DIR}/dts.cmake)
 # modules.
 set(VENDOR_PREFIXES             dts/bindings/vendor-prefixes.txt)
 
-if(NOT DEFINED DTS_SOURCE)
-  zephyr_build_string(board_string SHORT shortened_board_string
-                      BOARD ${BOARD} BOARD_QUALIFIERS ${BOARD_QUALIFIERS}
-  )
-  if(EXISTS ${BOARD_DIR}/${shortened_board_string}.dts AND NOT BOARD_${BOARD}_SINGLE_SOC)
-    message(FATAL_ERROR "Board ${ZFILE_BOARD} defines multiple SoCs.\nShortened file name "
-            "(${shortened_board_string}.dts) not allowed, use '<board>_<soc>.dts' naming"
-    )
-  elseif(EXISTS ${BOARD_DIR}/${board_string}.dts AND EXISTS ${BOARD_DIR}/${shortened_board_string}.dts)
-    message(FATAL_ERROR "Conflicting file names discovered. Cannot use both "
-            "${board_string}.dts and ${shortened_board_string}.dts. "
-            "Please choose one naming style, ${board_string}.dts is recommended."
-    )
-  elseif(EXISTS ${BOARD_DIR}/${board_string}.dts)
-    set(DTS_SOURCE ${BOARD_DIR}/${board_string}.dts)
-  elseif(EXISTS ${BOARD_DIR}/${shortened_board_string}.dts)
-    set(DTS_SOURCE ${BOARD_DIR}/${shortened_board_string}.dts)
-  endif()
-endif()
+#
+# Halt execution early if there is no devicetree.
+#
 
+# TODO: What to do about non-posix platforms where NOT CONFIG_HAS_DTS (xtensa)?
+# Drop support for NOT CONFIG_HAS_DTS perhaps?
+set_ifndef(DTS_SOURCE ${BOARD_DIR}/${BOARD}.dts)
 if(EXISTS ${DTS_SOURCE})
-  # We found a devicetree. Append all relevant dts overlays we can find...
-  zephyr_file(CONF_FILES ${BOARD_DIR} DTS DTS_SOURCE)
-
-  zephyr_file(
-    CONF_FILES ${BOARD_DIR}
-    DTS no_rev_suffix_dts_board_overlays
-    BOARD ${BOARD}
-    BOARD_QUALIFIERS ${BOARD_QUALIFIERS}
-  )
-
-  # ...but remove the ones that do not include the revision suffix
-  list(REMOVE_ITEM DTS_SOURCE ${no_rev_suffix_dts_board_overlays})
+  # We found a devicetree. Check for a board revision overlay.
+  if(BOARD_REVISION AND EXISTS ${BOARD_DIR}/${BOARD}_${BOARD_REVISION_STRING}.overlay)
+    list(APPEND DTS_SOURCE ${BOARD_DIR}/${BOARD}_${BOARD_REVISION_STRING}.overlay)
+  endif()
 else()
-  # If we don't have a devicetree, provide an empty stub
-  set(DTS_SOURCE ${ZEPHYR_BASE}/boards/common/stub.dts)
+  # If we don't have a devicetree after all, there's not much to do.
+  set(header_template ${ZEPHYR_BASE}/misc/generated/generated_header.template)
+  zephyr_file_copy(${header_template} ${DEVICETREE_GENERATED_H} ONLY_IF_DIFFERENT)
+  return()
 endif()
 
 #

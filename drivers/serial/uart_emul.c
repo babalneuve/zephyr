@@ -19,7 +19,6 @@ LOG_MODULE_REGISTER(uart_emul, CONFIG_UART_LOG_LEVEL);
 
 struct uart_emul_config {
 	bool loopback;
-	size_t latch_buffer_size;
 };
 
 struct uart_emul_work {
@@ -30,7 +29,6 @@ struct uart_emul_work {
 /* Device run time data */
 struct uart_emul_data {
 	struct uart_config cfg;
-	int errors;
 
 	struct ring_buf *rx_rb;
 	struct k_spinlock rx_lock;
@@ -43,34 +41,11 @@ struct uart_emul_data {
 
 #ifdef CONFIG_UART_INTERRUPT_DRIVEN
 	bool rx_irq_en;
-	bool tx_irq_en;
 	struct uart_emul_work irq_work;
 	uart_irq_callback_user_data_t irq_cb;
 	void *irq_cb_udata;
 #endif /* CONFIG_UART_INTERRUPT_DRIVEN */
 };
-
-/*
- * Define local thread to emulate different thread priorities.
- *
- * A UART driver may call back from within a thread with higher or lower priority
- * than the thread calling the UART API. This can hide potential concurrency issues,
- * especially if the thread priorities are the same, or even using the same thread
- * in case the system work queue.
- */
-K_THREAD_STACK_DEFINE(uart_emul_stack_area, CONFIG_UART_EMUL_WORK_Q_STACK_SIZE);
-struct k_work_q uart_emul_work_q;
-
-int uart_emul_init_work_q(void)
-{
-	k_work_queue_init(&uart_emul_work_q);
-	k_work_queue_start(&uart_emul_work_q, uart_emul_stack_area,
-			   K_THREAD_STACK_SIZEOF(uart_emul_stack_area),
-			   CONFIG_UART_EMUL_WORK_Q_PRIORITY, NULL);
-	return 0;
-}
-
-SYS_INIT(uart_emul_init_work_q, POST_KERNEL, 0);
 
 static int uart_emul_poll_in(const struct device *dev, unsigned char *p_char)
 {
@@ -117,11 +92,7 @@ static void uart_emul_poll_out(const struct device *dev, unsigned char out_char)
 
 static int uart_emul_err_check(const struct device *dev)
 {
-	struct uart_emul_data *drv_data = dev->data;
-	int errors = drv_data->errors;
-
-	drv_data->errors = 0;
-	return errors;
+	return 0;
 }
 
 #ifdef CONFIG_UART_USE_RUNTIME_CONFIGURE
@@ -143,56 +114,21 @@ static int uart_emul_config_get(const struct device *dev, struct uart_config *cf
 #endif /* CONFIG_UART_USE_RUNTIME_CONFIGURE */
 
 #ifdef CONFIG_UART_INTERRUPT_DRIVEN
-static int uart_emul_fifo_fill(const struct device *dev, const uint8_t *tx_data, int size)
+static int uart_emul_fifo_read(const struct device *dev, uint8_t *rx_data, int size)
 {
 	int ret;
 	struct uart_emul_data *data = dev->data;
-	const struct uart_emul_config *config = dev->config;
-	uint32_t put_size = MIN(config->latch_buffer_size, size);
 
-	K_SPINLOCK(&data->tx_lock) {
-		ret = ring_buf_put(data->tx_rb, tx_data, put_size);
-	}
+	K_SPINLOCK(&data->rx_lock) {
+		ret = MIN(size, ring_buf_size_get(data->rx_rb));
+		size = ret;
 
-	if (config->loopback) {
-		uart_emul_put_rx_data(dev, (uint8_t *)tx_data, put_size);
-	}
-	if (data->tx_data_ready_cb) {
-		data->tx_data_ready_cb(dev, ring_buf_size_get(data->tx_rb), data->user_data);
+		for (int n = 0; size > 0; size -= n, rx_data += n) {
+			n = ring_buf_get(data->rx_rb, rx_data, size);
+		}
 	}
 
 	return ret;
-}
-
-static int uart_emul_fifo_read(const struct device *dev, uint8_t *rx_data, int size)
-{
-	struct uart_emul_data *data = dev->data;
-	const struct uart_emul_config *config = dev->config;
-	uint32_t bytes_to_read;
-
-	K_SPINLOCK(&data->rx_lock) {
-		bytes_to_read = MIN(config->latch_buffer_size, ring_buf_size_get(data->rx_rb));
-		bytes_to_read = MIN(bytes_to_read, size);
-		ring_buf_get(data->rx_rb, rx_data, bytes_to_read);
-	}
-
-	return bytes_to_read;
-}
-
-static int uart_emul_irq_tx_ready(const struct device *dev)
-{
-	bool ready = false;
-	struct uart_emul_data *data = dev->data;
-
-	K_SPINLOCK(&data->tx_lock) {
-		if (!data->tx_irq_en) {
-			K_SPINLOCK_BREAK;
-		}
-
-		ready = ring_buf_space_get(data->tx_rb) > 0;
-	}
-
-	return ready;
 }
 
 static int uart_emul_irq_rx_ready(const struct device *dev)
@@ -227,14 +163,6 @@ static void uart_emul_irq_handler(struct k_work *work)
 	while (true) {
 		bool have_work = false;
 
-		K_SPINLOCK(&data->tx_lock) {
-			if (!data->tx_irq_en) {
-				K_SPINLOCK_BREAK;
-			}
-
-			have_work = have_work || ring_buf_space_get(data->tx_rb) > 0;
-		}
-
 		K_SPINLOCK(&data->rx_lock) {
 			if (!data->rx_irq_en) {
 				K_SPINLOCK_BREAK;
@@ -253,22 +181,14 @@ static void uart_emul_irq_handler(struct k_work *work)
 
 static int uart_emul_irq_is_pending(const struct device *dev)
 {
-	return uart_emul_irq_tx_ready(dev) || uart_emul_irq_rx_ready(dev);
-}
-
-static void uart_emul_irq_tx_enable(const struct device *dev)
-{
-	bool submit_irq_work;
+	bool rx_pending;
 	struct uart_emul_data *const data = dev->data;
 
-	K_SPINLOCK(&data->tx_lock) {
-		data->tx_irq_en = true;
-		submit_irq_work = ring_buf_space_get(data->tx_rb) > 0;
+	K_SPINLOCK(&data->rx_lock) {
+		rx_pending = !ring_buf_is_empty(data->rx_rb);
 	}
 
-	if (submit_irq_work) {
-		(void)k_work_submit_to_queue(&uart_emul_work_q, &data->irq_work.work);
-	}
+	return rx_pending;
 }
 
 static void uart_emul_irq_rx_enable(const struct device *dev)
@@ -282,16 +202,7 @@ static void uart_emul_irq_rx_enable(const struct device *dev)
 	}
 
 	if (submit_irq_work) {
-		(void)k_work_submit_to_queue(&uart_emul_work_q, &data->irq_work.work);
-	}
-}
-
-static void uart_emul_irq_tx_disable(const struct device *dev)
-{
-	struct uart_emul_data *const data = dev->data;
-
-	K_SPINLOCK(&data->tx_lock) {
-		data->tx_irq_en = false;
+		(void)k_work_submit(&data->irq_work.work);
 	}
 }
 
@@ -302,18 +213,6 @@ static void uart_emul_irq_rx_disable(const struct device *dev)
 	K_SPINLOCK(&data->rx_lock) {
 		data->rx_irq_en = false;
 	}
-}
-
-static int uart_emul_irq_tx_complete(const struct device *dev)
-{
-	bool tx_complete = false;
-	struct uart_emul_data *const data = dev->data;
-
-	K_SPINLOCK(&data->tx_lock) {
-		tx_complete = ring_buf_is_empty(data->tx_rb);
-	}
-
-	return tx_complete;
 }
 
 static void uart_emul_irq_callback_set(const struct device *dev, uart_irq_callback_user_data_t cb,
@@ -340,15 +239,10 @@ static const struct uart_driver_api uart_emul_api = {
 #endif /* CONFIG_UART_USE_RUNTIME_CONFIGURE */
 	.err_check = uart_emul_err_check,
 #ifdef CONFIG_UART_INTERRUPT_DRIVEN
-	.fifo_fill = uart_emul_fifo_fill,
 	.fifo_read = uart_emul_fifo_read,
-	.irq_tx_enable = uart_emul_irq_tx_enable,
 	.irq_rx_enable = uart_emul_irq_rx_enable,
-	.irq_tx_disable = uart_emul_irq_tx_disable,
 	.irq_rx_disable = uart_emul_irq_rx_disable,
-	.irq_tx_ready = uart_emul_irq_tx_ready,
 	.irq_rx_ready = uart_emul_irq_rx_ready,
-	.irq_tx_complete = uart_emul_irq_tx_complete,
 	.irq_callback_set = uart_emul_irq_callback_set,
 	.irq_update = uart_emul_irq_update,
 	.irq_is_pending = uart_emul_irq_is_pending,
@@ -377,13 +271,9 @@ uint32_t uart_emul_put_rx_data(const struct device *dev, uint8_t *data, size_t s
 		IF_ENABLED(CONFIG_UART_INTERRUPT_DRIVEN, (irq_en = drv_data->rx_irq_en;));
 	}
 
-	if (count < size) {
-		uart_emul_set_errors(dev, UART_ERROR_OVERRUN);
-	}
-
 	IF_ENABLED(CONFIG_UART_INTERRUPT_DRIVEN, (
 		if (count > 0 && irq_en && !empty) {
-			(void)k_work_submit_to_queue(&uart_emul_work_q, &drv_data->irq_work.work);
+			(void)k_work_submit(&drv_data->irq_work.work);
 		}
 	))
 
@@ -428,13 +318,6 @@ uint32_t uart_emul_flush_tx_data(const struct device *dev)
 	return count;
 }
 
-void uart_emul_set_errors(const struct device *dev, int errors)
-{
-	struct uart_emul_data *drv_data = dev->data;
-
-	drv_data->errors |= errors;
-}
-
 #define UART_EMUL_RX_FIFO_SIZE(inst) (DT_INST_PROP(inst, rx_fifo_size))
 #define UART_EMUL_TX_FIFO_SIZE(inst) (DT_INST_PROP(inst, tx_fifo_size))
 
@@ -450,7 +333,6 @@ void uart_emul_set_errors(const struct device *dev, int errors)
                                                                                                    \
 	static struct uart_emul_config uart_emul_cfg_##inst = {                                    \
 		.loopback = DT_INST_PROP(inst, loopback),                                          \
-		.latch_buffer_size = DT_INST_PROP(inst, latch_buffer_size),                        \
 	};                                                                                         \
 	static struct uart_emul_data uart_emul_data_##inst = {                                     \
 		.rx_rb = &uart_emul_##inst##_rx_rb,                                                \

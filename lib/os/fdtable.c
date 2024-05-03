@@ -20,7 +20,7 @@
 #include <zephyr/kernel.h>
 #include <zephyr/sys/fdtable.h>
 #include <zephyr/sys/speculation.h>
-#include <zephyr/internal/syscall_handler.h>
+#include <zephyr/syscall_handler.h>
 #include <zephyr/sys/atomic.h>
 
 struct fd_entry {
@@ -263,7 +263,7 @@ void z_finalize_fd(int fd, void *obj, const struct fd_op_vtable *vtable)
 	 * This call is a no-op if obj is invalid or points to something
 	 * not a kernel object.
 	 */
-	k_object_recycle(obj);
+	z_object_recycle(obj);
 #endif
 	fdtable[fd].obj = obj;
 	fdtable[fd].vtable = vtable;
@@ -362,7 +362,6 @@ int fsync(int fd)
 
 	return z_fdtable_call_ioctl(fdtable[fd].vtable, fdtable[fd].obj, ZFD_IOCTL_FSYNC);
 }
-FUNC_ALIAS(fsync, _fsync, int);
 
 off_t lseek(int fd, off_t offset, int whence)
 {

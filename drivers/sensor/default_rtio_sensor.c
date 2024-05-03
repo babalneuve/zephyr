@@ -28,10 +28,8 @@ static void sensor_iodev_submit(struct rtio_iodev_sqe *iodev_sqe)
 
 	if (api->submit != NULL) {
 		api->submit(dev, iodev_sqe);
-	} else if (!cfg->is_streaming) {
-		sensor_submit_fallback(dev, iodev_sqe);
 	} else {
-		rtio_iodev_sqe_err(iodev_sqe, -ENOTSUP);
+		sensor_submit_fallback(dev, iodev_sqe);
 	}
 }
 
@@ -165,6 +163,7 @@ static void sensor_submit_fallback(const struct device *dev, struct rtio_iodev_s
 		}
 
 		if (rc != 0) {
+			LOG_DBG("Failed to get channel %d, skipping", channels[i]);
 			continue;
 		}
 
@@ -229,15 +228,14 @@ static void sensor_submit_fallback(const struct device *dev, struct rtio_iodev_s
 			q[sample_idx + sample] =
 				((value_u * ((INT64_C(1) << 31) - 1)) / 1000000) >> header->shift;
 
-			LOG_DBG("value[%d]=%s%d.%06d, q[%d]@%p=%d, shift: %d",
-				sample, value_u < 0 ? "-" : "",
+			LOG_DBG("value[%d]=%s%d.%06d, q[%d]@%p=%d", sample, value_u < 0 ? "-" : "",
 				abs((int)value[sample].val1), abs((int)value[sample].val2),
 				(int)(sample_idx + sample), (void *)&q[sample_idx + sample],
-				q[sample_idx + sample], header->shift);
+				q[sample_idx + sample]);
 		}
 		sample_idx += num_samples;
 	}
-	LOG_DBG("Total channels in header: %" PRIu32, header->num_channels);
+	LOG_DBG("Total channels in header: %u", header->num_channels);
 	rtio_iodev_sqe_ok(iodev_sqe, 0);
 }
 
@@ -474,7 +472,9 @@ static int decode(const uint8_t *buffer, enum sensor_channel channel, size_t cha
 {
 	const struct sensor_data_generic_header *header =
 		(const struct sensor_data_generic_header *)buffer;
-	const q31_t *q = (const q31_t *)(buffer + compute_header_size(header->num_channels));
+	const q31_t *q =
+		(const q31_t *)(buffer + sizeof(struct sensor_data_generic_header) +
+				header->num_channels * sizeof(enum sensor_channel));
 	int count = 0;
 
 	if (*fit != 0 || max_count < 1) {

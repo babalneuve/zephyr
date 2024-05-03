@@ -28,12 +28,8 @@ K_THREAD_STACK_DEFINE(usr_fp_thread_stack, STACKSIZE);
 
 ZTEST_BMEM static volatile int test_ret = TC_PASS;
 
-static void usr_fp_thread_entry_1(void *p1, void *p2, void *p3)
+static void usr_fp_thread_entry_1(void)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	k_yield();
 }
 
@@ -43,12 +39,8 @@ static void usr_fp_thread_entry_1(void *p1, void *p2, void *p3)
 #define K_FLOAT_DISABLE_SYSCALL_RETVAL -ENOTSUP
 #endif
 
-static void usr_fp_thread_entry_2(void *p1, void *p2, void *p3)
+static void usr_fp_thread_entry_2(void)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	k_yield();
 
 	/* System call to disable FP mode */
@@ -73,7 +65,7 @@ ZTEST(k_float_disable, test_k_float_disable_common)
 	 * priority as the current thread.
 	 */
 	k_thread_create(&usr_fp_thread, usr_fp_thread_stack, STACKSIZE,
-		usr_fp_thread_entry_1, NULL, NULL, NULL,
+		(k_thread_entry_t)usr_fp_thread_entry_1, NULL, NULL, NULL,
 		PRIORITY, K_USER | K_FP_OPTS,
 		K_NO_WAIT);
 
@@ -122,7 +114,7 @@ ZTEST(k_float_disable, test_k_float_disable_syscall)
 	 * FP mode.
 	 */
 	k_thread_create(&usr_fp_thread, usr_fp_thread_stack, STACKSIZE,
-		usr_fp_thread_entry_2, NULL, NULL, NULL,
+		(k_thread_entry_t)usr_fp_thread_entry_2, NULL, NULL, NULL,
 		PRIORITY, K_INHERIT_PERMS | K_USER | K_FP_OPTS,
 		K_NO_WAIT);
 
@@ -179,12 +171,8 @@ void arm_test_isr_handler(const void *args)
 	}
 }
 
-static void sup_fp_thread_entry(void *p1, void *p2, void *p3)
+static void sup_fp_thread_entry(void)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	/* Verify K_FP_REGS flag is set */
 	if ((sup_fp_thread.base.user_options & K_FP_REGS) == 0) {
 
@@ -261,7 +249,7 @@ ZTEST(k_float_disable, test_k_float_disable_irq)
 	 * priority as the current thread.
 	 */
 	k_thread_create(&sup_fp_thread, sup_fp_thread_stack, STACKSIZE,
-		sup_fp_thread_entry, NULL, NULL, NULL,
+		(k_thread_entry_t)sup_fp_thread_entry, NULL, NULL, NULL,
 		PRIORITY, K_FP_REGS,
 		K_NO_WAIT);
 

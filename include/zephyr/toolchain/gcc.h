@@ -103,7 +103,7 @@
 #define FUNC_ALIAS(real_func, new_alias, return_type) \
 	return_type new_alias() ALIAS_OF(real_func)
 
-#if defined(CONFIG_ARCH_POSIX) && !defined(_ASMLANGUAGE)
+#if defined(CONFIG_ARCH_POSIX)
 #include <zephyr/arch/posix/posix_trace.h>
 
 /*let's not segfault if this were to happen for some reason*/
@@ -200,13 +200,8 @@ do {                                                                    \
 #if !defined(CONFIG_XIP)
 #define __ramfunc
 #elif defined(CONFIG_ARCH_HAS_RAMFUNC_SUPPORT)
-#if defined(CONFIG_ARM)
 #define __ramfunc	__attribute__((noinline))			\
 			__attribute__((long_call, section(".ramfunc")))
-#else
-#define __ramfunc	__attribute__((noinline))			\
-			__attribute__((section(".ramfunc")))
-#endif
 #endif /* !CONFIG_XIP */
 
 #ifndef __fallthrough
@@ -272,10 +267,6 @@ do {                                                                    \
 
 #ifndef __weak
 #define __weak __attribute__((__weak__))
-#endif
-
-#ifndef __attribute_nonnull
-#define __attribute_nonnull(...) __attribute__((nonnull(__VA_ARGS__)))
 #endif
 
 /* Builtins with availability that depend on the compiler version. */
@@ -643,19 +634,12 @@ do {                                                                    \
 #define __noasan /**/
 #endif
 
-#if defined(CONFIG_UBSAN)
-#define __noubsan __attribute__((no_sanitize("undefined")))
-#else
-#define __noubsan
-#endif
-
 /**
  * @brief Function attribute to disable stack protector.
  *
  * @note Only supported for GCC >= 11.0.0 or Clang >= 7.
  */
-#if (TOOLCHAIN_GCC_VERSION >= 110000) || \
-	(defined(TOOLCHAIN_CLANG_VERSION) && (TOOLCHAIN_CLANG_VERSION >= 70000))
+#if (TOOLCHAIN_GCC_VERSION >= 110000) || (TOOLCHAIN_CLANG_VERSION >= 70000)
 #define FUNC_NO_STACK_PROTECTOR __attribute__((no_stack_protector))
 #else
 #define FUNC_NO_STACK_PROTECTOR

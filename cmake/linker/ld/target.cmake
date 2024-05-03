@@ -57,10 +57,6 @@ macro(configure_linker_script linker_script_gen linker_pass_define)
 
     zephyr_get_include_directories_for_lang(C current_includes)
     get_property(current_defines GLOBAL PROPERTY PROPERTY_LINKER_SCRIPT_DEFINES)
-    if(DEFINED SOC_LINKER_SCRIPT)
-      cmake_path(GET SOC_LINKER_SCRIPT PARENT_PATH soc_linker_script_includes)
-      set(soc_linker_script_includes -I${soc_linker_script_includes})
-    endif()
 
     add_custom_command(
       OUTPUT ${linker_script_gen}
@@ -78,7 +74,6 @@ macro(configure_linker_script linker_script_gen linker_pass_define)
       -D_ASMLANGUAGE
       -imacros ${AUTOCONF_H}
       ${current_includes}
-      ${soc_linker_script_includes}
       ${current_defines}
       ${template_script_defines}
       -E ${LINKER_SCRIPT}
@@ -134,9 +129,9 @@ function(toolchain_ld_link_elf)
 
     ${LINKERFLAGPREFIX},-Map=${TOOLCHAIN_LD_LINK_ELF_OUTPUT_MAP}
     ${LINKERFLAGPREFIX},--whole-archive
-    ${WHOLE_ARCHIVE_LIBS}
+    ${ZEPHYR_LIBS_PROPERTY}
     ${LINKERFLAGPREFIX},--no-whole-archive
-    ${NO_WHOLE_ARCHIVE_LIBS}
+    kernel
     $<TARGET_OBJECTS:${OFFSETS_LIB}>
     ${LIB_INCLUDE_DIR}
     -L${PROJECT_BINARY_DIR}

@@ -17,7 +17,7 @@
 
 #include "receiver.h"
 
-BENCH_DMEM char data_recv[MESSAGE_SIZE] = { 0 };
+char data_recv[MESSAGE_SIZE] = { 0 };
 
 void dequtask(void);
 void waittask(void);
@@ -25,28 +25,27 @@ void mailrecvtask(void);
 void piperecvtask(void);
 
 /**
+ *
  * @brief Main function of the task that receives data in the test
+ *
  */
 void recvtask(void *p1, void *p2, void *p3)
 {
-	bool skip_mbox = (bool)(uintptr_t)(p1);
-
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	/* order must be compatible with master.c ! */
-
+#ifdef FIFO_BENCH
 	k_sem_take(&STARTRCV, K_FOREVER);
 	dequtask();
-
+#endif
+#ifdef SEMA_BENCH
 	k_sem_take(&STARTRCV, K_FOREVER);
 	waittask();
-
-	if (!skip_mbox) {
-		k_sem_take(&STARTRCV, K_FOREVER);
-		mailrecvtask();
-	}
-
+#endif
+#ifdef MAILBOX_BENCH
+	k_sem_take(&STARTRCV, K_FOREVER);
+	mailrecvtask();
+#endif
+#ifdef PIPE_BENCH
 	k_sem_take(&STARTRCV, K_FOREVER);
 	piperecvtask();
+#endif
 }
