@@ -1,0 +1,24 @@
+# ninja log v5
+180	525	7363636978838561	zephyr/include/generated/version.h	7a09685de14203f7
+13155	13529	7363637108621184	C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/i2s_codec/build/zephyr/include/generated/driver-validation.h	6e3e1336cd25ff34
+180	525	7363636978838561	C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/i2s_codec/build/zephyr/include/generated/version.h	7a09685de14203f7
+218	13111	7363637104631569	zephyr/misc/generated/struct_tags.json	c7888e3c4a23b7bf
+218	13111	7363637104631569	zephyr/misc/generated/syscalls.json	c7888e3c4a23b7bf
+13116	13442	7363637106994755	zephyr/include/generated/syscall_dispatch.c	8402f1547e014aa8
+13201	13555	7363637108845915	zephyr/include/generated/kobj-types-enum.h	d9aa651936be980a
+218	13111	7363637104631569	C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/i2s_codec/build/zephyr/misc/generated/struct_tags.json	c7888e3c4a23b7bf
+13201	13555	7363637108845915	C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/i2s_codec/build/zephyr/include/generated/kobj-types-enum.h	d9aa651936be980a
+218	13111	7363637104631569	C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/i2s_codec/build/zephyr/misc/generated/syscalls.json	c7888e3c4a23b7bf
+13116	13442	7363637106994755	zephyr/include/generated/syscall_list.h	8402f1547e014aa8
+13201	13555	7363637108845915	C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/i2s_codec/build/zephyr/include/generated/otype-to-size.h	d9aa651936be980a
+13116	13442	7363637106994755	C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/i2s_codec/build/zephyr/include/generated/syscall_dispatch.c	8402f1547e014aa8
+13116	13442	7363637106994755	C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/i2s_codec/build/zephyr/include/generated/syscall_list.h	8402f1547e014aa8
+13155	13529	7363637108621184	zephyr/include/generated/driver-validation.h	6e3e1336cd25ff34
+13201	13555	7363637108845915	zephyr/include/generated/otype-to-str.h	d9aa651936be980a
+13201	13555	7363637108845915	zephyr/include/generated/otype-to-size.h	d9aa651936be980a
+13201	13555	7363637108845915	C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/i2s_codec/build/zephyr/include/generated/otype-to-str.h	d9aa651936be980a
+415	47352	7364206460807606	build.ninja	500aff02dfaef44c
+206	30216	7364206787006900	zephyr/misc/generated/syscalls.json	c7888e3c4a23b7bf
+206	30216	7364206787006900	zephyr/misc/generated/struct_tags.json	c7888e3c4a23b7bf
+206	30216	7364206787006900	C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/i2s_codec/build/zephyr/misc/generated/syscalls.json	c7888e3c4a23b7bf
+206	30216	7364206787006900	C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/i2s_codec/build/zephyr/misc/generated/struct_tags.json	c7888e3c4a23b7bf
