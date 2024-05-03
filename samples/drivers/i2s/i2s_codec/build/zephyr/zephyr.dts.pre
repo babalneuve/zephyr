@@ -743,14 +743,23 @@
    pinmux = <((((93) & 0xFFF) << 20) | (((1) & 0xF) << 0))>,
     <((((94) & 0xFFF) << 20) | (((1) & 0xF) << 0))>;
    input-enable;
+   bias-pull-up;
    slew-rate = "slow";
-   drive-strength = "high";
+   drive-strength = "normal";
   };
 
   group1 {
    pinmux = <((((95) & 0xFFF) << 20) | (((1) & 0xF) << 0))>;
    slew-rate = "normal";
    drive-strength = "normal";
+  };
+ };
+
+ pinmux_codec: pinmux_codec {
+  group0 {
+   pinmux = <((((42) & 0xFFF) << 20) | (((1) & 0xF) << 0))>;
+   slew-rate = "normal";
+   drive-strength = "high";
   };
  };
 
@@ -1132,74 +1141,6 @@ zephyr_udc0: &usbhs {
  pinctrl-names = "default";
 
  status = "okay";
-};
-
-
-&sram1 {
- status = "okay";
-};
-# 0 "<command-line>" 2
-# 1 "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/i2s_codec/boards/mimxrt685_evk_cm33.overlay" 1
-
-
-
-
-
-
-&pinctrl{
-    pinmux_i3c: pinmux_i3c {
-  group0 {
-   pinmux = <((((93) & 0xFFF) << 20) | (((1) & 0xF) << 0))>,
-    <((((94) & 0xFFF) << 20) | (((1) & 0xF) << 0))>;
-   input-enable;
-   bias-pull-up;
-   slew-rate = "slow";
-   drive-strength = "high";
-   drive-strength = "normal";
-  };
-
-        group1 {
-   pinmux = <((((95) & 0xFFF) << 20) | (((1) & 0xF) << 0))>;
-   slew-rate = "normal";
-   drive-strength = "normal";
-  };
-    };
-
-    pinmux_codec: pinmux_codec {
-  group0 {
-   pinmux = <((((42) & 0xFFF) << 20) | (((1) & 0xF) << 0))>;
-   slew-rate = "normal";
-   drive-strength = "high";
-  };
- };
-};
-
-/{
-    aliases{
-        i2s-codec-rx = &i2s0;
-        i2s-codec-tx = &i2s1;
-    };
-};
-
-&i2s0 {
-    status = "okay";
-};
-
-&i2s1 {
-    status = "okay";
-};
-
-&i3c0 {
- #address-cells = <3>;
- #size-cells = <0>;
- pinctrl-0 = <&pinmux_i3c>;
- pinctrl-names = "default";
- clk-divider = <20>;
- interrupts = <49 0>;
- clk-divider-tc = <0>;
- clk-divider-slow = <0>;
-
- status = "okay";
 
  audio_codec: wm8904@1a {
   pinctrl-0 = <&pinmux_codec>;
@@ -1208,6 +1149,32 @@ zephyr_udc0: &usbhs {
   reg = <0x1a 0 0>;
   clock-source = "MCLK";
  };
+};
+
+
+&sram1 {
+ status = "okay";
+};
+# 0 "<command-line>" 2
+# 1 "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/i2s_codec/boards/mimxrt685_evk_cm33.overlay" 1
+/ {
+        aliases {
+                i2s-codec-rx = &i2s0;
+                i2s-codec-tx = &i2s1;
+        };
+
+};
+
+&i3c0 {
+    status = "okay";
+};
+
+&i2s0 {
+    status = "okay";
+};
+
+&i2s1 {
+    status = "okay";
 };
 # 0 "<command-line>" 2
 # 1 "C:/Users/EXT_BASVER/zephyrproject/zephyr/misc/empty_file.c"

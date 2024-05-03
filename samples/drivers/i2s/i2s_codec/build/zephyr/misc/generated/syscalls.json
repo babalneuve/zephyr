@@ -2249,78 +2249,6 @@
     ],
     [
         [
-            "int gnss_set_fix_rate",
-            "const struct device *dev, uint32_t fix_interval_ms"
-        ],
-        "gnss.h",
-        false
-    ],
-    [
-        [
-            "int gnss_get_fix_rate",
-            "const struct device *dev, uint32_t *fix_interval_ms"
-        ],
-        "gnss.h",
-        false
-    ],
-    [
-        [
-            "int gnss_set_periodic_config",
-            "const struct device *dev,\n\t\t\t\t       const struct gnss_periodic_config *config"
-        ],
-        "gnss.h",
-        false
-    ],
-    [
-        [
-            "int gnss_get_periodic_config",
-            "const struct device *dev,\n\t\t\t\t       struct gnss_periodic_config *config"
-        ],
-        "gnss.h",
-        false
-    ],
-    [
-        [
-            "int gnss_set_navigation_mode",
-            "const struct device *dev,\n\t\t\t\t       enum gnss_navigation_mode mode"
-        ],
-        "gnss.h",
-        false
-    ],
-    [
-        [
-            "int gnss_get_navigation_mode",
-            "const struct device *dev,\n\t\t\t\t       enum gnss_navigation_mode *mode"
-        ],
-        "gnss.h",
-        false
-    ],
-    [
-        [
-            "int gnss_set_enabled_systems",
-            "const struct device *dev, gnss_systems_t systems"
-        ],
-        "gnss.h",
-        false
-    ],
-    [
-        [
-            "int gnss_get_enabled_systems",
-            "const struct device *dev, gnss_systems_t *systems"
-        ],
-        "gnss.h",
-        false
-    ],
-    [
-        [
-            "int gnss_get_supported_systems",
-            "const struct device *dev, gnss_systems_t *systems"
-        ],
-        "gnss.h",
-        false
-    ],
-    [
-        [
             "ssize_t hwinfo_get_device_id",
             "uint8_t *buffer, size_t length"
         ],
@@ -3289,22 +3217,6 @@
     ],
     [
         [
-            "ssize_t devmux_select_get",
-            "const struct device *dev"
-        ],
-        "devmux.h",
-        false
-    ],
-    [
-        [
-            "int devmux_select_set",
-            "struct device *dev, size_t index"
-        ],
-        "devmux.h",
-        false
-    ],
-    [
-        [
             "int tgpio_port_get_time",
             "const struct device *dev, uint64_t *current_time"
         ],
@@ -3549,46 +3461,6 @@
             "const struct device *dev,\n\t\t\t\t\tbool enable"
         ],
         "ivshmem.h",
-        false
-    ],
-    [
-        [
-            "void k_mem_paging_stats_get",
-            "struct k_mem_paging_stats_t *stats"
-        ],
-        "demand_paging.h",
-        false
-    ],
-    [
-        [
-            "void k_mem_paging_thread_stats_get",
-            "struct k_thread *thread,\n\t\t\t\t   struct k_mem_paging_stats_t *stats"
-        ],
-        "demand_paging.h",
-        false
-    ],
-    [
-        [
-            "void k_mem_paging_histogram_eviction_get",
-            "\n\tstruct k_mem_paging_histogram_t *hist"
-        ],
-        "demand_paging.h",
-        false
-    ],
-    [
-        [
-            "void k_mem_paging_histogram_backing_store_page_in_get",
-            "\n\tstruct k_mem_paging_histogram_t *hist"
-        ],
-        "demand_paging.h",
-        false
-    ],
-    [
-        [
-            "void k_mem_paging_histogram_backing_store_page_out_get",
-            "\n\tstruct k_mem_paging_histogram_t *hist"
-        ],
-        "demand_paging.h",
         false
     ],
     [
@@ -3949,14 +3821,6 @@
             "int nfds, zsock_fd_set *readfds,\n\t\t\t   zsock_fd_set *writefds,\n\t\t\t   zsock_fd_set *exceptfds,\n\t\t\t   struct zsock_timeval *timeout"
         ],
         "socket_select.h",
-        false
-    ],
-    [
-        [
-            "int net_socket_service_register",
-            "const struct net_socket_service_desc *service,\n\t\t\t\t\t  struct zsock_pollfd *fds, int len, void *user_data"
-        ],
-        "socket_service.h",
         false
     ],
     [

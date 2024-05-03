@@ -5,7 +5,9 @@
   "trustZoneType": "none",
   "multicoreType": "none",
   "debug": {
-    "linkserver": {},
+    "linkserver": {
+      "device": "MIMXRT685S:EVK-MIMXRT685"
+    },
     "pemicro": {},
     "segger": {}
   },

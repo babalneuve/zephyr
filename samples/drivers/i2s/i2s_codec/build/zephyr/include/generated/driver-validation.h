@@ -26,8 +26,6 @@
 
 #define Z_SYSCALL_DRIVER_CAN(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, can, CAN)
 
-#define Z_SYSCALL_DRIVER_CELLULAR(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, cellular, CELLULAR)
-
 #define Z_SYSCALL_DRIVER_CHARGER(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, charger, CHARGER)
 
 #define Z_SYSCALL_DRIVER_COREDUMP(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, coredump, COREDUMP)
@@ -41,8 +39,6 @@
 #define Z_SYSCALL_DRIVER_EDAC(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, edac, EDAC)
 
 #define Z_SYSCALL_DRIVER_EEPROM(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, eeprom, EEPROM)
-
-#define Z_SYSCALL_DRIVER_EMUL_BBRAM_BACKEND_API(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, emul_bbram_backend_api, EMUL_BBRAM_BACKEND_API)
 
 #define Z_SYSCALL_DRIVER_FUEL_GAUGE_EMUL(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, fuel_gauge_emul, FUEL_GAUGE_EMUL)
 
@@ -60,8 +56,6 @@
 
 #define Z_SYSCALL_DRIVER_FUEL_GAUGE(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, fuel_gauge, FUEL_GAUGE)
 
-#define Z_SYSCALL_DRIVER_GNSS(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, gnss, GNSS)
-
 #define Z_SYSCALL_DRIVER_HWSPINLOCK(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, hwspinlock, HWSPINLOCK)
 
 #define Z_SYSCALL_DRIVER_IPM(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, ipm, IPM)
@@ -73,8 +67,6 @@
 #define Z_SYSCALL_DRIVER_MBOX(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, mbox, MBOX)
 
 #define Z_SYSCALL_DRIVER_MDIO(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, mdio, MDIO)
-
-#define Z_SYSCALL_DRIVER_MIPI_DBI(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, mipi_dbi, MIPI_DBI)
 
 #define Z_SYSCALL_DRIVER_MIPI_DSI(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, mipi_dsi, MIPI_DSI)
 
@@ -125,8 +117,6 @@
 #define Z_SYSCALL_DRIVER_BC12_EMUL(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, bc12_emul, BC12_EMUL)
 
 #define Z_SYSCALL_DRIVER_BC12(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, bc12, BC12)
-
-#define Z_SYSCALL_DRIVER_USBC_PPC_DRV(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, usbc_ppc_drv, USBC_PPC_DRV)
 
 #define Z_SYSCALL_DRIVER_TCPC(ptr, op) Z_SYSCALL_DRIVER_GEN(ptr, op, tcpc, TCPC)
 
