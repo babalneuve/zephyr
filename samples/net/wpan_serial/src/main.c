@@ -299,12 +299,8 @@ static void process_config(struct net_pkt *pkt)
 	}
 }
 
-static void rx_thread(void *p1, void *p2, void *p3)
+static void rx_thread(void)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	LOG_DBG("RX thread started");
 
 	while (true) {
@@ -390,12 +386,8 @@ static int try_write(uint8_t *data, uint16_t len)
 /**
  * TX - transmit to SLIP interface
  */
-static void tx_thread(void *p1, void *p2, void *p3)
+static void tx_thread(void)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	LOG_DBG("TX thread started");
 
 	while (true) {
@@ -429,7 +421,7 @@ static void init_rx_queue(void)
 
 	k_thread_create(&rx_thread_data, rx_stack,
 			K_THREAD_STACK_SIZEOF(rx_stack),
-			rx_thread,
+			(k_thread_entry_t)rx_thread,
 			NULL, NULL, NULL, THREAD_PRIORITY, 0, K_NO_WAIT);
 }
 
@@ -439,7 +431,7 @@ static void init_tx_queue(void)
 
 	k_thread_create(&tx_thread_data, tx_stack,
 			K_THREAD_STACK_SIZEOF(tx_stack),
-			tx_thread,
+			(k_thread_entry_t)tx_thread,
 			NULL, NULL, NULL, THREAD_PRIORITY, 0, K_NO_WAIT);
 }
 
@@ -448,12 +440,14 @@ static void init_tx_queue(void)
  */
 static uint8_t *get_mac(const struct device *dev)
 {
+	uint32_t *ptr = (uint32_t *)mac_addr;
+
 	mac_addr[7] = 0x00;
 	mac_addr[6] = 0x12;
 	mac_addr[5] = 0x4b;
-	mac_addr[4] = 0x00;
 
-	sys_rand_get(mac_addr, 4U);
+	mac_addr[4] = 0x00;
+	UNALIGNED_PUT(sys_rand32_get(), ptr);
 
 	mac_addr[0] = (mac_addr[0] & ~0x01) | 0x02;
 

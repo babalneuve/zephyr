@@ -1,0 +1,69 @@
+/*
+ * Copyright (c) 2021 Nordic Semiconductor ASA
+ *
+ * SPDX-License-Identifier: Apache-2.0
+*/
+
+&pinctrl{
+    pinmux_i3c: pinmux_i3c {
+		group0 {
+			pinmux = <I3C0_SCL_PIO2_29>,
+				<I3C0_SDA_PIO2_30>;
+			input-enable;
+			bias-pull-up;
+			slew-rate = "slow";
+			drive-strength = "high";
+			drive-strength = "normal";
+		};
+
+        group1 {
+			pinmux = <I3C0_PUR_PIO2_31>;
+			slew-rate = "normal";
+			drive-strength = "normal";
+		};
+    };
+
+    pinmux_codec: pinmux_codec {
+		group0 {
+			pinmux = <MCLK_PIO1_10>;
+			slew-rate = "normal";
+			drive-strength = "high";
+		};
+	};
+};
+
+/{  
+    aliases{
+        i2s-codec-rx = &i2s0;
+        i2s-codec-tx = &i2s1;
+    };
+};
+
+&i2s0 {
+    status = "okay";
+};
+
+&i2s1 {
+    status = "okay";
+};
+
+&i3c0 {
+	#address-cells = <3>;
+	#size-cells = <0>;
+	pinctrl-0 = <&pinmux_i3c>;
+	pinctrl-names = "default";
+	clk-divider = <20>;
+	interrupts = <49 0>;
+	clk-divider-tc = <0>;
+	clk-divider-slow = <0>;
+
+	status = "okay";
+
+	audio_codec: wm8904@1a {
+		pinctrl-0 = <&pinmux_codec>;
+		pinctrl-names = "default";
+		compatible = "wolfson,wm8904";
+		reg = <0x1a 0 0>;
+		clock-source = "MCLK";
+	};
+};

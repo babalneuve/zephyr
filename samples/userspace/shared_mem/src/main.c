@@ -133,7 +133,7 @@ int main(void)
 	 * then add the thread to the domain.
 	 */
 	tENC = k_thread_create(&enc_thread, enc_stack, STACKSIZE,
-			enc, NULL, NULL, NULL,
+			(k_thread_entry_t)enc, NULL, NULL, NULL,
 			-1, K_USER,
 			K_FOREVER);
 	k_thread_access_grant(tENC, &allforone);
@@ -150,7 +150,7 @@ int main(void)
 
 
 	tPT = k_thread_create(&pt_thread, pt_stack, STACKSIZE,
-			pt, NULL, NULL, NULL,
+			(k_thread_entry_t)pt, NULL, NULL, NULL,
 			-1, K_USER,
 			K_FOREVER);
 	k_thread_access_grant(tPT, &allforone);
@@ -163,7 +163,7 @@ int main(void)
 	printk("pt_domain Created\n");
 
 	tCT = k_thread_create(&ct_thread, ct_stack, STACKSIZE,
-			ct, NULL, NULL, NULL,
+			(k_thread_entry_t)ct, NULL, NULL, NULL,
 			-1, K_USER,
 			K_FOREVER);
 	k_thread_access_grant(tCT, &allforone);
@@ -204,11 +204,8 @@ int main(void)
  * Copy memory from pt thread and encrypt to a local buffer
  * then copy to the ct thread.
  */
-void enc(void *p1, void *p2, void *p3)
+void enc(void)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
 
 	int index, index_out;
 
@@ -255,11 +252,8 @@ void enc(void *p1, void *p2, void *p3)
  * It can be extended to receive data from a serial port
  * and pass the data to enc
  */
-void pt(void *p1, void *p2, void *p3)
+void pt(void)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
 
 	k_sleep(K_MSEC(20));
 	while (1) {
@@ -288,11 +282,8 @@ void pt(void *p1, void *p2, void *p3)
  * CT waits for fBUFOUT = 1 then copies
  * the message clears the flag and prints
  */
-void ct(void *p1, void *p2, void *p3)
+void ct(void)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
 
 	char tbuf[60];
 

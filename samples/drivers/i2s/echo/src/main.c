@@ -246,8 +246,8 @@ static bool trigger_command(const struct device *i2s_dev_rx,
 
 int main(void)
 {
-	const struct device *const i2s_dev_rx = DEVICE_DT_GET(I2S_RX_NODE);
-	const struct device *const i2s_dev_tx = DEVICE_DT_GET(I2S_TX_NODE);
+	const struct device *const i2s_dev_rx = DEVICE_DT_GET(DT_N_NODELABEL_i2s0);
+	const struct device *const i2s_dev_tx = DEVICE_DT_GET(DT_N_NODELABEL_i2s1);
 	struct i2s_config config;
 
 	printk("I2S echo sample\n");

@@ -40,12 +40,8 @@ static int send_udp_data(struct data *data);
 static void wait_reply(struct k_timer *timer);
 static void wait_transmit(struct k_timer *timer);
 
-static void process_udp_tx(void *p1, void *p2, void *p3)
+static void process_udp_tx(void)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	struct k_poll_event events[] = {
 		K_POLL_EVENT_INITIALIZER(K_POLL_TYPE_SIGNAL,
 					 K_POLL_MODE_NOTIFY_ONLY,
@@ -321,7 +317,7 @@ int start_udp(void)
 
 	k_thread_create(&udp_tx_thread, udp_tx_thread_stack,
 			K_THREAD_STACK_SIZEOF(udp_tx_thread_stack),
-			process_udp_tx,
+			(k_thread_entry_t)process_udp_tx,
 			NULL, NULL, NULL, THREAD_PRIORITY,
 			IS_ENABLED(CONFIG_USERSPACE) ?
 						K_USER | K_INHERIT_PERMS : 0,

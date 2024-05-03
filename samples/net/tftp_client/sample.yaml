@@ -6,9 +6,9 @@ tests:
     harness: net
     depends_on: netif
     platform_allow:
-      - native_sim
+      - native_posix
     integration_platforms:
-      - native_sim
+      - native_posix
     tags:
       - net
       - tftp

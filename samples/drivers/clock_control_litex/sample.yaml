@@ -4,5 +4,7 @@ tests:
   sample.driver.clock_control_litex:
     platform_allow: litex_vexriscv
     tags:
-      - clock_control
+      - clock
+      - litex
+      - vexriscv
       - mmcm

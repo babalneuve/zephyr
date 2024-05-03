@@ -24,8 +24,7 @@ int main(void)
 #if CONFIG_PM_DEVICE
 	/* In PM_DEVICE modes, enable device as a wakeup source will prevent
 	 * system to switch it off (clock off, set pins to sleep configuration, ...)
-	 * It is not requested in CONFIG_PM mode only as in this case, device is not
-	 * suspended before stop mode entry.
+	 * It is not requested in PM mode only since this mode will not
 	 */
 
 	bool ret;

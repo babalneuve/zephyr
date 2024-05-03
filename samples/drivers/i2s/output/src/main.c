@@ -37,6 +37,7 @@ static void fill_buf(int16_t *tx_block, int att)
 		/* Right channel is same sine wave, shifted by 90 degrees */
 		r_idx = (i + (ARRAY_SIZE(data) / 4)) % ARRAY_SIZE(data);
 		tx_block[2 * i + 1] = data[r_idx] / (1 << att);
+		//printk("%i\n", tx_block[i]);
 	}
 }
 
@@ -62,7 +63,7 @@ int main(void)
 	struct i2s_config i2s_cfg;
 	int ret;
 	uint32_t tx_idx;
-	const struct device *dev_i2s = DEVICE_DT_GET(DT_ALIAS(i2s_tx));
+	const struct device *dev_i2s = DEVICE_DT_GET(DT_ALIAS(i2stx));
 
 	if (!device_is_ready(dev_i2s)) {
 		printf("I2S device not ready\n");
@@ -89,6 +90,7 @@ int main(void)
 	for (tx_idx = 0; tx_idx < NUM_BLOCKS; tx_idx++) {
 		ret = k_mem_slab_alloc(&tx_0_mem_slab, &tx_block[tx_idx],
 				       K_FOREVER);
+		//printk("%p\n", &tx_block[tx_idx]);
 		if (ret < 0) {
 			printf("Failed to allocate TX block\n");
 			return ret;
@@ -112,6 +114,7 @@ int main(void)
 
 	for (; tx_idx < NUM_BLOCKS; ) {
 		ret = i2s_write(dev_i2s, tx_block[tx_idx++], BLOCK_SIZE);
+		//printk("%p\n", tx_block[tx_idx]);
 		if (ret < 0) {
 			printf("Could not write TX buffer %d\n", tx_idx);
 			return ret;

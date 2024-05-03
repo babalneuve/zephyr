@@ -82,12 +82,8 @@ static char *get_ip_addr(char *ipaddr, size_t len, sa_family_t family,
 	return buf;
 }
 
-static void listener(void *p1, void *p2, void *p3)
+static void listener(void)
 {
-	ARG_UNUSED(p1);
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
 	struct sockaddr_nm sockaddr;
 	struct sockaddr_nm event_addr;
 	socklen_t event_addr_len;
@@ -167,10 +163,10 @@ int main(void)
 	k_thread_start(trigger_events_thread_id);
 
 	if (IS_ENABLED(CONFIG_USERSPACE)) {
-		k_thread_user_mode_enter(listener,
+		k_thread_user_mode_enter((k_thread_entry_t)listener,
 					 NULL, NULL, NULL);
 	} else {
-		listener(NULL, NULL, NULL);
+		listener();
 	}
 	return 0;
 }

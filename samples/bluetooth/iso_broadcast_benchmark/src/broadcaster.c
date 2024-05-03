@@ -22,14 +22,14 @@ LOG_MODULE_REGISTER(iso_broadcast_broadcaster, LOG_LEVEL_DBG);
 #define DEFAULT_BIS_PACKING       0
 #define DEFAULT_BIS_FRAMING       0
 #define DEFAULT_BIS_COUNT         CONFIG_BT_ISO_MAX_CHAN
-#if defined(CONFIG_BT_ISO_TEST_PARAMS)
+#if defined(CONFIG_BT_ISO_ADVANCED)
 #define DEFAULT_BIS_NSE           BT_ISO_NSE_MIN
 #define DEFAULT_BIS_BN            BT_ISO_BN_MIN
 #define DEFAULT_BIS_PDU_SIZE      CONFIG_BT_ISO_TX_MTU
 #define DEFAULT_BIS_IRC           BT_ISO_IRC_MIN
 #define DEFAULT_BIS_PTO           BT_ISO_PTO_MIN
 #define DEFAULT_BIS_ISO_INTERVAL  DEFAULT_BIS_INTERVAL_US / 1250U /* N * 10 ms */
-#endif /* CONFIG_BT_ISO_TEST_PARAMS */
+#endif /* CONFIG_BT_ISO_ADVANCED */
 
 NET_BUF_POOL_FIXED_DEFINE(bis_tx_pool, CONFIG_BT_ISO_TX_BUF_COUNT,
 			  BT_ISO_SDU_BUF_SIZE(CONFIG_BT_ISO_TX_MTU),
@@ -53,15 +53,11 @@ static struct bt_iso_big_create_param big_create_param = {
 	.framing = DEFAULT_BIS_FRAMING, /* 0 - unframed, 1 - framed */
 	.interval = DEFAULT_BIS_INTERVAL_US, /* in microseconds */
 	.latency = DEFAULT_BIS_LATENCY_MS, /* milliseconds */
-#if defined(CONFIG_BT_ISO_TEST_PARAMS)
+#if defined(CONFIG_BT_ISO_ADVANCED)
 	.irc = DEFAULT_BIS_IRC,
 	.pto = DEFAULT_BIS_PTO,
 	.iso_interval = DEFAULT_BIS_ISO_INTERVAL,
-#endif /* CONFIG_BT_ISO_TEST_PARAMS */
-};
-
-static const struct bt_data ad[] = {
-	BT_DATA(BT_DATA_NAME_COMPLETE, CONFIG_BT_DEVICE_NAME, sizeof(CONFIG_BT_DEVICE_NAME) - 1),
+#endif /* CONFIG_BT_ISO_ADVANCED */
 };
 
 static void iso_connected(struct bt_iso_chan *chan)
@@ -95,17 +91,17 @@ static struct bt_iso_chan_io_qos iso_tx_qos = {
 	.sdu = DEFAULT_BIS_SDU, /* bytes */
 	.rtn = DEFAULT_BIS_RTN,
 	.phy = DEFAULT_BIS_PHY,
-#if defined(CONFIG_BT_ISO_TEST_PARAMS)
+#if defined(CONFIG_BT_ISO_ADVANCED)
 	.max_pdu = DEFAULT_BIS_PDU_SIZE,
 	.burst_number = DEFAULT_BIS_BN,
-#endif /* CONFIG_BT_ISO_TEST_PARAMS */
+#endif /* CONFIG_BT_ISO_ADVANCED */
 };
 
 static struct bt_iso_chan_qos bis_iso_qos = {
 	.tx = &iso_tx_qos,
-#if defined(CONFIG_BT_ISO_TEST_PARAMS)
+#if defined(CONFIG_BT_ISO_ADVANCED)
 	.num_subevents = DEFAULT_BIS_NSE,
-#endif /* CONFIG_BT_ISO_TEST_PARAMS */
+#endif /* CONFIG_BT_ISO_ADVANCED */
 };
 
 static size_t get_chars(char *buffer, size_t max_size)
@@ -245,7 +241,7 @@ static int parse_sdu_arg(void)
 	return (int)sdu;
 }
 
-#if defined(CONFIG_BT_ISO_TEST_PARAMS)
+#if defined(CONFIG_BT_ISO_ADVANCED)
 static int parse_irc_arg(void)
 {
 	size_t char_count;
@@ -389,7 +385,7 @@ static int parse_bn_arg(void)
 
 	return (int)burst_number;
 }
-#endif /* CONFIG_BT_ISO_TEST_PARAMS */
+#endif /* CONFIG_BT_ISO_ADVANCED */
 
 static int parse_packing_arg(void)
 {
@@ -472,14 +468,14 @@ static int parse_args(void)
 	int packing;
 	int framing;
 	int bis_count;
-#if defined(CONFIG_BT_ISO_TEST_PARAMS)
+#if defined(CONFIG_BT_ISO_ADVANCED)
 	int num_subevents;
 	int iso_interval;
 	int burst_number;
 	int max_pdu;
 	int irc;
 	int pto;
-#endif /* CONFIG_BT_ISO_TEST_PARAMS */
+#endif /* CONFIG_BT_ISO_ADVANCED */
 
 	printk("Follow the prompts. Press enter to use default values.\n");
 
@@ -523,7 +519,7 @@ static int parse_args(void)
 		return -EINVAL;
 	}
 
-#if defined(CONFIG_BT_ISO_TEST_PARAMS)
+#if defined(CONFIG_BT_ISO_ADVANCED)
 	irc = parse_irc_arg();
 	if (irc < 0) {
 		return -EINVAL;
@@ -553,7 +549,7 @@ static int parse_args(void)
 	if (burst_number < 0) {
 		return -EINVAL;
 	}
-#endif /* CONFIG_BT_ISO_TEST_PARAMS */
+#endif /* CONFIG_BT_ISO_ADVANCED */
 
 	iso_tx_qos.rtn = rtn;
 	iso_tx_qos.phy = phy;
@@ -563,14 +559,14 @@ static int parse_args(void)
 	big_create_param.packing = packing;
 	big_create_param.framing = framing;
 	big_create_param.num_bis = bis_count;
-#if defined(CONFIG_BT_ISO_TEST_PARAMS)
+#if defined(CONFIG_BT_ISO_ADVANCED)
 	bis_iso_qos.num_subevents = num_subevents;
 	iso_tx_qos.max_pdu = max_pdu;
 	iso_tx_qos.burst_number = burst_number;
 	big_create_param.irc = irc;
 	big_create_param.pto = pto;
 	big_create_param.iso_interval = iso_interval;
-#endif /* CONFIG_BT_ISO_TEST_PARAMS */
+#endif /* CONFIG_BT_ISO_ADVANCED */
 
 	return 0;
 }
@@ -597,7 +593,8 @@ static void iso_timer_timeout(struct k_work *work)
 
 		net_buf_reserve(buf, BT_ISO_CHAN_SEND_RESERVE);
 		net_buf_add_mem(buf, iso_data, iso_tx_qos.sdu);
-		ret = bt_iso_chan_send(&bis_iso_chans[i], buf, seq_num);
+		ret = bt_iso_chan_send(&bis_iso_chans[i], buf, seq_num,
+				       BT_ISO_TIMESTAMP_NONE);
 		if (ret < 0) {
 			LOG_ERR("Unable to broadcast data: %d", ret);
 			net_buf_unref(buf);
@@ -619,17 +616,10 @@ static int create_big(struct bt_le_ext_adv **adv, struct bt_iso_big **big)
 
 	/* Create a non-connectable non-scannable advertising set */
 	LOG_INF("Creating Extended Advertising set");
-	err = bt_le_ext_adv_create(BT_LE_EXT_ADV_NCONN, NULL, adv);
+	err = bt_le_ext_adv_create(BT_LE_EXT_ADV_NCONN_NAME, NULL, adv);
 	if (err != 0) {
 		LOG_ERR("Failed to create advertising set (err %d)", err);
 		return err;
-	}
-
-	/* Set advertising data to have complete local name set */
-	err = bt_le_ext_adv_set_data(*adv, ad, ARRAY_SIZE(ad), NULL, 0);
-	if (err) {
-		LOG_ERR("Failed to set advertising data (err %d)", err);
-		return 0;
 	}
 
 	LOG_INF("Setting Periodic Advertising parameters");

@@ -7,4 +7,3 @@ tests:
     tags:
       - bluetooth
       - pm
-    extra_args: "CONFIG_DEBUG=y"

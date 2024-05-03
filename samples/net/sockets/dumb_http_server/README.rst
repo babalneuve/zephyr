@@ -64,11 +64,11 @@ The same application source code can be built for a POSIX system, e.g.
 Linux. (Note: if you look at the source, you will see that the code is
 the same except the header files are different for Zephyr vs POSIX.)
 
-To build:
+To build for a host POSIX OS:
 
 .. code-block:: console
 
-    $ make -f Makefile.host
+    $ make -f Makefile.posix
 
 To run:
 

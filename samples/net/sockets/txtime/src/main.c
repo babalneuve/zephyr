@@ -127,12 +127,8 @@ static void event_handler(struct net_mgmt_event_callback *cb,
 	}
 }
 
-static void rx(void *p1, void *p2, void *p3)
+static void rx(struct app_data *data)
 {
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
-	struct app_data *data = p1;
 	static uint8_t recv_buf[sizeof(txtime_str)];
 	struct sockaddr src;
 	socklen_t addr_len = data->peer_addr_len;
@@ -147,12 +143,8 @@ static void rx(void *p1, void *p2, void *p3)
 	}
 }
 
-static void tx(void *p1, void *p2, void *p3)
+static void tx(struct app_data *data)
 {
-	ARG_UNUSED(p2);
-	ARG_UNUSED(p3);
-
-	struct app_data *data = p1;
 	struct net_ptp_time time;
 	struct msghdr msg;
 	struct cmsghdr *cmsg;
@@ -628,7 +620,7 @@ int main(void)
 
 	tx_tid = k_thread_create(&tx_thread, tx_stack,
 				 K_THREAD_STACK_SIZEOF(tx_stack),
-				 tx, &peer_data,
+				 (k_thread_entry_t)tx, &peer_data,
 				 NULL, NULL, THREAD_PRIORITY, 0,
 				 K_FOREVER);
 	if (!tx_tid) {
@@ -640,7 +632,7 @@ int main(void)
 
 	rx_tid = k_thread_create(&rx_thread, rx_stack,
 				 K_THREAD_STACK_SIZEOF(rx_stack),
-				 rx, &peer_data,
+				 (k_thread_entry_t)rx, &peer_data,
 				 NULL, NULL, THREAD_PRIORITY, 0,
 				 K_FOREVER);
 	if (!rx_tid) {
