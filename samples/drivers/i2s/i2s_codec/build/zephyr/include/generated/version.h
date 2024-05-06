@@ -16,7 +16,7 @@
 #define KERNEL_PATCHLEVEL      0
 #define KERNEL_VERSION_STRING  "3.5.0"
 
-#define BUILD_VERSION 28bbc24acca5
+#define BUILD_VERSION 70508c50f5a2
 
 
 #endif /* _KERNEL_VERSION_H_ */

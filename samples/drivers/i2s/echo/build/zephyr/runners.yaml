@@ -1,13 +1,12 @@
 # Available runners configured by board.cmake.
 runners:
-- linkserver
 - jlink
 
 # Default flash runner if --runner is not given.
-flash-runner: linkserver
+flash-runner: jlink
 
 # Default debug runner if --runner is not given.
-debug-runner: linkserver
+debug-runner: jlink
 
 # Common runner configuration values.
 config:
@@ -20,9 +19,6 @@ config:
 
 # Runner specific arguments
 args:
-  linkserver:
-    - --dt-flash=y
-    - --device=MIMXRT685S:EVK-MIMXRT685
   jlink:
     - --dt-flash=y
     - --device=MIMXRT685S_M33

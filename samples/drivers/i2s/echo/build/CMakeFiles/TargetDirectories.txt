@@ -154,6 +154,9 @@ C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/d
 C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/usb/CMakeFiles/rebuild_cache.dir
 C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/usb_c/CMakeFiles/edit_cache.dir
 C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/usb_c/CMakeFiles/rebuild_cache.dir
+C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/audio/CMakeFiles/drivers__audio.dir
+C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/audio/CMakeFiles/edit_cache.dir
+C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/audio/CMakeFiles/rebuild_cache.dir
 C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/clock_control/CMakeFiles/drivers__clock_control.dir
 C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/clock_control/CMakeFiles/edit_cache.dir
 C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/clock_control/CMakeFiles/rebuild_cache.dir
@@ -166,9 +169,15 @@ C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/d
 C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/gpio/CMakeFiles/drivers__gpio.dir
 C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/gpio/CMakeFiles/edit_cache.dir
 C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/gpio/CMakeFiles/rebuild_cache.dir
+C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/i2c/CMakeFiles/drivers__i2c.dir
+C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/i2c/CMakeFiles/edit_cache.dir
+C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/i2c/CMakeFiles/rebuild_cache.dir
 C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/i2s/CMakeFiles/drivers__i2s.dir
 C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/i2s/CMakeFiles/edit_cache.dir
 C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/i2s/CMakeFiles/rebuild_cache.dir
+C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/i3c/CMakeFiles/drivers__i3c.dir
+C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/i3c/CMakeFiles/edit_cache.dir
+C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/i3c/CMakeFiles/rebuild_cache.dir
 C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/pinctrl/CMakeFiles/drivers__pinctrl.dir
 C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/pinctrl/CMakeFiles/edit_cache.dir
 C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/pinctrl/CMakeFiles/rebuild_cache.dir

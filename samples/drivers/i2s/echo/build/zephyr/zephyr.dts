@@ -179,19 +179,12 @@
 						group0 {
 							pinmux = < 0x5d00001 >, < 0x5e00001 >;
 							input-enable;
+							bias-pull-up;
 							slew-rate = "slow";
 							drive-strength = "normal";
-							bias-pull-up;
 						};
 						group1 {
 							pinmux = < 0x5f00001 >;
-							slew-rate = "normal";
-							drive-strength = "normal";
-						};
-					};
-					pinmux_ctimer2_pwm: pinmux_ctimer2_pwm {
-						group0 {
-							pinmux = < 0xe00004 >;
 							slew-rate = "normal";
 							drive-strength = "normal";
 						};
@@ -202,6 +195,13 @@
 							pinmux = < 0x2a00001 >;
 							slew-rate = "normal";
 							drive-strength = "high";
+						};
+					};
+					pinmux_ctimer2_pwm: pinmux_ctimer2_pwm {
+						group0 {
+							pinmux = < 0xe00004 >;
+							slew-rate = "normal";
+							drive-strength = "normal";
 						};
 					};
 				};
@@ -586,9 +586,9 @@
 				reg = < 0x36000 0x1000 >;
 				interrupts = < 0x31 0x0 >;
 				clocks = < &clkctl1 0x1e >;
-				clk-divider = < 0x14 >;
-				clk-divider-slow = < 0x0 >;
-				clk-divider-tc = < 0x0 >;
+				clk-divider = < 0x2 >;
+				clk-divider-slow = < 0x1 >;
+				clk-divider-tc = < 0x1 >;
 				status = "okay";
 				#address-cells = < 0x3 >;
 				#size-cells = < 0x0 >;
@@ -684,9 +684,8 @@
 		magn0 = &fxos8700;
 		accel0 = &fxos8700;
 		sdhc0 = &usdhc0;
-		i2srx = &i2s0;
-		i2stx = &i2s1;
-		i3c = &i3c0;
+		i2s-rx = &i2s0;
+		i2s-tx = &i2s1;
 	};
 	cpus {
 		#address-cells = < 0x1 >;

@@ -51,7 +51,7 @@ CACHED_BOARD:STRING=mimxrt685_evk_cm33
 // listed, e.g. CONF_FILE="prj1.conf;prj2.conf" The CACHED_CONF_FILE
 // is internal Zephyr variable used between CMake runs. To change
 // CONF_FILE, use the CONF_FILE variable.
-CACHED_CONF_FILE:STRING=C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/prj.conf
+CACHED_CONF_FILE:STRING=C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/prj.conf;C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/boards/mimxrt685_evk_cm33.conf
 
 //Selected shield
 CACHED_SHIELD:STRING=
@@ -521,7 +521,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=126
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=129
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

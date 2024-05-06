@@ -69,6 +69,11 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
+  include("C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/audio/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
   include("C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/clock_control/cmake_install.cmake")
 endif()
 
@@ -89,7 +94,17 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
+  include("C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/i2c/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
   include("C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/i2s/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/echo/build/zephyr/drivers/i3c/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)

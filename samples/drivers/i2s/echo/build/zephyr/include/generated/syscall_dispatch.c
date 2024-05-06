@@ -125,6 +125,30 @@ uintptr_t z_mrsh_gpio_get_pending_int(uintptr_t arg1, uintptr_t arg2, uintptr_t 
          uintptr_t arg4, uintptr_t arg5, uintptr_t arg6, void *ssf);
 
 __weak ALIAS_OF(handler_no_syscall)
+uintptr_t z_mrsh_i2c_configure(uintptr_t arg1, uintptr_t arg2, uintptr_t arg3,
+         uintptr_t arg4, uintptr_t arg5, uintptr_t arg6, void *ssf);
+
+__weak ALIAS_OF(handler_no_syscall)
+uintptr_t z_mrsh_i2c_get_config(uintptr_t arg1, uintptr_t arg2, uintptr_t arg3,
+         uintptr_t arg4, uintptr_t arg5, uintptr_t arg6, void *ssf);
+
+__weak ALIAS_OF(handler_no_syscall)
+uintptr_t z_mrsh_i2c_transfer(uintptr_t arg1, uintptr_t arg2, uintptr_t arg3,
+         uintptr_t arg4, uintptr_t arg5, uintptr_t arg6, void *ssf);
+
+__weak ALIAS_OF(handler_no_syscall)
+uintptr_t z_mrsh_i2c_recover_bus(uintptr_t arg1, uintptr_t arg2, uintptr_t arg3,
+         uintptr_t arg4, uintptr_t arg5, uintptr_t arg6, void *ssf);
+
+__weak ALIAS_OF(handler_no_syscall)
+uintptr_t z_mrsh_i2c_target_driver_register(uintptr_t arg1, uintptr_t arg2, uintptr_t arg3,
+         uintptr_t arg4, uintptr_t arg5, uintptr_t arg6, void *ssf);
+
+__weak ALIAS_OF(handler_no_syscall)
+uintptr_t z_mrsh_i2c_target_driver_unregister(uintptr_t arg1, uintptr_t arg2, uintptr_t arg3,
+         uintptr_t arg4, uintptr_t arg5, uintptr_t arg6, void *ssf);
+
+__weak ALIAS_OF(handler_no_syscall)
 uintptr_t z_mrsh_i2s_configure(uintptr_t arg1, uintptr_t arg2, uintptr_t arg3,
          uintptr_t arg4, uintptr_t arg5, uintptr_t arg6, void *ssf);
 
@@ -138,6 +162,14 @@ uintptr_t z_mrsh_i2s_buf_write(uintptr_t arg1, uintptr_t arg2, uintptr_t arg3,
 
 __weak ALIAS_OF(handler_no_syscall)
 uintptr_t z_mrsh_i2s_trigger(uintptr_t arg1, uintptr_t arg2, uintptr_t arg3,
+         uintptr_t arg4, uintptr_t arg5, uintptr_t arg6, void *ssf);
+
+__weak ALIAS_OF(handler_no_syscall)
+uintptr_t z_mrsh_i3c_do_ccc(uintptr_t arg1, uintptr_t arg2, uintptr_t arg3,
+         uintptr_t arg4, uintptr_t arg5, uintptr_t arg6, void *ssf);
+
+__weak ALIAS_OF(handler_no_syscall)
+uintptr_t z_mrsh_i3c_transfer(uintptr_t arg1, uintptr_t arg2, uintptr_t arg3,
          uintptr_t arg4, uintptr_t arg5, uintptr_t arg6, void *ssf);
 
 __weak ALIAS_OF(handler_no_syscall)
@@ -646,10 +678,18 @@ const _k_syscall_handler_t _k_syscall_table[K_SYSCALL_LIMIT] = {
 	[K_SYSCALL_GPIO_PORT_CLEAR_BITS_RAW] = z_mrsh_gpio_port_clear_bits_raw,
 	[K_SYSCALL_GPIO_PORT_TOGGLE_BITS] = z_mrsh_gpio_port_toggle_bits,
 	[K_SYSCALL_GPIO_GET_PENDING_INT] = z_mrsh_gpio_get_pending_int,
+	[K_SYSCALL_I2C_CONFIGURE] = z_mrsh_i2c_configure,
+	[K_SYSCALL_I2C_GET_CONFIG] = z_mrsh_i2c_get_config,
+	[K_SYSCALL_I2C_TRANSFER] = z_mrsh_i2c_transfer,
+	[K_SYSCALL_I2C_RECOVER_BUS] = z_mrsh_i2c_recover_bus,
+	[K_SYSCALL_I2C_TARGET_DRIVER_REGISTER] = z_mrsh_i2c_target_driver_register,
+	[K_SYSCALL_I2C_TARGET_DRIVER_UNREGISTER] = z_mrsh_i2c_target_driver_unregister,
 	[K_SYSCALL_I2S_CONFIGURE] = z_mrsh_i2s_configure,
 	[K_SYSCALL_I2S_BUF_READ] = z_mrsh_i2s_buf_read,
 	[K_SYSCALL_I2S_BUF_WRITE] = z_mrsh_i2s_buf_write,
 	[K_SYSCALL_I2S_TRIGGER] = z_mrsh_i2s_trigger,
+	[K_SYSCALL_I3C_DO_CCC] = z_mrsh_i3c_do_ccc,
+	[K_SYSCALL_I3C_TRANSFER] = z_mrsh_i3c_transfer,
 	[K_SYSCALL_UART_ERR_CHECK] = z_mrsh_uart_err_check,
 	[K_SYSCALL_UART_POLL_IN] = z_mrsh_uart_poll_in,
 	[K_SYSCALL_UART_POLL_IN_U16] = z_mrsh_uart_poll_in_u16,

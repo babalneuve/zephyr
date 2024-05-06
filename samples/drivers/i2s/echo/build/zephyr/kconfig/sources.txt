@@ -156,6 +156,7 @@ C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\audio\Kconfig.dmic_pdm_nrfx
 C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\audio\Kconfig.mpxxdtyy
 C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\audio\Kconfig.tas6422dac
 C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\audio\Kconfig.tlv320dac
+C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\audio\Kconfig.wm8904
 C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\auxdisplay\Kconfig
 C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\auxdisplay\Kconfig.hd44780
 C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\auxdisplay\Kconfig.itron
@@ -1137,7 +1138,6 @@ C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\wifi\esp_at\Kconfig.esp_at
 C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\wifi\eswifi\Kconfig.eswifi
 C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\wifi\simplelink\Kconfig.simplelink
 C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\wifi\winc1500\Kconfig.winc1500
-C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\wm8904\Kconfig
 C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\xen\Kconfig
 C:\Users\EXT_BASVER\zephyrproject\zephyr\dts\Kconfig
 C:\Users\EXT_BASVER\zephyrproject\zephyr\kernel\Kconfig
