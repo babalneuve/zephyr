@@ -15,6 +15,7 @@ set_target_properties(devicetree_target PROPERTIES "DT_ALIAS|i2s-codec-tx" "/soc
 set_target_properties(devicetree_target PROPERTIES "DT_ALIAS|pwm-0" "/soc/peripheral@50000000/pwm@146000")
 set_target_properties(devicetree_target PROPERTIES "DT_ALIAS|watchdog0" "/soc/peripheral@50000000/watchdog@e000")
 set_target_properties(devicetree_target PROPERTIES "DT_ALIAS|sdhc0" "/soc/peripheral@50000000/usdhc@136000")
+set_target_properties(devicetree_target PROPERTIES "DT_ALIAS|i3c" "/soc/peripheral@50000000/i3c@36000")
 set_target_properties(devicetree_target PROPERTIES "DT_ALIAS|sw0" "/gpio_keys/button_0")
 set_target_properties(devicetree_target PROPERTIES "DT_ALIAS|sw1" "/gpio_keys/button_1")
 set_target_properties(devicetree_target PROPERTIES "DT_ALIAS|led0" "/leds/led_1")

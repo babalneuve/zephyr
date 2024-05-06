@@ -2,6 +2,7 @@
         aliases {
                 i2s-codec-rx = &i2s0;
                 i2s-codec-tx = &i2s1;
+                i3c=&i3c0;
         };
 
 };
