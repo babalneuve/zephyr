@@ -1,1 +1,0 @@
-|RAM:COPY:C:/Users/EXT_BASVER/zephyrproject/zephyr/soc/arm/nxp_imx/rt6xx/flash_clock_setup.c

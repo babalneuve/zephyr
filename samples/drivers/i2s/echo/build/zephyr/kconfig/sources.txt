@@ -653,6 +653,8 @@ C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\mipi_dsi\Kconfig.stm32
 C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\misc\Kconfig
 C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\misc\ft8xx\Kconfig
 C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\misc\grove_lcd_rgb\Kconfig
+C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\misc\nxp_inputmux\Kconfig
+C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\misc\nxp_rtxxx_adsp_ctl\Kconfig
 C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\misc\nxp_s32_emios\Kconfig
 C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\misc\pio_rpi_pico\Kconfig
 C:\Users\EXT_BASVER\zephyrproject\zephyr\drivers\misc\timeaware_gpio\Kconfig

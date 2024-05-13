@@ -3,7 +3,12 @@
 # Copyright (c) 2021 NXP
 # SPDX-License-Identifier: Apache-2.0
 
+if(CONFIG_SOC_NXP_RT685)
+  zephyr_compile_definitions(CPU_MIMXRT685SFVKB_dsp)
+endif()
+
 add_subdirectory(common)
+add_subdirectory(${SOC_SERIES})
 
 #  west sign
 

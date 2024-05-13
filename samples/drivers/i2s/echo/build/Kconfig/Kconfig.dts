@@ -3992,6 +3992,11 @@ DT_COMPAT_NXP_IMX93_PINCTRL := nxp,imx93-pinctrl
 config DT_HAS_NXP_IMX93_PINCTRL_ENABLED
 	def_bool $(dt_compat_enabled,$(DT_COMPAT_NXP_IMX93_PINCTRL))
 
+DT_COMPAT_NXP_INPUTMUX := nxp,inputmux
+
+config DT_HAS_NXP_INPUTMUX_ENABLED
+	def_bool $(dt_compat_enabled,$(DT_COMPAT_NXP_INPUTMUX))
+
 DT_COMPAT_NXP_IRQSTEER_INTC := nxp,irqsteer-intc
 
 config DT_HAS_NXP_IRQSTEER_INTC_ENABLED
@@ -4456,6 +4461,11 @@ DT_COMPAT_NXP_RT_IOCON_PINCTRL := nxp,rt-iocon-pinctrl
 
 config DT_HAS_NXP_RT_IOCON_PINCTRL_ENABLED
 	def_bool $(dt_compat_enabled,$(DT_COMPAT_NXP_RT_IOCON_PINCTRL))
+
+DT_COMPAT_NXP_RTXXX_ADSP_CTL := nxp,rtxxx-adsp-ctl
+
+config DT_HAS_NXP_RTXXX_ADSP_CTL_ENABLED
+	def_bool $(dt_compat_enabled,$(DT_COMPAT_NXP_RTXXX_ADSP_CTL))
 
 DT_COMPAT_NXP_S32_ADC_SAR := nxp,s32-adc-sar
 

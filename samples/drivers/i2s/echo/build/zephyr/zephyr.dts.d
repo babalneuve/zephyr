@@ -19,6 +19,7 @@ empty_file.o: C:/Users/EXT_BASVER/zephyrproject/zephyr/misc/empty_file.c \
  C:/Users/EXT_BASVER/zephyrproject/zephyr/include/zephyr/sys/util_internal_util_dec.h \
  C:/Users/EXT_BASVER/zephyrproject/zephyr/include/zephyr/sys/util_internal_util_x2.h \
  C:/Users/EXT_BASVER/zephyrproject/zephyr/include/zephyr/dt-bindings/memory-attr/memory-attr.h \
+ C:/Users/EXT_BASVER/zephyrproject/zephyr/include/zephyr/dt-bindings/misc/nxp_rtxxx_adsp_ctl.h \
  C:/Users/EXT_BASVER/zephyrproject/zephyr/include/zephyr/dt-bindings/pwm/pwm.h \
  C:/Users/EXT_BASVER/zephyrproject/zephyr/include/zephyr/dt-bindings/input/input-event-codes.h \
  C:/Users/EXT_BASVER/zephyrproject/zephyr/boards/arm/mimxrt685_evk/mimxrt685_evk_cm33-pinctrl.dtsi \

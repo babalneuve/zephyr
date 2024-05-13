@@ -3,7 +3,7 @@ _region_min_align = 32;
 MEMORY
     {
     FLASH (rx) : ORIGIN = (0x18000000 + 0x0), LENGTH = (65536*1K - 0x0)
-    RAM (wx) : ORIGIN = 0x30180000, LENGTH = (3072 * 1K)
+    RAM (wx) : ORIGIN = 0x30180000, LENGTH = (2560 * 1K)
     SRAM1 : ORIGIN = 1075052544, LENGTH = 16384
     IDT_LIST (wx) : ORIGIN = 0xFFFFF7FF, LENGTH = 2K
     }
@@ -272,7 +272,7 @@ KEEP(*(DataQuickAccess))
         *(".noinit.*")
  *(".kernel_noinit.*")
         } > RAM AT > RAM
-    __kernel_ram_end = 0x30180000 + (3072 * 1K);
+    __kernel_ram_end = 0x30180000 + (2560 * 1K);
     __kernel_ram_size = __kernel_ram_end - __kernel_ram_start;
 /DISCARD/ :
 {

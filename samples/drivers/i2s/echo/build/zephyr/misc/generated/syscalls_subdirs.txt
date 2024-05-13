@@ -125,6 +125,7 @@ C:/Users/EXT_BASVER/zephyrproject/zephyr/include\zephyr\drivers\virtualization
 C:/Users/EXT_BASVER/zephyrproject/zephyr/include\zephyr\drivers\i2c\target
 C:/Users/EXT_BASVER/zephyrproject/zephyr/include\zephyr\drivers\misc\ft8xx
 C:/Users/EXT_BASVER/zephyrproject/zephyr/include\zephyr\drivers\misc\grove_lcd
+C:/Users/EXT_BASVER/zephyrproject/zephyr/include\zephyr\drivers\misc\nxp_rtxxx_adsp_ctl
 C:/Users/EXT_BASVER/zephyrproject/zephyr/include\zephyr\drivers\misc\pio_rpi_pico
 C:/Users/EXT_BASVER/zephyrproject/zephyr/include\zephyr\drivers\misc\timeaware_gpio
 C:/Users/EXT_BASVER/zephyrproject/zephyr/include\zephyr\drivers\pcie\endpoint
@@ -147,6 +148,7 @@ C:/Users/EXT_BASVER/zephyrproject/zephyr/include\zephyr\dt-bindings\lora
 C:/Users/EXT_BASVER/zephyrproject/zephyr/include\zephyr\dt-bindings\memory-attr
 C:/Users/EXT_BASVER/zephyrproject/zephyr/include\zephyr\dt-bindings\memory-controller
 C:/Users/EXT_BASVER/zephyrproject/zephyr/include\zephyr\dt-bindings\mipi_dsi
+C:/Users/EXT_BASVER/zephyrproject/zephyr/include\zephyr\dt-bindings\misc
 C:/Users/EXT_BASVER/zephyrproject/zephyr/include\zephyr\dt-bindings\pcie
 C:/Users/EXT_BASVER/zephyrproject/zephyr/include\zephyr\dt-bindings\pinctrl
 C:/Users/EXT_BASVER/zephyrproject/zephyr/include\zephyr\dt-bindings\pm
