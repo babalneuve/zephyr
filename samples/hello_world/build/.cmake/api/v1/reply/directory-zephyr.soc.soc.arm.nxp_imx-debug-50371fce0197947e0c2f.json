@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "zephyr/soc/soc/arm/nxp_imx",
+		"source" : "C:/Users/EXT_BASVER/zephyrproject/zephyr/soc/arm/nxp_imx"
+	}
+}

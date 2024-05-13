@@ -1,0 +1,2017 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineSystem.cmake:228 (message)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      The target system is: Generic - 3.5.0 - arm
+      The host system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+      Compiler: C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      1
+      c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/../../../../arm-zephyr-eabi/bin/ld.exe: c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/../../../../arm-zephyr-eabi/lib\\libc.a(lib_a-exit.o): in function `exit':
+      exit.c:(.text.exit+0x34): undefined reference to `_exit'
+      collect2.exe: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe 
+      Build flags: 
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+      
+      The C compiler identification is GNU, found in:
+        C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/3.28.3/CompilerIdC/CMakeCCompilerId.o
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+      Compiler: C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      1
+      c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/../../../../arm-zephyr-eabi/bin/ld.exe: c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/../../../../arm-zephyr-eabi/lib\\libc.a(lib_a-exit.o): in function `exit':
+      exit.c:(.text.exit+0x34): undefined reference to `_exit'
+      collect2.exe: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe 
+      Build flags: 
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
+      
+      The CXX compiler identification is GNU, found in:
+        C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/3.28.3/CompilerIdCXX/CMakeCXXCompilerId.o
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:1131 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineASMCompiler.cmake:131 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:134 (enable_language)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Checking whether the ASM compiler is GNU using "--version" matched "(GNU assembler)|(GCC)|(Free Software Foundation)":
+      arm-zephyr-eabi-gcc.exe (Zephyr SDK 0.16.5-1) 12.2.0
+      Copyright (C) 2022 Free Software Foundation, Inc.
+      This is free software; see the source for copying conditions.  There is NO
+      warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:144 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-ilqq45"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-ilqq45"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-ilqq45'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_7830c
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -o CMakeFiles/cmTC_7830c.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-ilqq45/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_7830c.dir/src.c.obj -o cmTC_7830c   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2149 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/linker/linker_flags_template.cmake:11 (check_set_linker_property)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/target_toolchain_flags.cmake:37 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:148 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-czkj08"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-czkj08"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0_"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-czkj08'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_a7199
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0_  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -o CMakeFiles/cmTC_a7199.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-czkj08/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_a7199.dir/src.c.obj -o cmTC_a7199   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2225 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/compiler/gcc/compiler_flags.cmake:29 (check_set_compiler_property)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/target_toolchain_flags.cmake:41 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:148 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-01qd7u"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-01qd7u"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_Wall_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-01qd7u'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_73a41
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_Wall_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -Wall -o CMakeFiles/cmTC_73a41.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-01qd7u/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_73a41.dir/src.c.obj -o cmTC_73a41   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2225 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/compiler/gcc/compiler_flags.cmake:29 (check_set_compiler_property)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/target_toolchain_flags.cmake:41 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:148 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-4iicw5"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-4iicw5"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_Wformat__Wformat_security_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-4iicw5'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_ff6d8
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_Wformat__Wformat_security_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -Wformat -Wformat-security -o CMakeFiles/cmTC_ff6d8.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-4iicw5/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_ff6d8.dir/src.c.obj -o cmTC_ff6d8   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2225 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/compiler/gcc/compiler_flags.cmake:29 (check_set_compiler_property)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/target_toolchain_flags.cmake:41 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:148 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-m27boz"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-m27boz"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_Wformat__Wformat_zero_length_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-m27boz'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_9a2ff
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_Wformat__Wformat_zero_length_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -Wformat -Wformat-zero-length -o CMakeFiles/cmTC_9a2ff.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-m27boz/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_9a2ff.dir/src.c.obj -o cmTC_9a2ff   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2225 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/compiler/gcc/compiler_flags.cmake:35 (check_set_compiler_property)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/target_toolchain_flags.cmake:41 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:148 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-vm3078"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-vm3078"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_Wpointer_sign_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-vm3078'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_5623d
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_Wpointer_sign_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -Wpointer-sign -o CMakeFiles/cmTC_5623d.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-vm3078/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_5623d.dir/src.c.obj -o cmTC_5623d   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2225 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/compiler/gcc/compiler_flags.cmake:38 (check_set_compiler_property)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/target_toolchain_flags.cmake:41 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:148 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-cfbnm3"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-cfbnm3"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_Wpointer_arith_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-cfbnm3'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_52809
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_Wpointer_arith_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -Wpointer-arith -o CMakeFiles/cmTC_52809.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-cfbnm3/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_52809.dir/src.c.obj -o cmTC_52809   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2225 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/compiler/gcc/compiler_flags.cmake:41 (check_set_compiler_property)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/target_toolchain_flags.cmake:41 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:148 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-j68rw4"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-j68rw4"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_Wexpansion_to_defined_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-j68rw4'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_37492
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_Wexpansion_to_defined_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -Wexpansion-to-defined -o CMakeFiles/cmTC_37492.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-j68rw4/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_37492.dir/src.c.obj -o cmTC_37492   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2225 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/compiler/gcc/compiler_flags.cmake:51 (check_set_compiler_property)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/target_toolchain_flags.cmake:41 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:148 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-rsr2ie"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-rsr2ie"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_Wlogical_op_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-rsr2ie'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_f58ce
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_Wlogical_op_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -Wlogical-op -o CMakeFiles/cmTC_f58ce.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-rsr2ie/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_f58ce.dir/src.c.obj -o cmTC_f58ce   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2225 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/compiler/gcc/compiler_flags.cmake:51 (check_set_compiler_property)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/target_toolchain_flags.cmake:41 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:148 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-m5gwww"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-m5gwww"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_Wmissing_field_initializers_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-m5gwww'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_e82c3
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_Wmissing_field_initializers_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -Wmissing-field-initializers -o CMakeFiles/cmTC_e82c3.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-m5gwww/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_e82c3.dir/src.c.obj -o cmTC_e82c3   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2225 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/compiler/gcc/compiler_flags.cmake:66 (check_set_compiler_property)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/target_toolchain_flags.cmake:41 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:148 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-0v5pmd"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-0v5pmd"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_Wpacked_bitfield_compat_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-0v5pmd'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_9ab1d
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_Wpacked_bitfield_compat_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -Wpacked-bitfield-compat -o CMakeFiles/cmTC_9ab1d.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-0v5pmd/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_9ab1d.dir/src.c.obj -o cmTC_9ab1d   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2225 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/compiler/gcc/compiler_flags.cmake:66 (check_set_compiler_property)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/target_toolchain_flags.cmake:41 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:148 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-05uuny"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-05uuny"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_Wvla_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-05uuny'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_30200
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_Wvla_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -Wvla -o CMakeFiles/cmTC_30200.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-05uuny/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_30200.dir/src.c.obj -o cmTC_30200   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2225 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/compiler/gcc/compiler_flags.cmake:85 (check_set_compiler_property)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/target_toolchain_flags.cmake:41 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:148 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-uu0ylk"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-uu0ylk"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_Wunused_but_set_variable_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-uu0ylk'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_dfa7f
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_Wunused_but_set_variable_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -Wunused-but-set-variable -o CMakeFiles/cmTC_dfa7f.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-uu0ylk/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_dfa7f.dir/src.c.obj -o cmTC_dfa7f   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2225 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/compiler/gcc/compiler_flags.cmake:87 (check_set_compiler_property)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/target_toolchain_flags.cmake:41 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:148 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-y9ss9d"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-y9ss9d"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_Werror_implicit_int_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-y9ss9d'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_f11c0
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_Werror_implicit_int_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -Werror=implicit-int -o CMakeFiles/cmTC_f11c0.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-y9ss9d/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_f11c0.dir/src.c.obj -o cmTC_f11c0   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2225 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/compiler/gcc/compiler_flags.cmake:166 (check_set_compiler_property)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/target_toolchain_flags.cmake:41 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:148 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-zsspz5"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-zsspz5"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_mstack_protector_guard_global_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-zsspz5'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_fb1a4
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_mstack_protector_guard_global_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -mstack-protector-guard=global -o CMakeFiles/cmTC_fb1a4.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-zsspz5/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_fb1a4.dir/src.c.obj -o cmTC_fb1a4   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2225 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/compiler/gcc/compiler_flags.cmake:179 (check_set_compiler_property)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/target_toolchain_flags.cmake:41 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:148 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-jk8bic"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-jk8bic"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_fno_freestanding_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-jk8bic'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_67bd0
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_fno_freestanding_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -fno-freestanding -o CMakeFiles/cmTC_67bd0.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-jk8bic/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_67bd0.dir/src.c.obj -o cmTC_67bd0   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2225 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/compiler/gcc/compiler_flags.cmake:182 (check_set_compiler_property)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/target_toolchain_flags.cmake:41 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:148 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-t41vs0"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-t41vs0"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_ffreestanding_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-t41vs0'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_afb91
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_ffreestanding_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -ffreestanding -o CMakeFiles/cmTC_afb91.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-t41vs0/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_afb91.dir/src.c.obj -o cmTC_afb91   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2225 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/compiler/gcc/compiler_flags.cmake:198 (check_set_compiler_property)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/target_toolchain_flags.cmake:41 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:148 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-m0dybe"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-m0dybe"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_gdwarf_4_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-m0dybe'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_a3478
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_gdwarf_4_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -gdwarf-4 -o CMakeFiles/cmTC_a3478.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-m0dybe/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_a3478.dir/src.c.obj -o cmTC_a3478   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2149 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/linker/ld/linker_flags.cmake:1 (check_set_linker_property)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/target_toolchain_flags.cmake:42 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:148 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-pummg3"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-pummg3"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__Wl___print_memory_usage"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-pummg3'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_1aa05
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__Wl___print_memory_usage  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -Wl,--print-memory-usage -o CMakeFiles/cmTC_1aa05.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-pummg3/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -Wl,--print-memory-usage  CMakeFiles/cmTC_1aa05.dir/src.c.obj -o cmTC_1aa05   && cd ."
+        Memory region         Used Size  Region Size  %age Used\x0d
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2149 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/linker/ld/gcc/linker_flags.cmake:10 (check_set_linker_property)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/linker/ld/linker_flags.cmake:20 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/target_toolchain_flags.cmake:42 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:148 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-8kci4r"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-8kci4r"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__pg"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-8kci4r'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_8a08a
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__pg  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -pg -o CMakeFiles/cmTC_8a08a.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-8kci4r/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -pg  CMakeFiles/cmTC_8a08a.dir/src.c.obj -o cmTC_8a08a   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2064 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:131 (target_ld_options)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/linker/ld/target_base.cmake:13 (zephyr_ld_options)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/CMakeLists.txt:342 (toolchain_ld_base)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-yoxidv"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-yoxidv"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__mcpu_cortex_m33__mthumb__mabi_aapcs__mfp16_format_ieee"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-yoxidv'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_2935a
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__mcpu_cortex_m33__mthumb__mabi_aapcs__mfp16_format_ieee  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -mcpu=cortex-m33 -mthumb -mabi=aapcs -mfp16-format=ieee -o CMakeFiles/cmTC_2935a.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-yoxidv/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -mcpu=cortex-m33 -mthumb -mabi=aapcs -mfp16-format=ieee  CMakeFiles/cmTC_2935a.dir/src.c.obj -o cmTC_2935a   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2064 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:131 (target_ld_options)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/linker/ld/target_base.cmake:17 (zephyr_ld_options)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/CMakeLists.txt:342 (toolchain_ld_base)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-23979l"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-23979l"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__Wl___gc_sections"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-23979l'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_4fd05
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__Wl___gc_sections  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -Wl,--gc-sections -o CMakeFiles/cmTC_4fd05.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-23979l/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -Wl,--gc-sections  CMakeFiles/cmTC_4fd05.dir/src.c.obj -o cmTC_4fd05   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2064 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:131 (target_ld_options)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/linker/ld/target_base.cmake:17 (zephyr_ld_options)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/CMakeLists.txt:342 (toolchain_ld_base)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-2qdozx"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-2qdozx"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__Wl___build_id_none"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-2qdozx'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_f7f86
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__Wl___build_id_none  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -Wl,--build-id=none -o CMakeFiles/cmTC_f7f86.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-2qdozx/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -Wl,--build-id=none  CMakeFiles/cmTC_f7f86.dir/src.c.obj -o cmTC_f7f86   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2064 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:131 (target_ld_options)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1758 (zephyr_ld_options)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/linker/ld/target_base.cmake:24 (zephyr_ld_option_ifdef)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/CMakeLists.txt:342 (toolchain_ld_base)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-k74v43"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-k74v43"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__Wl___sort_common_descending"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-k74v43'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_c9348
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__Wl___sort_common_descending  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -Wl,--sort-common=descending -o CMakeFiles/cmTC_c9348.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-k74v43/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -Wl,--sort-common=descending  CMakeFiles/cmTC_c9348.dir/src.c.obj -o cmTC_c9348   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2064 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:131 (target_ld_options)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1758 (zephyr_ld_options)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/linker/ld/target_base.cmake:24 (zephyr_ld_option_ifdef)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/CMakeLists.txt:342 (toolchain_ld_base)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-wbjg49"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-wbjg49"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__Wl___sort_section_alignment"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-wbjg49'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_7221b
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__Wl___sort_section_alignment  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -Wl,--sort-section=alignment -o CMakeFiles/cmTC_7221b.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-wbjg49/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -Wl,--sort-section=alignment  CMakeFiles/cmTC_7221b.dir/src.c.obj -o cmTC_7221b   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2064 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:131 (target_ld_options)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/linker/ld/target_baremetal.cmake:8 (zephyr_ld_options)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/CMakeLists.txt:351 (toolchain_ld_baremetal)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-vn6u3y"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-vn6u3y"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__nostdlib"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-vn6u3y'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_94ca9
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__nostdlib  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -nostdlib -o CMakeFiles/cmTC_94ca9.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-vn6u3y/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -nostdlib  CMakeFiles/cmTC_94ca9.dir/src.c.obj -o cmTC_94ca9   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2064 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:131 (target_ld_options)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/linker/ld/target_baremetal.cmake:8 (zephyr_ld_options)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/CMakeLists.txt:351 (toolchain_ld_baremetal)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-7otp8y"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-7otp8y"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__static"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-7otp8y'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_2bc16
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__static  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -static -o CMakeFiles/cmTC_2bc16.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-7otp8y/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -static  CMakeFiles/cmTC_2bc16.dir/src.c.obj -o cmTC_2bc16   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2064 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:131 (target_ld_options)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/linker/ld/target_baremetal.cmake:8 (zephyr_ld_options)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/CMakeLists.txt:351 (toolchain_ld_baremetal)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-3mwdaf"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-3mwdaf"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__Wl__X"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-3mwdaf'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_04585
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__Wl__X  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -Wl,-X -o CMakeFiles/cmTC_04585.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-3mwdaf/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -Wl,-X  CMakeFiles/cmTC_04585.dir/src.c.obj -o cmTC_04585   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2064 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:131 (target_ld_options)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/linker/ld/target_baremetal.cmake:8 (zephyr_ld_options)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/CMakeLists.txt:351 (toolchain_ld_baremetal)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-3tp5v8"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-3tp5v8"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__Wl__N"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-3tp5v8'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_4e54e
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__Wl__N  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -Wl,-N -o CMakeFiles/cmTC_4e54e.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-3tp5v8/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -Wl,-N  CMakeFiles/cmTC_4e54e.dir/src.c.obj -o cmTC_4e54e   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2064 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:131 (target_ld_options)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/linker/ld/target_baremetal.cmake:30 (zephyr_ld_options)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/CMakeLists.txt:351 (toolchain_ld_baremetal)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-wxpl9j"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-wxpl9j"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__Wl___orphan_handling_warn"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-wxpl9j'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_f263e
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__Wl___orphan_handling_warn  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -Wl,--orphan-handling=warn -o CMakeFiles/cmTC_f263e.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-wxpl9j/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -Wl,--orphan-handling=warn  CMakeFiles/cmTC_f263e.dir/src.c.obj -o cmTC_f263e   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2042 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2018 (target_cc_option_fallback)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:122 (target_cc_option)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/CMakeLists.txt:408 (zephyr_cc_option)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-54on20"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-54on20"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_fno_asynchronous_unwind_tables_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-54on20'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_03084
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_fno_asynchronous_unwind_tables_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -fno-asynchronous-unwind-tables -o CMakeFiles/cmTC_03084.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-54on20/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_03084.dir/src.c.obj -o cmTC_03084   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2042 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2018 (target_cc_option_fallback)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:122 (target_cc_option)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/CMakeLists.txt:416 (zephyr_cc_option)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-lx3hbe"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-lx3hbe"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_ftls_model_local_exec_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-lx3hbe'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_30e49
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_ftls_model_local_exec_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -ftls-model=local-exec -o CMakeFiles/cmTC_30e49.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-lx3hbe/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_30e49.dir/src.c.obj -o cmTC_30e49   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2042 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2018 (target_cc_option_fallback)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:122 (target_cc_option)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/CMakeLists.txt:436 (zephyr_cc_option)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-5hm0ok"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-5hm0ok"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_fno_reorder_functions_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-5hm0ok'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_4599e
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_fno_reorder_functions_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -fno-reorder-functions -o CMakeFiles/cmTC_4599e.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-5hm0ok/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_4599e.dir/src.c.obj -o cmTC_4599e   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2042 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2018 (target_cc_option_fallback)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:122 (target_cc_option)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/CMakeLists.txt:443 (zephyr_cc_option)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-6oa29t"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-6oa29t"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check__param_min_pagesize_0_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-6oa29t'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_458a0
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck__param_min_pagesize_0_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   --param=min-pagesize=0 -o CMakeFiles/cmTC_458a0.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-6oa29t/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_458a0.dir/src.c.obj -o cmTC_458a0   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2042 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2018 (target_cc_option_fallback)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:122 (target_cc_option)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/CMakeLists.txt:446 (zephyr_cc_option)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-3e3p0u"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-3e3p0u"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_fno_defer_pop_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-3e3p0u'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_4d620
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_fno_defer_pop_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -fno-defer-pop -o CMakeFiles/cmTC_4d620.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-3e3p0u/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_4d620.dir/src.c.obj -o cmTC_4d620   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2042 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2018 (target_cc_option_fallback)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:122 (target_cc_option)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/CMakeLists.txt:465 (zephyr_cc_option)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-sm8p6m"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-sm8p6m"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_fmacro_prefix_map_C__Users_EXT_BASVER_zephyrproject_zephyr_samples_hello_world_CMAKE_SOURCE_DIR_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-sm8p6m'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_03018
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_fmacro_prefix_map_C__Users_EXT_BASVER_zephyrproject_zephyr_samples_hello_world_CMAKE_SOURCE_DIR_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -fmacro-prefix-map=C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world=CMAKE_SOURCE_DIR -o CMakeFiles/cmTC_03018.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-sm8p6m/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_03018.dir/src.c.obj -o cmTC_03018   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2042 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2018 (target_cc_option_fallback)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:122 (target_cc_option)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/CMakeLists.txt:466 (zephyr_cc_option)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-0fzrk5"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-0fzrk5"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_fmacro_prefix_map_C__Users_EXT_BASVER_zephyrproject_zephyr_ZEPHYR_BASE_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-0fzrk5'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_ead89
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_fmacro_prefix_map_C__Users_EXT_BASVER_zephyrproject_zephyr_ZEPHYR_BASE_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -fmacro-prefix-map=C:/Users/EXT_BASVER/zephyrproject/zephyr=ZEPHYR_BASE -o CMakeFiles/cmTC_ead89.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-0fzrk5/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_ead89.dir/src.c.obj -o cmTC_ead89   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2042 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2018 (target_cc_option_fallback)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:122 (target_cc_option)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/CMakeLists.txt:468 (zephyr_cc_option)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-ceywbg"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-ceywbg"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_fmacro_prefix_map_C__Users_EXT_BASVER_zephyrproject_WEST_TOPDIR_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-ceywbg'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_1247f
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_fmacro_prefix_map_C__Users_EXT_BASVER_zephyrproject_WEST_TOPDIR_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -fmacro-prefix-map=C:/Users/EXT_BASVER/zephyrproject=WEST_TOPDIR -o CMakeFiles/cmTC_1247f.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-ceywbg/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_1247f.dir/src.c.obj -o cmTC_1247f   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2042 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2018 (target_cc_option_fallback)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:122 (target_cc_option)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/arch/common/CMakeLists.txt:23 (zephyr_cc_option)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-90omo5"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-90omo5"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_ffunction_sections_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-90omo5'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_77bb1
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_ffunction_sections_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -ffunction-sections -o CMakeFiles/cmTC_77bb1.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-90omo5/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_77bb1.dir/src.c.obj -o cmTC_77bb1   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2042 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2018 (target_cc_option_fallback)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:122 (target_cc_option)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/arch/common/CMakeLists.txt:23 (zephyr_cc_option)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-ei41l2"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-ei41l2"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_fdata_sections_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-ei41l2'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_b3629
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_fdata_sections_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -fdata-sections -o CMakeFiles/cmTC_b3629.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-ei41l2/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_b3629.dir/src.c.obj -o cmTC_b3629   && cd ."
+        
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineSystem.cmake:228 (message)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      The target system is: Generic - 3.5.0 - arm
+      The host system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+      Compiler: C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      1
+      c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/../../../../arm-zephyr-eabi/bin/ld.exe: c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/../../../../arm-zephyr-eabi/lib\\libc.a(lib_a-exit.o): in function `exit':
+      exit.c:(.text.exit+0x34): undefined reference to `_exit'
+      collect2.exe: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe 
+      Build flags: 
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+      
+      The C compiler identification is GNU, found in:
+        C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/3.28.3/CompilerIdC/CMakeCCompilerId.o
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+      Compiler: C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      1
+      c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/../../../../arm-zephyr-eabi/bin/ld.exe: c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/../../../../arm-zephyr-eabi/lib\\libc.a(lib_a-exit.o): in function `exit':
+      exit.c:(.text.exit+0x34): undefined reference to `_exit'
+      collect2.exe: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe 
+      Build flags: 
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
+      
+      The CXX compiler identification is GNU, found in:
+        C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/3.28.3/CompilerIdCXX/CMakeCXXCompilerId.o
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:1131 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineASMCompiler.cmake:131 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:134 (enable_language)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Checking whether the ASM compiler is GNU using "--version" matched "(GNU assembler)|(GCC)|(Free Software Foundation)":
+      arm-zephyr-eabi-gcc.exe (Zephyr SDK 0.16.5-1) 12.2.0
+      Copyright (C) 2022 Free Software Foundation, Inc.
+      This is free software; see the source for copying conditions.  There is NO
+      warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+      
+...
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineSystem.cmake:228 (message)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      The target system is: Generic - 3.5.0 - arm
+      The host system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+      Compiler: C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      1
+      c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/../../../../arm-zephyr-eabi/bin/ld.exe: c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/../../../../arm-zephyr-eabi/lib\\libc.a(lib_a-exit.o): in function `exit':
+      exit.c:(.text.exit+0x34): undefined reference to `_exit'
+      collect2.exe: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe 
+      Build flags: 
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+      
+      The C compiler identification is GNU, found in:
+        C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/3.28.3/CompilerIdC/CMakeCCompilerId.o
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+      Compiler: C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      1
+      c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/../../../../arm-zephyr-eabi/bin/ld.exe: c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/../../../../arm-zephyr-eabi/lib\\libc.a(lib_a-exit.o): in function `exit':
+      exit.c:(.text.exit+0x34): undefined reference to `_exit'
+      collect2.exe: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe 
+      Build flags: 
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
+      
+      The CXX compiler identification is GNU, found in:
+        C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/3.28.3/CompilerIdCXX/CMakeCXXCompilerId.o
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:1131 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineASMCompiler.cmake:131 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:134 (enable_language)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Checking whether the ASM compiler is GNU using "--version" matched "(GNU assembler)|(GCC)|(Free Software Foundation)":
+      arm-zephyr-eabi-gcc.exe (Zephyr SDK 0.16.5-1) 12.2.0
+      Copyright (C) 2022 Free Software Foundation, Inc.
+      This is free software; see the source for copying conditions.  There is NO
+      warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+      
+...
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineSystem.cmake:228 (message)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      The target system is: Generic - 3.5.0 - arm
+      The host system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+      Compiler: C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      1
+      c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/../../../../arm-zephyr-eabi/bin/ld.exe: c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/../../../../arm-zephyr-eabi/lib\\libc.a(lib_a-exit.o): in function `exit':
+      exit.c:(.text.exit+0x34): undefined reference to `_exit'
+      collect2.exe: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe 
+      Build flags: 
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+      
+      The C compiler identification is GNU, found in:
+        C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/3.28.3/CompilerIdC/CMakeCCompilerId.o
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+      Compiler: C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      1
+      c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/../../../../arm-zephyr-eabi/bin/ld.exe: c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/../../../../arm-zephyr-eabi/lib\\libc.a(lib_a-exit.o): in function `exit':
+      exit.c:(.text.exit+0x34): undefined reference to `_exit'
+      collect2.exe: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe 
+      Build flags: 
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
+      
+      The CXX compiler identification is GNU, found in:
+        C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/3.28.3/CompilerIdCXX/CMakeCXXCompilerId.o
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:1131 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineASMCompiler.cmake:131 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:134 (enable_language)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Checking whether the ASM compiler is GNU using "--version" matched "(GNU assembler)|(GCC)|(Free Software Foundation)":
+      arm-zephyr-eabi-gcc.exe (Zephyr SDK 0.16.5-1) 12.2.0
+      Copyright (C) 2022 Free Software Foundation, Inc.
+      This is free software; see the source for copying conditions.  There is NO
+      warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+      
+...
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineSystem.cmake:228 (message)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      The target system is: Generic - 3.5.0 - arm
+      The host system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+      Compiler: C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      1
+      c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/../../../../arm-zephyr-eabi/bin/ld.exe: c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/../../../../arm-zephyr-eabi/lib\\libc.a(lib_a-exit.o): in function `exit':
+      exit.c:(.text.exit+0x34): undefined reference to `_exit'
+      collect2.exe: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe 
+      Build flags: 
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+      
+      The C compiler identification is GNU, found in:
+        C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/3.28.3/CompilerIdC/CMakeCCompilerId.o
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+      Compiler: C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      1
+      c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/../../../../arm-zephyr-eabi/bin/ld.exe: c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/../../../../arm-zephyr-eabi/lib\\libc.a(lib_a-exit.o): in function `exit':
+      exit.c:(.text.exit+0x34): undefined reference to `_exit'
+      collect2.exe: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:128 (project)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe 
+      Build flags: 
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
+      
+      The CXX compiler identification is GNU, found in:
+        C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/3.28.3/CompilerIdCXX/CMakeCXXCompilerId.o
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:1131 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineASMCompiler.cmake:131 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/kernel.cmake:134 (enable_language)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/zephyr_default.cmake:138 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)"
+      - "CMakeLists.txt:5 (find_package)"
+    message: |
+      Checking whether the ASM compiler is GNU using "--version" matched "(GNU assembler)|(GCC)|(Free Software Foundation)":
+      arm-zephyr-eabi-gcc.exe (Zephyr SDK 0.16.5-1) 12.2.0
+      Copyright (C) 2022 Free Software Foundation, Inc.
+      This is free software; see the source for copying conditions.  There is NO
+      warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2003 (check_c_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:1095 (check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2042 (zephyr_check_compiler_flag)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:2018 (target_cc_option_fallback)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules/extensions.cmake:122 (target_cc_option)"
+      - "C:/Users/EXT_BASVER/zephyrproject/zephyr/CMakeLists.txt:465 (zephyr_cc_option)"
+    directories:
+      source: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-9l7jv6"
+      binary: "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-9l7jv6"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/modules"
+    buildResult:
+      variable: "check_fmacro_prefix_map_C__Users_EXT_BASVER_zephyrproject_zephyr_samples_hello_world_CMAKE_SOURCE_DIR_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-9l7jv6'
+        
+        Run Build Command(s): C:/ProgramData/chocolatey/bin/ninja.exe -v cmTC_a6108
+        [1/2] C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -Dcheck_fmacro_prefix_map_C__Users_EXT_BASVER_zephyrproject_zephyr_samples_hello_world_CMAKE_SOURCE_DIR_C__nostartfiles__nostdlib__isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem__c__users_ext_basver_zephyr_sdk_0_16_5_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0  -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0   -fmacro-prefix-map=C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world=CMAKE_SOURCE_DIR -o CMakeFiles/cmTC_a6108.dir/src.c.obj -c C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/hello_world/build/CMakeFiles/CMakeScratch/TryCompile-9l7jv6/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\EXT_BASVER\\zephyr-sdk-0.16.5-1\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe -nostartfiles -nostdlib -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include" -isystem "c:/users/ext_basver/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/include-fixed" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0  CMakeFiles/cmTC_a6108.dir/src.c.obj -o cmTC_a6108   && cd ."
+        
+      exitCode: 0
+...

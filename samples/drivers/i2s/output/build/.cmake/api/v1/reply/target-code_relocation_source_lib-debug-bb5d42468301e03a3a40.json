@@ -1,0 +1,498 @@
+{
+	"archive" : {},
+	"artifacts" : 
+	[
+		{
+			"path" : "zephyr/libcode_relocation_source_lib.a"
+		}
+	],
+	"backtrace" : 2,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"toolchain_ld_relocation",
+			"add_dependencies",
+			"target_link_libraries",
+			"target_include_directories"
+		],
+		"files" : 
+		[
+			"C:/Users/EXT_BASVER/zephyrproject/zephyr/cmake/linker/ld/target_relocation.cmake",
+			"C:/Users/EXT_BASVER/zephyrproject/zephyr/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 952,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 38,
+				"parent" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 841,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 41,
+				"parent" : 1
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 39,
+				"parent" : 1
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-fno-strict-aliasing"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Os"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-imacros"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/output/build/zephyr/include/generated/autoconf.h"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-fno-printf-return-value"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-fno-common"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-g"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-gdwarf-4"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-fdiagnostics-color=always"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-mcpu=cortex-m33"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-mthumb"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-mabi=aapcs"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-mfp16-format=ieee"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "--sysroot=C:/Users/EXT_BASVER/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/arm-zephyr-eabi"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-imacros"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "C:/Users/EXT_BASVER/zephyrproject/zephyr/include/zephyr/toolchain/zephyr_stdint.h"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wall"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wformat"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wformat-security"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wno-format-zero-length"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wno-pointer-sign"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wpointer-arith"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wexpansion-to-defined"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wno-unused-but-set-variable"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Werror=implicit-int"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-fno-pic"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-fno-pie"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-fno-asynchronous-unwind-tables"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-ftls-model=local-exec"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-fno-reorder-functions"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "--param=min-pagesize=0"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-fno-defer-pop"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-fmacro-prefix-map=C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/output=CMAKE_SOURCE_DIR"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-fmacro-prefix-map=C:/Users/EXT_BASVER/zephyrproject/zephyr=ZEPHYR_BASE"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-fmacro-prefix-map=C:/Users/EXT_BASVER/zephyrproject=WEST_TOPDIR"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-ffunction-sections"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-fdata-sections"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-mcmse"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "--specs=picolibc.specs"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-std=c99"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 4,
+					"define" : "BOARD_FLASH_SIZE=CONFIG_FLASH_SIZE*1024"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "BOOT_HEADER_ENABLE=1"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "CPU_MIMXRT685SFVKB_cm33"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "KERNEL"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "NDEBUG"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "PICOLIBC_INTEGER_PRINTF_SCANF"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "_FORTIFY_SOURCE=1"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "_POSIX_C_SOURCE=200809"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "__LINUX_ERRNO_EXTENSIONS__"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "__PROGRAM_START"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "__ZEPHYR__=1"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 5,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/zephyr/kernel/include"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/zephyr/arch/arm/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/zephyr/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/zephyr/samples/drivers/i2s/output/build/zephyr/include/generated"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/zephyr/soc/arm/nxp_imx/rt6xx"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/modules/hal/cmsis/CMSIS/Core/Include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/zephyr/modules/cmsis/."
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/modules/hal/nxp/mcux/mcux-sdk/devices/MIMXRT685S"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/modules/hal/nxp/mcux/mcux-sdk/devices/MIMXRT685S/drivers"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/modules/hal/nxp/mcux/mcux-sdk/drivers/common"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/modules/hal/nxp/mcux/mcux-sdk/drivers/lpc_dma"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/modules/hal/nxp/mcux/mcux-sdk/drivers/lpc_gpio"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/modules/hal/nxp/mcux/mcux-sdk/drivers/pint"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/modules/hal/nxp/mcux/mcux-sdk/drivers/inputmux"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/modules/hal/nxp/mcux/mcux-sdk/drivers/flexcomm"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/modules/hal/nxp/mcux/mcux-sdk/drivers/flexcomm/i2s"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/modules/hal/nxp/mcux/mcux-sdk/drivers/ostimer"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/modules/hal/nxp/mcux/mcux-sdk/drivers/flexcomm/usart"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/modules/hal/nxp/mcux/mcux-sdk/drivers/cache/cache64"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/modules/hal/nxp/mcux/mcux-sdk/drivers/lpc_iopctl"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/EXT_BASVER/zephyrproject/zephyr/modules/hal_nxp/."
+				}
+			],
+			"language" : "C",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"id" : "drivers__interrupt_controller::@4ccdf64818bf568667f1"
+		},
+		{
+			"id" : "drivers__console::@39939278fdcee8c62e52"
+		},
+		{
+			"id" : "drivers__clock_control::@03043f5596ae6e5fcffe"
+		},
+		{
+			"id" : "drivers__gpio::@f8009383a952b2e6d5b0"
+		},
+		{
+			"id" : "drivers__i2s::@e64a93eda627a976a0ac"
+		},
+		{
+			"id" : "drivers__dma::@42beb195418719276233"
+		},
+		{
+			"id" : "drivers__timer::@d6d9b8697bc2d7d4441f"
+		},
+		{
+			"id" : "drivers__pinctrl::@762029cc579c68d25071"
+		},
+		{
+			"id" : "drivers__serial::@18e421c5ba74f72aaba5"
+		},
+		{
+			"id" : "..__modules__hal__nxp::@7629810605e3b3fb5f36"
+		},
+		{
+			"id" : "kernel::@84e783bf488a9f887759"
+		},
+		{
+			"id" : "boards__arm__mimxrt685_evk::@b786e9055e95b912d456"
+		},
+		{
+			"id" : "soc__arm__common__cortex_m::@31c3202ecb0e1a8578ba"
+		},
+		{
+			"id" : "lib__libc__common::@4887e96c8898694998ea"
+		},
+		{
+			"id" : "lib__libc__picolibc::@c5e8934bde5423fa7ac5"
+		},
+		{
+			"id" : "arch__arm__core__cortex_m::@5e05c4b15b4c2575dfc6"
+		},
+		{
+			"id" : "arch__arm__core__cortex_m__tz::@02d3c551304dec5449f2"
+		},
+		{
+			"id" : "arch__arm__core::@717147f9117c30afc083"
+		},
+		{
+			"id" : "arch__arm__core__mpu::@1cd2394d16df6e39b2cf"
+		},
+		{
+			"id" : "arch__arm__core__cortex_m__cmse::@2faa375c35000060242f"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "kobj_types_h_target::@d36e55b69c1b90fb26b2"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "driver_validation_h_target::@d36e55b69c1b90fb26b2"
+		},
+		{
+			"id" : "arch__common::@0b0b0cfd7a24e8ecfe11"
+		},
+		{
+			"id" : "zephyr::@d36e55b69c1b90fb26b2"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "syscall_list_h_target::@d36e55b69c1b90fb26b2"
+		},
+		{
+			"id" : "app::@6890427a1f51a3e7e1df"
+		}
+	],
+	"id" : "code_relocation_source_lib::@d36e55b69c1b90fb26b2",
+	"name" : "code_relocation_source_lib",
+	"nameOnDisk" : "libcode_relocation_source_lib.a",
+	"paths" : 
+	{
+		"build" : "zephyr",
+		"source" : "C:/Users/EXT_BASVER/zephyrproject/zephyr"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/zephyr/code_relocation.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/zephyr/code_relocation.c.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

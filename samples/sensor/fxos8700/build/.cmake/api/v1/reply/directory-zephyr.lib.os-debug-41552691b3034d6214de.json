@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "zephyr/lib/os",
+		"source" : "C:/Users/EXT_BASVER/zephyrproject/zephyr/lib/os"
+	}
+}
