@@ -7,14 +7,14 @@
 
 # =============================================================================
 # Project: i2s_echo
-# Configurations: debug
+# Configurations: 
 # =============================================================================
 # =============================================================================
 
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__app_unscanned_debug
+rule C_COMPILER__app_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -24,7 +24,7 @@ rule C_COMPILER__app_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__app_debug
+rule C_STATIC_LIBRARY_LINKER__app_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -41,7 +41,7 @@ rule CUSTOM_COMMAND
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__zephyr_unscanned_debug
+rule C_COMPILER__zephyr_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -51,7 +51,7 @@ rule C_COMPILER__zephyr_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__zephyr_debug
+rule C_STATIC_LIBRARY_LINKER__zephyr_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -60,7 +60,7 @@ rule C_STATIC_LIBRARY_LINKER__zephyr_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__offsets_unscanned_debug
+rule C_COMPILER__offsets_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -70,7 +70,7 @@ rule C_COMPILER__offsets_unscanned_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__code_relocation_source_lib_unscanned_debug
+rule C_COMPILER__code_relocation_source_lib_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -80,7 +80,7 @@ rule C_COMPILER__code_relocation_source_lib_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__code_relocation_source_lib_debug
+rule C_STATIC_LIBRARY_LINKER__code_relocation_source_lib_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -89,7 +89,7 @@ rule C_STATIC_LIBRARY_LINKER__code_relocation_source_lib_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__zephyr_pre0_unscanned_debug
+rule C_COMPILER__zephyr_pre0_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -99,7 +99,7 @@ rule C_COMPILER__zephyr_pre0_unscanned_debug
 #############################################
 # Rule for linking C executable.
 
-rule C_EXECUTABLE_LINKER__zephyr_pre0_debug
+rule C_EXECUTABLE_LINKER__zephyr_pre0_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $FLAGS $LINK_FLAGS $in -o $TARGET_FILE $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
   description = Linking C executable $TARGET_FILE
   restat = $RESTAT
@@ -108,7 +108,7 @@ rule C_EXECUTABLE_LINKER__zephyr_pre0_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__zephyr_final_unscanned_debug
+rule C_COMPILER__zephyr_final_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -118,7 +118,7 @@ rule C_COMPILER__zephyr_final_unscanned_debug
 #############################################
 # Rule for linking C executable.
 
-rule C_EXECUTABLE_LINKER__zephyr_final_debug
+rule C_EXECUTABLE_LINKER__zephyr_final_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $FLAGS $LINK_FLAGS $in -o $TARGET_FILE $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
   description = Linking C executable $TARGET_FILE
   restat = $RESTAT
@@ -127,7 +127,7 @@ rule C_EXECUTABLE_LINKER__zephyr_final_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__arch__common_unscanned_debug
+rule C_COMPILER__arch__common_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -137,7 +137,7 @@ rule C_COMPILER__arch__common_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__arch__common_debug
+rule C_STATIC_LIBRARY_LINKER__arch__common_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -146,7 +146,7 @@ rule C_STATIC_LIBRARY_LINKER__arch__common_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__isr_tables_unscanned_debug
+rule C_COMPILER__isr_tables_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -156,7 +156,7 @@ rule C_COMPILER__isr_tables_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__isr_tables_debug
+rule C_STATIC_LIBRARY_LINKER__isr_tables_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -165,7 +165,7 @@ rule C_STATIC_LIBRARY_LINKER__isr_tables_debug
 #############################################
 # Rule for compiling ASM files.
 
-rule ASM_COMPILER__arch__arm__core_unscanned_debug
+rule ASM_COMPILER__arch__arm__core_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -175,7 +175,7 @@ rule ASM_COMPILER__arch__arm__core_unscanned_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__arch__arm__core_unscanned_debug
+rule C_COMPILER__arch__arm__core_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -185,7 +185,7 @@ rule C_COMPILER__arch__arm__core_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__arch__arm__core_debug
+rule C_STATIC_LIBRARY_LINKER__arch__arm__core_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -194,7 +194,7 @@ rule C_STATIC_LIBRARY_LINKER__arch__arm__core_debug
 #############################################
 # Rule for compiling ASM files.
 
-rule ASM_COMPILER__arch__arm__core__cortex_m_unscanned_debug
+rule ASM_COMPILER__arch__arm__core__cortex_m_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -204,7 +204,7 @@ rule ASM_COMPILER__arch__arm__core__cortex_m_unscanned_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__arch__arm__core__cortex_m_unscanned_debug
+rule C_COMPILER__arch__arm__core__cortex_m_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -214,7 +214,7 @@ rule C_COMPILER__arch__arm__core__cortex_m_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__arch__arm__core__cortex_m_debug
+rule C_STATIC_LIBRARY_LINKER__arch__arm__core__cortex_m_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -223,7 +223,7 @@ rule C_STATIC_LIBRARY_LINKER__arch__arm__core__cortex_m_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__arch__arm__core__cortex_m__cmse_unscanned_debug
+rule C_COMPILER__arch__arm__core__cortex_m__cmse_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -233,7 +233,7 @@ rule C_COMPILER__arch__arm__core__cortex_m__cmse_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__arch__arm__core__cortex_m__cmse_debug
+rule C_STATIC_LIBRARY_LINKER__arch__arm__core__cortex_m__cmse_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -242,7 +242,7 @@ rule C_STATIC_LIBRARY_LINKER__arch__arm__core__cortex_m__cmse_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__arch__arm__core__cortex_m__tz_unscanned_debug
+rule C_COMPILER__arch__arm__core__cortex_m__tz_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -252,7 +252,7 @@ rule C_COMPILER__arch__arm__core__cortex_m__tz_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__arch__arm__core__cortex_m__tz_debug
+rule C_STATIC_LIBRARY_LINKER__arch__arm__core__cortex_m__tz_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -261,7 +261,7 @@ rule C_STATIC_LIBRARY_LINKER__arch__arm__core__cortex_m__tz_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__arch__arm__core__mpu_unscanned_debug
+rule C_COMPILER__arch__arm__core__mpu_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -271,7 +271,7 @@ rule C_COMPILER__arch__arm__core__mpu_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__arch__arm__core__mpu_debug
+rule C_STATIC_LIBRARY_LINKER__arch__arm__core__mpu_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -280,7 +280,7 @@ rule C_STATIC_LIBRARY_LINKER__arch__arm__core__mpu_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__lib__libc__picolibc_unscanned_debug
+rule C_COMPILER__lib__libc__picolibc_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -290,7 +290,7 @@ rule C_COMPILER__lib__libc__picolibc_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__lib__libc__picolibc_debug
+rule C_STATIC_LIBRARY_LINKER__lib__libc__picolibc_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -299,7 +299,7 @@ rule C_STATIC_LIBRARY_LINKER__lib__libc__picolibc_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__lib__libc__common_unscanned_debug
+rule C_COMPILER__lib__libc__common_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -309,7 +309,7 @@ rule C_COMPILER__lib__libc__common_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__lib__libc__common_debug
+rule C_STATIC_LIBRARY_LINKER__lib__libc__common_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -318,7 +318,7 @@ rule C_STATIC_LIBRARY_LINKER__lib__libc__common_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__lib__posix_unscanned_debug
+rule C_COMPILER__lib__posix_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -328,7 +328,7 @@ rule C_COMPILER__lib__posix_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__lib__posix_debug
+rule C_STATIC_LIBRARY_LINKER__lib__posix_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -337,7 +337,7 @@ rule C_STATIC_LIBRARY_LINKER__lib__posix_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__soc__arm__common__cortex_m_unscanned_debug
+rule C_COMPILER__soc__arm__common__cortex_m_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -347,7 +347,7 @@ rule C_COMPILER__soc__arm__common__cortex_m_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__soc__arm__common__cortex_m_debug
+rule C_STATIC_LIBRARY_LINKER__soc__arm__common__cortex_m_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -356,7 +356,7 @@ rule C_STATIC_LIBRARY_LINKER__soc__arm__common__cortex_m_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__boards__arm__mimxrt685_evk_unscanned_debug
+rule C_COMPILER__boards__arm__mimxrt685_evk_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -366,7 +366,7 @@ rule C_COMPILER__boards__arm__mimxrt685_evk_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__boards__arm__mimxrt685_evk_debug
+rule C_STATIC_LIBRARY_LINKER__boards__arm__mimxrt685_evk_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -375,7 +375,7 @@ rule C_STATIC_LIBRARY_LINKER__boards__arm__mimxrt685_evk_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__drivers__interrupt_controller_unscanned_debug
+rule C_COMPILER__drivers__interrupt_controller_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -385,7 +385,7 @@ rule C_COMPILER__drivers__interrupt_controller_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__drivers__interrupt_controller_debug
+rule C_STATIC_LIBRARY_LINKER__drivers__interrupt_controller_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -394,7 +394,7 @@ rule C_STATIC_LIBRARY_LINKER__drivers__interrupt_controller_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__drivers__audio_unscanned_debug
+rule C_COMPILER__drivers__audio_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -404,7 +404,7 @@ rule C_COMPILER__drivers__audio_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__drivers__audio_debug
+rule C_STATIC_LIBRARY_LINKER__drivers__audio_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -413,7 +413,7 @@ rule C_STATIC_LIBRARY_LINKER__drivers__audio_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__drivers__clock_control_unscanned_debug
+rule C_COMPILER__drivers__clock_control_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -423,7 +423,7 @@ rule C_COMPILER__drivers__clock_control_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__drivers__clock_control_debug
+rule C_STATIC_LIBRARY_LINKER__drivers__clock_control_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -432,7 +432,7 @@ rule C_STATIC_LIBRARY_LINKER__drivers__clock_control_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__drivers__console_unscanned_debug
+rule C_COMPILER__drivers__console_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -442,7 +442,7 @@ rule C_COMPILER__drivers__console_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__drivers__console_debug
+rule C_STATIC_LIBRARY_LINKER__drivers__console_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -451,7 +451,7 @@ rule C_STATIC_LIBRARY_LINKER__drivers__console_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__drivers__dma_unscanned_debug
+rule C_COMPILER__drivers__dma_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -461,7 +461,7 @@ rule C_COMPILER__drivers__dma_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__drivers__dma_debug
+rule C_STATIC_LIBRARY_LINKER__drivers__dma_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -470,7 +470,7 @@ rule C_STATIC_LIBRARY_LINKER__drivers__dma_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__drivers__gpio_unscanned_debug
+rule C_COMPILER__drivers__gpio_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -480,7 +480,7 @@ rule C_COMPILER__drivers__gpio_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__drivers__gpio_debug
+rule C_STATIC_LIBRARY_LINKER__drivers__gpio_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -489,7 +489,7 @@ rule C_STATIC_LIBRARY_LINKER__drivers__gpio_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__drivers__i2c_unscanned_debug
+rule C_COMPILER__drivers__i2c_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -499,7 +499,7 @@ rule C_COMPILER__drivers__i2c_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__drivers__i2c_debug
+rule C_STATIC_LIBRARY_LINKER__drivers__i2c_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -508,7 +508,7 @@ rule C_STATIC_LIBRARY_LINKER__drivers__i2c_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__drivers__i2s_unscanned_debug
+rule C_COMPILER__drivers__i2s_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -518,7 +518,7 @@ rule C_COMPILER__drivers__i2s_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__drivers__i2s_debug
+rule C_STATIC_LIBRARY_LINKER__drivers__i2s_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -527,7 +527,7 @@ rule C_STATIC_LIBRARY_LINKER__drivers__i2s_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__drivers__i3c_unscanned_debug
+rule C_COMPILER__drivers__i3c_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -537,7 +537,7 @@ rule C_COMPILER__drivers__i3c_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__drivers__i3c_debug
+rule C_STATIC_LIBRARY_LINKER__drivers__i3c_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -546,7 +546,7 @@ rule C_STATIC_LIBRARY_LINKER__drivers__i3c_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__drivers__pinctrl_unscanned_debug
+rule C_COMPILER__drivers__pinctrl_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -556,7 +556,7 @@ rule C_COMPILER__drivers__pinctrl_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__drivers__pinctrl_debug
+rule C_STATIC_LIBRARY_LINKER__drivers__pinctrl_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -565,7 +565,7 @@ rule C_STATIC_LIBRARY_LINKER__drivers__pinctrl_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__drivers__serial_unscanned_debug
+rule C_COMPILER__drivers__serial_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -575,7 +575,7 @@ rule C_COMPILER__drivers__serial_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__drivers__serial_debug
+rule C_STATIC_LIBRARY_LINKER__drivers__serial_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -584,7 +584,7 @@ rule C_STATIC_LIBRARY_LINKER__drivers__serial_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__drivers__timer_unscanned_debug
+rule C_COMPILER__drivers__timer_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -594,7 +594,7 @@ rule C_COMPILER__drivers__timer_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__drivers__timer_debug
+rule C_STATIC_LIBRARY_LINKER__drivers__timer_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -603,7 +603,7 @@ rule C_STATIC_LIBRARY_LINKER__drivers__timer_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__.2e.2e__modules__hal__nxp_unscanned_debug
+rule C_COMPILER__.2e.2e__modules__hal__nxp_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -613,7 +613,7 @@ rule C_COMPILER__.2e.2e__modules__hal__nxp_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__.2e.2e__modules__hal__nxp_debug
+rule C_STATIC_LIBRARY_LINKER__.2e.2e__modules__hal__nxp_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -622,7 +622,7 @@ rule C_STATIC_LIBRARY_LINKER__.2e.2e__modules__hal__nxp_debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__kernel_unscanned_debug
+rule C_COMPILER__kernel_unscanned_
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -632,7 +632,7 @@ rule C_COMPILER__kernel_unscanned_debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__kernel_debug
+rule C_STATIC_LIBRARY_LINKER__kernel_
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\EXT_BASVER\zephyr-sdk-0.16.5-1\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
