@@ -334,7 +334,7 @@ static void wm8904_set_master_clock(const struct device *dev,
 	/* bclk divider */
 	codec_write_reg(dev, WM8904_AUDIO_IF_2, audioInterface);
 	/* bclk direction output */
-	codec_update_reg(dev, WM8904_AUDIO_IF_1, 1U << 6U, 1U << 6U);
+	codec_update_reg(dev, WM8904_AUDIO_IF_1, 3U << 6U, 3U << 6U);
 
 	codec_update_reg(dev, WM8904_GPIO_CONTROL_4, 0x8FU, 1U);
 	/* LRCLK direction and divider */
@@ -349,7 +349,7 @@ static int codec_configure(const struct device *dev,
 	uint32_t sysclk;
 	const struct codec_driver_config *const dev_cfg = DEV_CFG(dev);
 
-	printk("CODEC WM8904 config");
+	printk("CODEC WM8904 config\n");
 	if (cfg->dai_type >= AUDIO_DAI_TYPE_INVALID) {
 		LOG_ERR("dai_type not supported");
 		return -EINVAL;

@@ -6,7 +6,8 @@
   "multicoreType": "none",
   "debug": {
     "linkserver": {
-      "device": "MIMXRT685S:EVK-MIMXRT685"
+      "device": "MIMXRT685S:EVK-MIMXRT685",
+      "core": "primary"
     },
     "pemicro": {},
     "segger": {}

@@ -5,7 +5,6 @@
  */
 
 #include <zephyr/kernel.h>
-//#include "codec.h"
 #include <zephyr/audio/codec.h>
 #include <zephyr/sys/printk.h>
 #include <zephyr/drivers/i2s.h>
@@ -255,12 +254,6 @@ int main(void)
 
 	printk("I2S echo sample\n");
 
-#if DT_ON_BUS(DT_NODELABEL(wm8731), i2c)
-	if (!init_wm8731_i2c()) {
-		return 0;
-	}
-#endif
-
 	if (!init_buttons()) {
 		return 0;
 	}
@@ -283,6 +276,7 @@ int main(void)
 	audio_cfg.dai_cfg.i2s.frame_clk_freq = SAMPLE_FREQUENCY;
 	audio_cfg.dai_cfg.i2s.mem_slab = &mem_slab;
 	audio_cfg.dai_cfg.i2s.block_size = BLOCK_SIZE;
+	audio_cfg.dai_cfg.i2s.timeout = TIMEOUT;
 	audio_codec_configure(codec_dev, &audio_cfg);
 	k_msleep(1000);
 
@@ -312,6 +306,8 @@ int main(void)
 
 		printk("Streams started\n");
 
+		/* bool test = true; */
+
 		while (k_sem_take(&toggle_transfer, K_NO_WAIT) != 0) {
 			void *mem_block;
 			uint32_t block_size;
@@ -322,6 +318,15 @@ int main(void)
 				printk("Failed to read data: %d\n", ret);
 				break;
 			}
+
+			/* if(test){
+				for (int i = 0; i < SAMPLES_PER_BLOCK/4; i+=50) {
+					int16_t *sample = &((int16_t *)mem_block)[i];
+					printk("%i\n",*sample);
+					k_msleep(500);
+				}
+				test=false;
+			} */
 
 			process_block_data(mem_block, SAMPLES_PER_BLOCK);
 

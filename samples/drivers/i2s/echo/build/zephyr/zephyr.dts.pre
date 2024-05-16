@@ -1216,6 +1216,7 @@ zephyr_udc0: &usbhs {
         aliases {
                 i2s-rx = &i2s0;
                 i2s-tx = &i2s1;
+                i3c = &i3c0;
         };
 
 };

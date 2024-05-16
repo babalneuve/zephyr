@@ -118,6 +118,8 @@
 # 1 "C:/Users/EXT_BASVER/zephyrproject/zephyr/include/zephyr/dt-bindings/memory-attr/memory-attr.h" 1 3 4
 # 11 "C:/Users/EXT_BASVER/zephyrproject/zephyr/include/zephyr/dt-bindings/memory-attr/memory-attr-arm.h" 2 3 4
 # 14 "C:/Users/EXT_BASVER/zephyrproject/zephyr/dts/arm/nxp/nxp_rt6xx_common.dtsi" 2 3 4
+# 1 "C:/Users/EXT_BASVER/zephyrproject/zephyr/include/zephyr/dt-bindings/misc/nxp_rtxxx_adsp_ctl.h" 1 3 4
+# 15 "C:/Users/EXT_BASVER/zephyrproject/zephyr/dts/arm/nxp/nxp_rt6xx_common.dtsi" 2 3 4
 
 / {
  chosen {
@@ -155,12 +157,39 @@
    };
   };
  };
+
+ soc {
+  adsp: adsp {
+   #address-cells = <1>;
+   #size-cells = <1>;
+
+   compatible = "nxp,rtxxx-adsp-ctl";
+   sysctl = <&sysctl0>;
+
+   status = "disabled";
+
+   region@24020000 {
+    reg = <0x24020000 ((1) * 1024)>;
+    type = <0>;
+   };
+
+   region@20400000 {
+    reg = <0x20400000 ((256) * 1024)>;
+    type = <2>;
+   };
+
+   region@20440000 {
+    reg = <0x20440000 ((256) * 1024)>;
+    type = <1>;
+   };
+  };
+ };
 };
 
 &sram {
  #address-cells = <1>;
  #size-cells = <1>;
-# 66 "C:/Users/EXT_BASVER/zephyrproject/zephyr/dts/arm/nxp/nxp_rt6xx_common.dtsi" 3 4
+# 94 "C:/Users/EXT_BASVER/zephyrproject/zephyr/dts/arm/nxp/nxp_rt6xx_common.dtsi" 3 4
  sram_code: memory@1b000 {
   compatible = "mmio-sram";
   reg = <0x1b000 ((1428) * 1024)>;
@@ -168,7 +197,7 @@
 
  sram0: memory@20180000 {
   compatible = "mmio-sram";
-  reg = <0x20180000 ((3072) * 1024)>;
+  reg = <0x20180000 ((2560) * 1024)>;
  };
 
  sram1: memory@40140000 {
@@ -201,6 +230,15 @@
   compatible = "nxp,lpc-syscon";
   reg = <0x1000 0x1000>;
   #clock-cells = <1>;
+ };
+
+
+
+
+
+ sysctl0: sysctl@2000 {
+  reg = <0x2000 0x2000>;
+  compatible = "nxp,rt6xx-sysctl";
  };
 
  iocon: iocon@4000 {
@@ -557,6 +595,18 @@
   #address-cells = <3>;
   #size-cells = <0>;
  };
+
+ mbox: mbox@110000 {
+  #mbox-cells = <1>;
+
+  compatible = "nxp,mbox-imx-mu";
+  reg = <0x110000 0x1000>;
+
+  interrupts = <34 0>;
+  rx-channels = <4>;
+
+  status = "disabled";
+ };
 };
 
 &flexspi {
@@ -795,6 +845,7 @@
   magn0 = &fxos8700;
   accel0 = &fxos8700;
   sdhc0 = &usdhc0;
+  mbox = &mbox;
  };
 
  chosen {
@@ -1153,6 +1204,10 @@ zephyr_udc0: &usbhs {
 
 
 &sram1 {
+ status = "okay";
+};
+
+&mbox {
  status = "okay";
 };
 # 0 "<command-line>" 2

@@ -719,6 +719,7 @@
 		mbox = &mbox;
 		i2s-rx = &i2s0;
 		i2s-tx = &i2s1;
+		i3c = &i3c0;
 	};
 	cpus {
 		#address-cells = < 0x1 >;
