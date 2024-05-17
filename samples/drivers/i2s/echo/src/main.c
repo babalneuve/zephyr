@@ -5,7 +5,6 @@
  */
 
 #include <zephyr/kernel.h>
-//#include "codec.h"
 #include <zephyr/audio/codec.h>
 #include <zephyr/sys/printk.h>
 #include <zephyr/drivers/i2s.h>
@@ -106,7 +105,7 @@ static bool init_buttons(void)
 		printk("%s is not ready\n", sw1_spec.port->name);
 		return false;
 	}
-
+	
 	ret = gpio_pin_configure_dt(&sw1_spec, GPIO_INPUT);
 	if (ret < 0) {
 		printk("Failed to configure %s pin %d: %d\n",
@@ -139,6 +138,7 @@ static void process_block_data(void *mem_block, uint32_t number_of_samples)
 		for (int i = 0; i < number_of_samples; ++i) {
 			int16_t *sample = &((int16_t *)mem_block)[i];
 			*sample += echo_block[i];
+			printk("%i\n",*sample);
 			echo_block[i] = (*sample) / 2;
 		}
 
@@ -146,6 +146,11 @@ static void process_block_data(void *mem_block, uint32_t number_of_samples)
 	} else if (clear_echo_block) {
 		clear_echo_block = false;
 		memset(echo_block, 0, sizeof(echo_block));
+	} else{
+		for (int i = 0; i < number_of_samples; ++i) {
+			int16_t *trc = &((int16_t *)mem_block)[i];
+			printk("%i\n",*trc);
+		}
 	}
 }
 
@@ -255,12 +260,6 @@ int main(void)
 
 	printk("I2S echo sample\n");
 
-#if DT_ON_BUS(DT_NODELABEL(wm8731), i2c)
-	if (!init_wm8731_i2c()) {
-		return 0;
-	}
-#endif
-
 	if (!init_buttons()) {
 		return 0;
 	}
@@ -283,6 +282,7 @@ int main(void)
 	audio_cfg.dai_cfg.i2s.frame_clk_freq = SAMPLE_FREQUENCY;
 	audio_cfg.dai_cfg.i2s.mem_slab = &mem_slab;
 	audio_cfg.dai_cfg.i2s.block_size = BLOCK_SIZE;
+	audio_cfg.dai_cfg.i2s.timeout = TIMEOUT;
 	audio_codec_configure(codec_dev, &audio_cfg);
 	k_msleep(1000);
 
@@ -312,6 +312,8 @@ int main(void)
 
 		printk("Streams started\n");
 
+		/* bool test = true; */
+
 		while (k_sem_take(&toggle_transfer, K_NO_WAIT) != 0) {
 			void *mem_block;
 			uint32_t block_size;
@@ -323,6 +325,15 @@ int main(void)
 				break;
 			}
 
+			/* if(test){
+				for (int i = 0; i < SAMPLES_PER_BLOCK/4; i+=50) {
+					int16_t *sample = &((int16_t *)mem_block)[i];
+					printk("%i\n",*sample);
+					k_msleep(500);
+				}
+				test=false;
+			} */
+
 			process_block_data(mem_block, SAMPLES_PER_BLOCK);
 
 			ret = i2s_write(i2s_dev_tx, mem_block, block_size);
@@ -332,8 +343,7 @@ int main(void)
 			}
 		}
 
-		if (!trigger_command(i2s_dev_rx, i2s_dev_tx,
-				     I2S_TRIGGER_DROP)) {
+		if (!trigger_command(i2s_dev_rx, i2s_dev_tx, I2S_TRIGGER_DROP)) {
 			return 0;
 		}
 

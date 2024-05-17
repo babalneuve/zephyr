@@ -21,7 +21,7 @@
 			};
 			sram0: memory@20180000 {
 				compatible = "mmio-sram";
-				reg = < 0x20180000 0x300000 >;
+				reg = < 0x20180000 0x280000 >;
 			};
 			sram1: memory@40140000 {
 				compatible = "zephyr,memory-region", "mmio-sram";
@@ -39,6 +39,11 @@
 				compatible = "nxp,lpc-syscon";
 				reg = < 0x1000 0x1000 >;
 				#clock-cells = < 0x1 >;
+			};
+			sysctl0: sysctl@2000 {
+				reg = < 0x2000 0x2000 >;
+				compatible = "nxp,rt6xx-sysctl";
+				phandle = < 0x13 >;
 			};
 			iocon: iocon@4000 {
 				compatible = "nxp,lpc-iocon";
@@ -224,7 +229,7 @@
 				#gpio-cells = < 0x2 >;
 				port = < 0x0 >;
 				status = "okay";
-				phandle = < 0x15 >;
+				phandle = < 0x16 >;
 			};
 			gpio1: gpio@1 {
 				compatible = "nxp,lpc-gpio";
@@ -463,7 +468,7 @@
 				#pwm-cells = < 0x3 >;
 				pinctrl-0 = < &pinmux_sctimer >;
 				pinctrl-names = "default";
-				phandle = < 0x16 >;
+				phandle = < 0x17 >;
 			};
 			wwdt0: watchdog@e000 {
 				compatible = "nxp,lpc-wwdt";
@@ -602,6 +607,14 @@
 					clock-source = "MCLK";
 				};
 			};
+			mbox: mbox@110000 {
+				#mbox-cells = < 0x1 >;
+				compatible = "nxp,mbox-imx-mu";
+				reg = < 0x110000 0x1000 >;
+				interrupts = < 0x22 0x0 >;
+				rx-channels = < 0x4 >;
+				status = "okay";
+			};
 		};
 		flexspi: spi@134000 {
 			reg = < 0x50134000 0x1000 >, < 0x18000000 0x8000000 >;
@@ -658,6 +671,25 @@
 			reg = < 0xe000e010 0x10 >;
 			status = "disabled";
 		};
+		adsp: adsp {
+			#address-cells = < 0x1 >;
+			#size-cells = < 0x1 >;
+			compatible = "nxp,rtxxx-adsp-ctl";
+			sysctl = < &sysctl0 >;
+			status = "disabled";
+			region@24020000 {
+				reg = < 0x24020000 0x400 >;
+				type = < 0x0 >;
+			};
+			region@20400000 {
+				reg = < 0x20400000 0x40000 >;
+				type = < 0x2 >;
+			};
+			region@20440000 {
+				reg = < 0x20440000 0x40000 >;
+				type = < 0x1 >;
+			};
+		};
 	};
 	chosen {
 		zephyr,entropy = &trng;
@@ -684,6 +716,7 @@
 		magn0 = &fxos8700;
 		accel0 = &fxos8700;
 		sdhc0 = &usdhc0;
+		mbox = &mbox;
 		i2s-codec-rx = &i2s0;
 		i2s-codec-tx = &i2s1;
 		i3c = &i3c0;
@@ -708,13 +741,13 @@
 				compatible = "zephyr,power-state";
 				power-state-name = "runtime-idle";
 				min-residency-us = < 0xa >;
-				phandle = < 0x13 >;
+				phandle = < 0x14 >;
 			};
 			suspend: suspend {
 				compatible = "zephyr,power-state";
 				power-state-name = "suspend-to-idle";
 				min-residency-us = < 0x3e8 >;
-				phandle = < 0x14 >;
+				phandle = < 0x15 >;
 			};
 		};
 	};

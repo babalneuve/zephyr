@@ -349,7 +349,7 @@ static int codec_configure(const struct device *dev,
 	uint32_t sysclk;
 	const struct codec_driver_config *const dev_cfg = DEV_CFG(dev);
 
-	printk("CODEC WM8904 config");
+	printk("CODEC WM8904 config\n");
 	if (cfg->dai_type >= AUDIO_DAI_TYPE_INVALID) {
 		LOG_ERR("dai_type not supported");
 		return -EINVAL;
