@@ -105,7 +105,7 @@ static bool init_buttons(void)
 		printk("%s is not ready\n", sw1_spec.port->name);
 		return false;
 	}
-
+	
 	ret = gpio_pin_configure_dt(&sw1_spec, GPIO_INPUT);
 	if (ret < 0) {
 		printk("Failed to configure %s pin %d: %d\n",
@@ -138,6 +138,7 @@ static void process_block_data(void *mem_block, uint32_t number_of_samples)
 		for (int i = 0; i < number_of_samples; ++i) {
 			int16_t *sample = &((int16_t *)mem_block)[i];
 			*sample += echo_block[i];
+			printk("%i\n",*sample);
 			echo_block[i] = (*sample) / 2;
 		}
 
@@ -145,6 +146,11 @@ static void process_block_data(void *mem_block, uint32_t number_of_samples)
 	} else if (clear_echo_block) {
 		clear_echo_block = false;
 		memset(echo_block, 0, sizeof(echo_block));
+	} else{
+		for (int i = 0; i < number_of_samples; ++i) {
+			int16_t *trc = &((int16_t *)mem_block)[i];
+			printk("%i\n",*trc);
+		}
 	}
 }
 
@@ -337,8 +343,7 @@ int main(void)
 			}
 		}
 
-		if (!trigger_command(i2s_dev_rx, i2s_dev_tx,
-				     I2S_TRIGGER_DROP)) {
+		if (!trigger_command(i2s_dev_rx, i2s_dev_tx, I2S_TRIGGER_DROP)) {
 			return 0;
 		}
 
